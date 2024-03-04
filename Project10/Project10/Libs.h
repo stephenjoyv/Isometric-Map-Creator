@@ -1,0 +1,14 @@
+#pragma once
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Time.hpp>
+#include <iostream>
+#include <string>
+#include <chrono>
+#include <vector>
+#include <thread>
+#include <windows.h>
+#include <functional>
+#include <cmath>
+#include <nlohmann/json.hpp>
+#include <fstream>
+#include <stdlib.h>
