@@ -16,6 +16,9 @@
     <Filter Include="ButtonsFunctions">
       <UniqueIdentifier>{356933ae-e50c-40e2-bec8-e89ed551a566}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{16a81d05-897b-4180-8b76-952c807c8abe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -24,14 +27,14 @@
     <ClCompile Include="interfaceobj.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="ButtonsFunctions.cpp">
       <Filter>ButtonsFunctions</Filter>
     </ClCompile>
     <ClCompile Include="ButtonsLoader.cpp">
       <Filter>ButtonsFunctions</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,11 +47,11 @@
     <ClInclude Include="Libs.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="ButtonsFunctions.h">
       <Filter>ButtonsFunctions</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
