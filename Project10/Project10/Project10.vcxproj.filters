@@ -19,6 +19,12 @@
     <Filter Include="Game">
       <UniqueIdentifier>{16a81d05-897b-4180-8b76-952c807c8abe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\TileMap">
+      <UniqueIdentifier>{d0601e38-3de5-43ca-9c20-2f080a16d6dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\TileMap\TilePanel">
+      <UniqueIdentifier>{564169d9-e1d2-4033-b7ae-98ec056ee3b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -35,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.h">
+      <Filter>Game\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>Game\TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

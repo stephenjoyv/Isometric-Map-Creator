@@ -137,6 +137,8 @@
     <ClCompile Include="Source.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\MS Dir\repos\Project10\Project10\JSON\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonsFunctions.h" />
