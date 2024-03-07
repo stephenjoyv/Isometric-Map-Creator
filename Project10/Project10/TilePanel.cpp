@@ -9,7 +9,7 @@ TilePanel::TilePanel(Vector2f size, Mouse* mouse) {
 		pnl[i] = new DetectedImage * [size_x];
 		for (int j = 0; j < size_x; j++)
 		{
-			pnl[i][j] = new DetectedImage("tyles/tile_00" + to_string(j % 10) + ".png", mouse);
+			pnl[i][j] = new DetectedImage("tyles/tile_0" + to_string(i%10) + to_string(j % 10) + ".png", mouse);
 			pnl[i][j]->Scale(2,2);
 			pnl[i][j]->init_border();
 			if (j != 0) {
@@ -33,6 +33,29 @@ void TilePanel::draw()
 		{
 			pnl[i][j]->draw();
 		}
+	}
+}
+
+void TilePanel::click()
+{
+	bool clicked = false;
+	for (int i = 0; i < size_y; i++)
+	{
+		for (int j = 0; j < size_x; j++)
+		{
+			pnl[i][j]->Click();
+			if (pnl[i][j]->clicked)
+			{
+				if (cur != nullptr) delete cur;
+				cur = new SelectedTile(pnl[i][j]->image);
+				std::cout << "clicked (" << i << ", " << j << ")\n";
+				cout << "image link is " << pnl[i][j]->getLink();
+				pnl[i][j]->clicked = false;
+				clicked = true;
+				break;
+			}
+		}
+		if (clicked) break;
 	}
 }
 

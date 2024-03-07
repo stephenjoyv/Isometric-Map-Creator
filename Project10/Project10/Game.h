@@ -8,6 +8,7 @@ struct DetectedImage :public Clicable {
 protected:
 	void update();
 	bool is_bordered;
+	string link;
 public:
 	Texture* texture;
 	Sprite* sprite;
@@ -21,6 +22,7 @@ public:
 	void init_border();
 	Vector2f getPosition();
 	Vector2f getSize();
+	string getLink();
 	bool Click() override;
 	void draw() override;
 	void setActive() override;

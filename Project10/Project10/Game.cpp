@@ -6,12 +6,13 @@ using namespace std;
 using namespace sf;
 
 DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
+	link = str;
 	ObjTar = pool_window[0].get();
 	image = new Image;
 	texture = new Texture;
 	sprite = new Sprite;
 	this->mouse = mouse;
-	std::cout << "load is " << image->loadFromFile(str.c_str());
+	std::cout << "load is " << image->loadFromFile(link.c_str());
 	texture->loadFromImage(*image);
 	sprite->setTexture(*texture);
 	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
@@ -49,6 +50,10 @@ Vector2f DetectedImage::getPosition()
 Vector2f DetectedImage::getSize()
 {
 	return Vector2f(size_x,size_y);
+}
+string DetectedImage::getLink()
+{
+	return link;
 }
 void DetectedImage::Scale(int xmod, int ymod) {
 	Image* tempimage = new Image;
@@ -92,7 +97,6 @@ void DetectedImage::draw() {
 void DetectedImage::setActive() {
 	if (Click())
 	{
-		clicked = true;
 		std::cout << "click\n";
 	}
 }
@@ -110,6 +114,7 @@ bool DetectedImage::Click() {
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
 			mouse->getPosition(*temp).y - pos_y).a);
+		clicked = true;
 		return alpha_pixel;
 	}
 	return in_area;
@@ -202,6 +207,7 @@ void game(RenderTarget* window) {
 					if (mouse.isButtonPressed(mouse.Left))
 					{
 						fir.click();
+						m->click();
 					}
 					break;
 				}

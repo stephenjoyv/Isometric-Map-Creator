@@ -25,6 +25,9 @@
     <Filter Include="Game\TileMap\TilePanel">
       <UniqueIdentifier>{564169d9-e1d2-4033-b7ae-98ec056ee3b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\SelectedTile">
+      <UniqueIdentifier>{bf75c79d-36cd-473f-85cd-e279197e8574}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -51,6 +54,9 @@
     <ClCompile Include="TilePanel.cpp">
       <Filter>Game\TileMap\TilePanel</Filter>
     </ClCompile>
+    <ClCompile Include="SelectedTile.cpp">
+      <Filter>Game\SelectedTile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -70,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="TilePanel.h">
       <Filter>Game\TileMap\TilePanel</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectedTile.h">
+      <Filter>Game\SelectedTile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
