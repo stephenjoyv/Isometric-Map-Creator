@@ -52,6 +52,7 @@ protected:
 	std::function<void()> run;
 public:
 	Button(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text,std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
+	Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	void setActive() override;
 	void standart();
 	void draw() override;
@@ -74,6 +75,14 @@ class CustomButton : public Button {
 public:
 	CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	~CustomButton()=default;
+};
+class RectButtonImage : public Button {
+	Texture texture;
+	Sprite sprite;
+public:
+	RectButtonImage(int pos_x, int pos_y, int frames, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
+	void draw() override;
+	~RectButtonImage() = default;
 };
 void globalDraw();
 

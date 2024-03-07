@@ -1,10 +1,11 @@
 #include "Game.h"
 #include "TileMap.h"
+#include "TilePanel.h"
 #include "interfaceobj.h"
 using namespace std;
 using namespace sf;
 
-DetectedImage::DetectedImage(string str, Mouse* mouse) {
+DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	ObjTar = pool_window[0].get();
 	image = new Image;
 	texture = new Texture;
@@ -14,13 +15,44 @@ DetectedImage::DetectedImage(string str, Mouse* mouse) {
 	texture->loadFromImage(*image);
 	sprite->setTexture(*texture);
 	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
+	clicked = false;
+	update();
 }
 DetectedImage::DetectedImage() {
-
+	is_bordered = false;
+}
+void DetectedImage::setPosition(int x, int y)
+{
+	sprite->setPosition(x, y);
+	update();
+	if (is_bordered) borders->setPosition(pos_x, pos_y);
+}
+void DetectedImage::init_border()
+{
+	if (!is_bordered)
+	{
+		is_bordered = true;
+		borders = new RectangleShape;
+		update();
+		borders->setSize(Vector2f(size_x, size_y));
+		borders->setPosition(pos_x, pos_y);
+		borders->setOutlineColor(Color::White);
+		borders->setOutlineThickness(7);
+		borders->setFillColor(Color(0, 0, 0, 0));
+	}
+	
+}
+Vector2f DetectedImage::getPosition()
+{
+	return Vector2f(pos_x, pos_y);
+}
+Vector2f DetectedImage::getSize()
+{
+	return Vector2f(size_x,size_y);
 }
 void DetectedImage::Scale(int xmod, int ymod) {
 	Image* tempimage = new Image;
-	tempimage->create(160, 160);
+	tempimage->create(size_x*xmod, size_y*xmod);
 	std::cout << tempimage->getSize().x;
 	for (int i = 0; i < image->getSize().x; i++)
 	{
@@ -50,14 +82,17 @@ void DetectedImage::Scale(int xmod, int ymod) {
 	sprite->setTexture(*texture);
 	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
 	sprite->setPosition(texture->getSize().x / 2, texture->getSize().y);
+	update();
 
 }
 void DetectedImage::draw() {
 	ObjTar->draw(*sprite);
+	if (is_bordered) ObjTar->draw(*borders);
 }
 void DetectedImage::setActive() {
 	if (Click())
 	{
+		clicked = true;
 		std::cout << "click\n";
 	}
 }
@@ -87,6 +122,44 @@ void DetectedImage::update()
 	size_x = texture->getSize().x;
 	size_y = texture->getSize().y;
 }
+Map::Map(string symbol_map, Mouse* mouse) {
+	ownmap = new Tile * *[40];
+	for (int i = 0; i < 40; i++)
+	{
+		ownmap[i] = new Tile * [40];
+	}
+
+	for (int i = 0; i < 40; i++)
+	{
+		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
+		ownmap[i][0] = new Tile("tyles/tile_022.png", mouse);
+		if (i > 0) {
+			int preposx = ownmap[i - 1][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0]->sprite->getPosition().y;
+			int presizex = ownmap[i - 1][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i - 1][0]->texture->getSize().y / 4;
+			ownmap[i][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
+		}
+		else {
+			ownmap[i][0]->sprite->setPosition(500, 0);
+		}
+	}
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 1; j < 40; j++)
+		{
+			ownmap[i][j] = new Tile("tyles/tile_040.png", mouse);
+			if (i > 0) {
+				int preposx = ownmap[i][j - 1]->sprite->getPosition().x, preposy = ownmap[i][j - 1]->sprite->getPosition().y;
+				int presizex = ownmap[i][j - 1]->texture->getSize().x / 2;
+				int presizey = ownmap[i][j - 1]->texture->getSize().y * 1 / 4;
+				ownmap[i][j]->sprite->setPosition(preposx - presizex, preposy + presizey);
+			}
+		}
+	}
+
+}
+
+
 
 
 void game(RenderTarget* window) {
@@ -96,8 +169,10 @@ void game(RenderTarget* window) {
 	Map fir(string("daw"), &mouse);
 	//b.sprite->setPosition(a.sprite->getPosition().x, a.sprite->getPosition().y);
 	//Tile* k = new Tile("daw", &mouse);
-	
-	
+	//RectButtonImage*  b = new RectButtonImage(100, 100, 40, "tyles/tile_110.png", []() {std::cout << "dwa"; }, pool_window[0].get(), &mouse);
+	//DetectedImage* m = new DetectedImage("tyles/tile_110.png", &mouse);
+	//m->Scale(5, 5); m->init_border(); m->setPosition(300, 800);
+	TilePanel* m = new TilePanel(Vector2f(5, 2), &mouse);
 	
 	
 	while (pool_window[0].get()->isOpen())
@@ -126,6 +201,7 @@ void game(RenderTarget* window) {
 
 					if (mouse.isButtonPressed(mouse.Left))
 					{
+						fir.click();
 					}
 					break;
 				}
@@ -144,6 +220,7 @@ void game(RenderTarget* window) {
 
 			globalDraw();
 			fir.draw();
+			m->draw();
 			pool_window[0].get()->display();
 		}
 }

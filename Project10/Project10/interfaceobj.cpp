@@ -49,6 +49,25 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames,char* tex
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
 }
+Button::Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse)
+{
+	this->pos_x = pos_x;
+	this->pos_y = pos_y;
+	this->ObjTar = space;
+	this->mouse = mouse;
+	this->frames[0] = frames;
+	this->frames[1] = frames;
+	active = false;
+
+
+	//but_shape.setSize(Vector2f(size_x, size_y));
+	//but_shape.setPosition(Vector2f(pos_x, pos_y));
+
+	std::shared_ptr<Button> a(this);
+	pool_button.emplace_back(a);
+	//std::cout << (pool_pair[0].get());
+	this->run = run;
+}
 void Button::setActive() {
 	//std::cout << "is clicked\n";
 	//std::cout << !active << '\n';
@@ -137,4 +156,24 @@ CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int fra
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(3);
 	but_shape = tempshape;
+}
+RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string img, std::function<void()> run, RenderTarget* space, Mouse* mouse) :
+	Button(pos_x, pos_y, frames, run, space,  mouse) {
+	texture.loadFromFile(img);
+	sprite.setTexture(texture);
+	size_x = texture.getSize().x;
+	size_y = texture.getSize().y;
+	sprite.setPosition(pos_x, pos_y);
+	RectangleShape* tempshape = new RectangleShape;
+	//but_shape = new RectangleShape;
+	tempshape->setSize(Vector2f(size_x,size_y));
+	tempshape->setPosition(pos_x, pos_y);
+	tempshape->setOutlineColor(Color::White);
+	tempshape->setOutlineThickness(3);
+	tempshape->setFillColor(Color(0, 0, 0, 0));
+	but_shape = tempshape;
+}
+void RectButtonImage::draw() {
+	ObjTar->draw(sprite);
+	ObjTar->draw(*but_shape);
 }

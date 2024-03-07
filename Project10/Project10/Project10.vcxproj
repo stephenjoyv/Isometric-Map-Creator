@@ -139,6 +139,7 @@
     </ClCompile>
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TileMap.h" />
+    <ClCompile Include="TilePanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ButtonsFunctions.h" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="interfaceobj.h" />
     <ClInclude Include="Libs.h" />
+    <ClInclude Include="TilePanel.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="notes\buttons.json" />

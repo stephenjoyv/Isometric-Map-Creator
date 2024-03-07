@@ -48,6 +48,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>Game\TileMap</Filter>
     </ClCompile>
+    <ClCompile Include="TilePanel.cpp">
+      <Filter>Game\TileMap\TilePanel</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="TilePanel.h">
+      <Filter>Game\TileMap\TilePanel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
