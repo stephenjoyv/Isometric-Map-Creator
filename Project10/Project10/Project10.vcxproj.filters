@@ -28,6 +28,9 @@
     <Filter Include="Game\SelectedTile">
       <UniqueIdentifier>{bf75c79d-36cd-473f-85cd-e279197e8574}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Platform">
+      <UniqueIdentifier>{bbec67bc-827b-4908-911e-a5eb6a775d52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="SelectedTile.cpp">
       <Filter>Game\SelectedTile</Filter>
     </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Game\Platform</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -79,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="SelectedTile.h">
       <Filter>Game\SelectedTile</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Game\Platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

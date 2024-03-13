@@ -11,7 +11,7 @@ void Map::draw()
 	}
 }
 
-void Map::click()
+void Map::click(std::pair<int, int>&data)
 {
 	bool clicked = false;
 	for (int i = 0; i < 40; i++)
@@ -19,15 +19,34 @@ void Map::click()
 		for (int j = 0; j < 40; j++)
 		{
 			ownmap[i][j]->setActive();
+			//std::cout << ownmap[i][j]->getSize().x << '\n';
 			if (ownmap[i][j]->clicked)
 			{
+				std::cout << "clicked tile x y " << i << " " << j << '\n';
+				data.first = i; data.second = j;
+				
 				ownmap[i][j]->clicked = false;
 				clicked = true;
-				break;
+				break; 
 			}
 		}
 		if (clicked) break;
 	}
+	if (!clicked) {
+		data = make_pair(-1, -1); 
+		std::cout << "wasn't drawn click\n";
+	}
+}
+
+Tile* Map::getTile(int x, int y)
+{
+	return ownmap[x][y];
+}
+
+void Map::setTile(Tile* tile,int x,int y)
+{
+	*ownmap[x][y] = *tile;
+	std::cout << "hdhawdakdk\n";
 }
 
 std::vector<string> Map::splitter(string symbols) {
@@ -49,10 +68,30 @@ std::vector<string> Map::splitter(string symbols) {
 }
 Tile& Tile::operator=(const Tile& copy)
 {
+	//std::cout << "part 1\n";
 	if (this != &copy)
 	{
-		*this = copy;
+		this->texture = new Texture;
+		this->sprite = new Sprite;
+		this->image = new Image;
+		*(this->texture) = *copy.texture;
+		//std::cout << "part 2\n";
+		*this->sprite = *copy.sprite;
+		this->sprite->setPosition(500, 500);
+		pool_window[0].get()->draw(*this->sprite);
+		*this->image = *copy.image;
+		//*this->borders = *copy.borders;
+		this->clicked = 0;
+		//this->is_bordered = copy.
+		this->link = copy.link;
+		std::cout << "copy pixel "<<  copy.image->getSize().x << '\n';
+		std::cout << "orig pixel " << this->image->getSize().x<< '\n';
+		std::cout << "LINK = " << this->link<<'\n';
+
+		//*this = copy;
+		//std::cout << "dwada\n";
 	}
+	//std::cout << "part 3\n";
 	return *this;
 	// TODO: вставьте здесь оператор return
 }

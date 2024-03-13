@@ -9,6 +9,7 @@ protected:
 	void update();
 	bool is_bordered;
 	string link;
+	Vector2i scale;
 public:
 	Texture* texture;
 	Sprite* sprite;
@@ -20,6 +21,7 @@ public:
 	DetectedImage();
 	void setPosition(int x, int y);
 	void init_border();
+	Vector2i getScale();
 	Vector2f getPosition();
 	Vector2f getSize();
 	string getLink();

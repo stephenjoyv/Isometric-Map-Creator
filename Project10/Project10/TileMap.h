@@ -14,7 +14,9 @@ class Map :IBaseClass {
 public:
 	Map(string symbol_map, Mouse* mouse);
 	void draw() override;
-	void click();
+	void click(std::pair<int, int>& data);
+	Tile* getTile(int x,int y);
+	void setTile(Tile* tile, int x, int y);
 private:
 	std::vector<string> splitter(string symbols);
 };

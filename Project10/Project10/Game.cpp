@@ -2,6 +2,7 @@
 #include "TileMap.h"
 #include "TilePanel.h"
 #include "interfaceobj.h"
+#include "Platform.h"
 using namespace std;
 using namespace sf;
 
@@ -12,7 +13,7 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	texture = new Texture;
 	sprite = new Sprite;
 	this->mouse = mouse;
-	std::cout << "load is " << image->loadFromFile(link.c_str());
+	image->loadFromFile(link.c_str());
 	texture->loadFromImage(*image);
 	sprite->setTexture(*texture);
 	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
@@ -21,6 +22,7 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 }
 DetectedImage::DetectedImage() {
 	is_bordered = false;
+	scale = Vector2i(1, 1);
 }
 void DetectedImage::setPosition(int x, int y)
 {
@@ -43,6 +45,10 @@ void DetectedImage::init_border()
 	}
 	
 }
+Vector2i DetectedImage::getScale()
+{
+	return scale;
+}
 Vector2f DetectedImage::getPosition()
 {
 	return Vector2f(pos_x, pos_y);
@@ -56,6 +62,7 @@ string DetectedImage::getLink()
 	return link;
 }
 void DetectedImage::Scale(int xmod, int ymod) {
+	scale = Vector2i(scale.x * xmod, scale.y * ymod);
 	Image* tempimage = new Image;
 	tempimage->create(size_x*xmod, size_y*xmod);
 	std::cout << tempimage->getSize().x;
@@ -103,7 +110,7 @@ void DetectedImage::setActive() {
 bool DetectedImage::Click() {
 	RenderWindow* temp = pool_window[0].get();
 	update();
-
+	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
 	bool in_area = Mouse::isButtonPressed(Mouse::Left) &&
 		(mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y < pos_y + size_y) &&
@@ -171,13 +178,7 @@ void game(RenderTarget* window) {
 	Mouse mouse;
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
-	Map fir(string("daw"), &mouse);
-	//b.sprite->setPosition(a.sprite->getPosition().x, a.sprite->getPosition().y);
-	//Tile* k = new Tile("daw", &mouse);
-	//RectButtonImage*  b = new RectButtonImage(100, 100, 40, "tyles/tile_110.png", []() {std::cout << "dwa"; }, pool_window[0].get(), &mouse);
-	//DetectedImage* m = new DetectedImage("tyles/tile_110.png", &mouse);
-	//m->Scale(5, 5); m->init_border(); m->setPosition(300, 800);
-	TilePanel* m = new TilePanel(Vector2f(5, 2), &mouse);
+	Platform* pl = new Platform(&mouse);
 	
 	
 	while (pool_window[0].get()->isOpen())
@@ -206,8 +207,10 @@ void game(RenderTarget* window) {
 
 					if (mouse.isButtonPressed(mouse.Left))
 					{
-						fir.click();
-						m->click();
+						pl->leftClicked();
+					}
+					else if (mouse.isButtonPressed(mouse.Right) ){
+						pl->rightClicked();
 					}
 					break;
 				}
@@ -223,10 +226,9 @@ void game(RenderTarget* window) {
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 			pool_window[0].get()->clear();
-
+			std::cout << "";
 			globalDraw();
-			fir.draw();
-			m->draw();
+			pl->draw();
 			pool_window[0].get()->display();
 		}
 }

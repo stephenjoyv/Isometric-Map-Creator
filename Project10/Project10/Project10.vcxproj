@@ -134,6 +134,7 @@
     <ClCompile Include="ButtonsLoader.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="interfaceobj.cpp" />
+    <ClCompile Include="Platform.cpp" />
     <ClCompile Include="SelectedTile.cpp" />
     <ClCompile Include="Source.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\MS Dir\repos\Project10\Project10\JSON\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -148,6 +149,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="interfaceobj.h" />
     <ClInclude Include="Libs.h" />
+    <ClInclude Include="Platform.h" />
     <ClInclude Include="SelectedTile.h" />
     <ClInclude Include="TilePanel.h" />
   </ItemGroup>
