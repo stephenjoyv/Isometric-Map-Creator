@@ -71,13 +71,33 @@ Tile& Tile::operator=(const Tile& copy)
 	//std::cout << "part 1\n";
 	if (this != &copy)
 	{
+		int x = 0, y = 0;
+		
+
+		if (this->texture!=nullptr)
+		{
+			
+			delete this->texture;
+		}
+		if (this->sprite != nullptr) {
+			x = this->sprite->getPosition().x, y = this->sprite->getPosition().y;
+			delete this->sprite;
+		}
+		if (this->image != nullptr) {
+			delete this->image;
+		}
+
+		
+
 		this->texture = new Texture;
 		this->sprite = new Sprite;
 		this->image = new Image;
+
+
 		*(this->texture) = *copy.texture;
 		//std::cout << "part 2\n";
 		*this->sprite = *copy.sprite;
-		this->sprite->setPosition(500, 500);
+		if(x!=0 && y!=0)this->sprite->setPosition(x, y);
 		pool_window[0].get()->draw(*this->sprite);
 		*this->image = *copy.image;
 		//*this->borders = *copy.borders;
@@ -105,5 +125,8 @@ Tile::Tile(const Tile& m) {
 Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {}
 Tile::Tile()
 {
-
+	this->texture = nullptr;
+	this->sprite = nullptr;
+	this->image = nullptr;
+	std::cout <<"sprite n = "<< (this->sprite != nullptr);
 }
