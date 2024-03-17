@@ -15,3 +15,4 @@ public:
 	void clickRight();
 	~TilePanel();
 };
+string normalizeString(int num);

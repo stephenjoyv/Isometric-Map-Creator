@@ -9,17 +9,17 @@ TilePanel::TilePanel(Vector2f size, Mouse* mouse) {
 		pnl[i] = new Tile * [size_x];
 		for (int j = 0; j < size_x; j++)
 		{
-			pnl[i][j] = new Tile("tyles/tile_0" + to_string(i%10) + to_string(j % 10) + ".png", mouse);
+			pnl[i][j] = new Tile("tyles/tile_" + normalizeString(i*size_x+j) +  ".png", mouse);
 			//pnl[i][j]->Scale(2,2);
 			std::cout << pnl[i][j]->getSize().x << '\n';
 			pnl[i][j]->init_border();
 			if (j != 0) {
-				pnl[i][j]->setPosition(pnl[i][j - 1]->getPosition().x + pnl[i][j - 1]->getSize().x+7, pnl[i][j - 1]->getPosition().y+pnl[i][j]->getSize().y*3/4);
+				pnl[i][j]->setPosition(pnl[i][j - 1]->getPosition().x + pnl[i][j - 1]->getSize().x+4, pnl[i][j - 1]->getPosition().y+pnl[i][j]->getSize().y*3/4);
 				std::cout << "borders " << pnl[i][j]->borders->getSize().y << " " << pnl[i][j]->texture->getSize().y << '\n';
 			}
 			else
 			{
-				pnl[i][j]->setPosition(700, 800+i*pnl[i][j]->getSize().y);
+				pnl[i][j]->setPosition(700, 750+i*pnl[i][j]->getSize().y);
 				std::cout << "borders " << pnl[i][j]->borders->getSize().y << " " << pnl[i][j]->getSize().y << '\n';
 			}
 		}
@@ -66,4 +66,29 @@ void TilePanel::clickRight()
 
 TilePanel::~TilePanel()
 {
+}
+
+//For 3 symbols nums
+string normalizeString(int num)
+{
+	if (num<=999 && num>=(-999))
+	{
+		string tmp = to_string(num);
+		string res = "000";
+		int tms = tmp.size() - 1;
+		int rs = 2;
+		while (tms >=0)
+		{
+			res[rs] = tmp[tms];
+			tms--;
+			rs--;
+		}
+		return res;
+		
+	}
+	else {
+		throw "symbols in number more 3";
+	}
+	
+	return string();
 }

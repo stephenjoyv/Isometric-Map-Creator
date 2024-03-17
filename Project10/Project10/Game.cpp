@@ -40,7 +40,7 @@ void DetectedImage::init_border()
 		borders->setSize(Vector2f(size_x, size_y));
 		borders->setPosition(pos_x, pos_y);
 		borders->setOutlineColor(Color::White);
-		borders->setOutlineThickness(7);
+		borders->setOutlineThickness(4);
 		borders->setFillColor(Color(0, 0, 0, 0));
 	}
 	
@@ -104,6 +104,12 @@ void DetectedImage::draw() {
 void DetectedImage::setActive() {
 	if (Click())
 	{
+		/*update();
+		int mpx = mouse->getPosition(*pool_window[0].get()).x, mpy = mouse->getPosition(*pool_window[0].get()).y;
+		image->setPixel(mpx - pos_x, mpy - pos_y, Color::Red);
+		
+		texture->loadFromImage(*image);
+		sprite->setTexture(*texture);*/
 		std::cout << "click\n";
 	}
 }
@@ -121,7 +127,7 @@ bool DetectedImage::Click() {
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
 			mouse->getPosition(*temp).y - pos_y).a);
-		clicked = true;
+		if (alpha_pixel) clicked = true;
 		return alpha_pixel;
 	}
 	return in_area;
@@ -179,8 +185,14 @@ void game(RenderTarget* window) {
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
-	
-	
+
+
+	/*SelectedTile *k = new SelectedTile;
+	Tile* m = new Tile("tyles/tile_000.png", &mouse);
+	m->Scale(5, 5);
+	m->setPosition(0, 400);
+	k->loadCur(m);*/
+
 	while (pool_window[0].get()->isOpen())
 		{
 			Event event;
@@ -207,6 +219,7 @@ void game(RenderTarget* window) {
 
 					if (mouse.isButtonPressed(mouse.Left))
 					{
+						//m->setActive();
 						pl->leftClicked();
 					}
 					else if (mouse.isButtonPressed(mouse.Right) ){
@@ -229,6 +242,7 @@ void game(RenderTarget* window) {
 			std::cout << "";
 			globalDraw();
 			pl->draw();
+			//m->draw();
 			pool_window[0].get()->display();
 		}
 }

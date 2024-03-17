@@ -14,9 +14,9 @@ void Map::draw()
 void Map::click(std::pair<int, int>&data)
 {
 	bool clicked = false;
-	for (int i = 0; i < 40; i++)
+	for (int i = 40-1; i >= 0; i--)
 	{
-		for (int j = 0; j < 40; j++)
+		for (int j = 40-1; j >=0; j--)
 		{
 			ownmap[i][j]->setActive();
 			//std::cout << ownmap[i][j]->getSize().x << '\n';

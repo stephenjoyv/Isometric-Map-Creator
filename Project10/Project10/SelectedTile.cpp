@@ -12,6 +12,9 @@ void SelectedTile::loadTile(Tile* newtile)
 	*tile = *newtile;
 	std::cout << "successfull copy\n";
 	loadCur(tile);
+	/*selected = true;
+	cur.loadFromSystem(Cursor::Type::Arrow);
+	enableCur();*/
 }
 
 bool SelectedTile::isSelected()
@@ -24,13 +27,14 @@ void SelectedTile::loadCur(Tile* tile)
 	selected = true;
 	std::cout << "load successfull\n";
 	Image curimg = *(tile->image);
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		for (int k = 0; k < 5; k++)
+		for (int k = 0; k < 4; k++)
 		{
 			curimg.setPixel(i, k, Color::Red);
 		}
 	}
+
 	std::cout << "cursor loaded" << cur.loadFromPixels(curimg.getPixelsPtr(), Vector2u(curimg.getSize().x, curimg.getSize().y), Vector2u(0, 0)) << '\n';
 	enableCur();
 	std::cout << "dawkdakdabtr31313165464\n";
