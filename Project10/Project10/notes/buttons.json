@@ -1,28 +1,28 @@
 {
   "Buttons": {
     "1": {
-      "size_x": 400,
-      "size_y": 50,
-      "pos_x": 100,
-      "pos_y": 20,
+      "size_x": 500,
+      "size_y": 100,
+      "pos_x": 605,
+      "pos_y": 425,
       "frames": 20,
       "char*": "Start new game",
       "function": 1
     },
     "2": {
       "size_x": 400,
-      "size_y": 50,
-      "pos_x": 100,
-      "pos_y": 80,
+      "size_y": 75,
+      "pos_x": 655,
+      "pos_y": 535,
       "frames": 20,
       "char*": "Load existing game",
       "function": 2
     },
     "3": {
-      "size_x": 400,
-      "size_y": 50,
-      "pos_x": 100,
-      "pos_y": 140,
+      "size_x": 500,
+      "size_y": 100,
+      "pos_x": 605,
+      "pos_y": 620,
       "frames": 20,
       "char*": "Exit",
       "function": 3

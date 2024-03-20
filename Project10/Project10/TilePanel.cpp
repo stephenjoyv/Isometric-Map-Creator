@@ -44,7 +44,6 @@ bool TilePanel::click(SelectedTile* seltile)
 	{
 		for (int j = 0; j < size_x; j++)
 		{
-			
 			if (pnl[i][j]->Click())
 			{
 				seltile->loadTile(pnl[i][j]);

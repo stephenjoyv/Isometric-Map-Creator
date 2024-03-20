@@ -104,10 +104,10 @@ void DetectedImage::draw() {
 void DetectedImage::setActive() {
 	if (Click())
 	{
+		//Mark on image pixel which was clicked
 		/*update();
 		int mpx = mouse->getPosition(*pool_window[0].get()).x, mpy = mouse->getPosition(*pool_window[0].get()).y;
 		image->setPixel(mpx - pos_x, mpy - pos_y, Color::Red);
-		
 		texture->loadFromImage(*image);
 		sprite->setTexture(*texture);*/
 		std::cout << "click\n";
@@ -122,7 +122,10 @@ bool DetectedImage::Click() {
 		(mouse->getPosition(*temp).y < pos_y + size_y) &&
 		(mouse->getPosition(*temp).x >= pos_x) &&
 		(mouse->getPosition(*temp).x < pos_x + size_x);
-
+	if (is_bordered) {
+		clicked = true;
+		return in_area;
+	}
 	if (in_area)
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
