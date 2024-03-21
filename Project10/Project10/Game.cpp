@@ -145,14 +145,17 @@ void DetectedImage::update()
 }
 Map::Map(string symbol_map, Mouse* mouse) {
 	ownmap = new Tile * *[40];
+	sections = new int* [40];
 	for (int i = 0; i < 40; i++)
 	{
+		sections[i] = new int[40];
 		ownmap[i] = new Tile * [40];
 	}
 
 	for (int i = 0; i < 40; i++)
 	{
 		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
+		sections[i][0] = 22;
 		ownmap[i][0] = new Tile("tyles/tile_022.png", mouse);
 		if (i > 0) {
 			int preposx = ownmap[i - 1][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0]->sprite->getPosition().y;
@@ -168,6 +171,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 	{
 		for (int j = 1; j < 40; j++)
 		{
+			sections[i][j] = 40;
 			ownmap[i][j] = new Tile("tyles/tile_040.png", mouse);
 			if (i > 0) {
 				int preposx = ownmap[i][j - 1]->sprite->getPosition().x, preposy = ownmap[i][j - 1]->sprite->getPosition().y;

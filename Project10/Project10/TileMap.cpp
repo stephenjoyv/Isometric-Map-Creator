@@ -46,7 +46,23 @@ Tile* Map::getTile(int x, int y)
 void Map::setTile(Tile* tile,int x,int y)
 {
 	*ownmap[x][y] = *tile;
+	sections[x][y] = tile->tile_id;
 	std::cout << "hdhawdakdk\n";
+}
+
+void Map::saveMap()
+{
+	fstream d;
+	d.open("map.txt", std::ios_base::app);
+	for (int i = 0; i < 40; i++)
+	{
+		for (int k = 0; k < 40; k++)
+		{
+			d << sections[i][k] << ' ';
+		}
+		d << '\n';
+	}
+	d.close();
 }
 
 std::vector<string> Map::splitter(string symbols) {
@@ -122,11 +138,14 @@ Tile::Tile(const Tile& m) {
 	this->image = m.image;
 	this->ObjTar = m.ObjTar;
 }
-Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {}
+Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {
+	
+}
 Tile::Tile()
 {
 	this->texture = nullptr;
 	this->sprite = nullptr;
 	this->image = nullptr;
+	tile_id = 0;
 	std::cout <<"sprite n = "<< (this->sprite != nullptr);
 }

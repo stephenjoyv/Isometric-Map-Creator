@@ -5,17 +5,17 @@ Font font_global;
 
 int main() {
 	
-	RenderWindow window(VideoMode(1610, 1000), "application");
+	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
 	font_global.loadFromFile("EduNSWACTFoundation-Regular.ttf");
-	std::shared_ptr<RenderWindow> w(&window);
+	std::shared_ptr<RenderWindow> w(window);
 	pool_window.emplace_back(w);
-	window.setFramerateLimit(60);
+	pool_window[0].get()->setFramerateLimit(60);
 	Mouse mouse;
-	ButtonLoader(&window, &mouse, Color::Color(50, 50, 80));
-	window.display();
-	while (window.isOpen()) {
+	ButtonLoader(window, &mouse, Color::Color(50, 50, 80));
+	pool_window[0].get()->display();
+	while (pool_window[0].get()->isOpen()) {
 		Event event;
-		while (window.pollEvent(event)) {
+		while (pool_window[0].get()->pollEvent(event)) {
 			switch (event.type)
 			{
 			case Event::Closed: {
@@ -58,10 +58,12 @@ int main() {
 		}
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-		window.clear();
+		pool_window[0].get()->clear();
 		globalDraw();
-		window.display();
+		pool_window[0].get()->display();
 	}
 	
+
+
 	return 0;
 }
