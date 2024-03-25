@@ -188,8 +188,10 @@ void game(RenderTarget* window) {
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
-
-
+	RectButtonImageRolled* img = new RectButtonImageRolled{ 1400,300,1,"tyles/tile_005.png",[]() {},pool_window[0].get(),&mouse};
+	
+	
+	
 	/*SelectedTile *k = new SelectedTile;
 	Tile* m = new Tile("tyles/tile_000.png", &mouse);
 	m->Scale(5, 5);
@@ -224,6 +226,8 @@ void game(RenderTarget* window) {
 					{
 						//m->setActive();
 						pl->leftClicked();
+						img->setActive();
+						//std::cout << "frames = " << img->getFrames();
 					}
 					else if (mouse.isButtonPressed(mouse.Right) ){
 						pl->rightClicked();
@@ -235,16 +239,19 @@ void game(RenderTarget* window) {
 				//Sleep(5);
 
 			}
-			for (size_t i = 0; i < pool_button.size(); i++)
+			/*for (size_t i = 0; i < pool_button.size(); i++)
 			{
 				pool_button[i].get()->isActive();
-			}
+			}*/
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 			pool_window[0].get()->clear();
 			std::cout << "";
+			img->roll();
 			globalDraw();
 			pl->draw();
+			img->draw();
+			
 			//m->draw();
 			pool_window[0].get()->display();
 		}

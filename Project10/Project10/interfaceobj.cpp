@@ -31,7 +31,7 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames,char* tex
 	this->frames[0] = frames;
 	this->frames[1] = frames;
 	active = false;
-	this->text.setFont(font_global);
+	this->text.setFont(*font_global);
 	
 	
 	this->text.setFillColor(Color::White);
@@ -106,6 +106,7 @@ void Button::isActive() {
 	{
 		if (this->getFrames() != 0) {
 			frames[1] -= 1;
+			std::cout << "is active called\n";
 		}
 		else {
 			active = false;
@@ -159,11 +160,15 @@ CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int fra
 }
 RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string img, std::function<void()> run, RenderTarget* space, Mouse* mouse) :
 	Button(pos_x, pos_y, frames, run, space,  mouse) {
-	texture.loadFromFile(img);
-	sprite.setTexture(texture);
-	size_x = texture.getSize().x;
-	size_y = texture.getSize().y;
-	sprite.setPosition(pos_x, pos_y);
+	texture = new Texture;
+	sprite = new Sprite;
+	texture->loadFromFile(img);
+	
+	sprite->setTexture(*texture);
+	size_x = texture->getSize().x;
+	size_y = texture->getSize().y;
+	sprite->setPosition(pos_x, pos_y);
+
 	RectangleShape* tempshape = new RectangleShape;
 	//but_shape = new RectangleShape;
 	tempshape->setSize(Vector2f(size_x,size_y));
@@ -173,7 +178,58 @@ RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string im
 	tempshape->setFillColor(Color(0, 0, 0, 0));
 	but_shape = tempshape;
 }
+
 void RectButtonImage::draw() {
-	ObjTar->draw(sprite);
+	ObjTar->draw(*sprite);
 	ObjTar->draw(*but_shape);
 }
+
+RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std::string img, std::function<void()> rn, RenderTarget* space, Mouse* mouse) :
+	RectButtonImage(pos_x, pos_y, time, img, rn, space, mouse)
+{
+	
+	delete but_shape;
+	this->time = time;
+	angle = 0;
+	frames[0] = time*FPS;
+	frames[1] = frames[0];
+	setCenter();
+}
+void RectButtonImageRolled::roll()
+{
+	if (active && frames[0]>0) {
+		sprite->rotate(360 / (FPS * time));
+		frames[0] -= 1;
+	}
+	else if(frames[0]==0) {
+		active = false;
+		frames[0] = frames[1];
+	}
+}
+void RectButtonImageRolled::setCenter()
+{
+	int tx = sprite->getPosition().x, ty = sprite->getPosition().y;
+	sprite->setOrigin(texture->getSize().x/2, texture->getSize().y / 2);
+	sprite->setPosition(tx + texture->getSize().x / 2, ty + texture->getSize().y / 2);
+}
+
+void RectButtonImageRolled::draw()
+{
+	ObjTar->draw(*sprite);
+}
+
+void RectButtonImageRolled::setActive()
+{
+	std::cout << "frames = " << frames[0] << " and " << frames[1]<<'\n';
+	if (!active && Click()) {
+		active = true;
+		std::cout << "RectButtonImageRolled is active\n";
+	}
+}
+
+RectButtonImageRolled::~RectButtonImageRolled()
+{
+	if (texture != nullptr) delete texture;
+	if (sprite != nullptr) delete sprite;
+}
+

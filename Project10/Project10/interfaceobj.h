@@ -6,8 +6,8 @@ class Button;
 class Clicable;
 extern std::vector<std::shared_ptr<Button>> pool_button;
 extern std::vector<std::shared_ptr<RenderWindow>> pool_window;
-extern Font font_global;
-
+extern Font* font_global;
+extern int FPS;
 
 
 class IBaseClass {
@@ -77,12 +77,25 @@ public:
 	~CustomButton()=default;
 };
 class RectButtonImage : public Button {
-	Texture texture;
-	Sprite sprite;
+protected:
+	Texture* texture;
+	Sprite* sprite;
 public:
 	RectButtonImage(int pos_x, int pos_y, int frames, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	void draw() override;
 	~RectButtonImage() = default;
+};
+class RectButtonImageRolled : public RectButtonImage {
+private:
+	int angle,time;
+public:
+	RectButtonImageRolled(int pos_x, int pos_y,int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
+	RectButtonImageRolled();
+	void roll();
+	void setCenter();
+	void draw() override;
+	void setActive() override;
+	~RectButtonImageRolled();
 };
 void globalDraw();
 

@@ -1,21 +1,25 @@
 #include "Header.h"
 std::vector<std::shared_ptr<Button>> pool_button;
 std::vector<std::shared_ptr<RenderWindow>> pool_window;
-Font font_global;
+Font* font_global;
+int FPS;
 
 int main() {
 	
-	RenderWindow window(VideoMode(1610, 1000), "application");
-	font_global.loadFromFile("EduNSWACTFoundation-Regular.ttf");
-	std::shared_ptr<RenderWindow> w(&window);
+	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
+	font_global = new Font;
+	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
+	std::shared_ptr<RenderWindow> w(window);
 	pool_window.emplace_back(w);
-	window.setFramerateLimit(60);
+	FPS = 60;
+	pool_window[0]->setFramerateLimit(FPS);
+	
 	Mouse mouse;
-	ButtonLoader(&window, &mouse, Color::Color(50, 50, 80));
-	window.display();
-	while (window.isOpen()) {
+	ButtonLoader(window, &mouse, Color::Color(50, 50, 80));
+	pool_window[0]->display();
+	while (pool_window[0]->isOpen()) {
 		Event event;
-		while (window.pollEvent(event)) {
+		while (pool_window[0]->pollEvent(event)) {
 			switch (event.type)
 			{
 			case Event::Closed: {
@@ -58,10 +62,11 @@ int main() {
 		}
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-		window.clear();
+		pool_window[0]->clear();
 		globalDraw();
-		window.display();
+		pool_window[0]->display();
 	}
-	
+	pool_button.clear();
+	pool_window.clear();
 	return 0;
 }
