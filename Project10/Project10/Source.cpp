@@ -56,12 +56,10 @@ int main() {
 			//Sleep(5);
 			
 		}
-		for (size_t i = 0; i < pool_button.size(); i++)
-		{
-			pool_button[i].get()->isActive();
-		}
+		buttonWork();
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
+
 		pool_window[0]->clear();
 		globalDraw();
 		pool_window[0]->display();

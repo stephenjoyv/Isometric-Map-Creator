@@ -91,12 +91,13 @@ private:
 public:
 	RectButtonImageRolled(int pos_x, int pos_y,int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	RectButtonImageRolled();
-	void roll();
 	void setCenter();
-	void draw() override;
 	void setActive() override;
+	void isActive() override;
+	void draw() override;
 	~RectButtonImageRolled();
 };
 void globalDraw();
+void buttonWork();
 
 void ButtonLoader(sf::RenderTarget* space, sf::Mouse* mouse, sf::Color color);

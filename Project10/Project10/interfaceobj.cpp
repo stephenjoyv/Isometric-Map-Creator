@@ -10,6 +10,14 @@ void globalDraw() {
 	}
 }
 
+void buttonWork()
+{
+	for (size_t i = 0; i < pool_button.size(); i++)
+	{
+		pool_button[i].get()->isActive();
+	}
+}
+
 bool Clicable::Click() {
 	RenderWindow* temp = pool_window[0].get();
 
@@ -195,7 +203,7 @@ RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std
 	frames[1] = frames[0];
 	setCenter();
 }
-void RectButtonImageRolled::roll()
+void RectButtonImageRolled::isActive()
 {
 	if (active && frames[0]>0) {
 		sprite->rotate(360 / (FPS * time));
