@@ -1,9 +1,10 @@
 #pragma once
 #include "Libs.h"
 #include "interfaceobj.h"
+#include "Settings.h"
 using namespace std;
 using namespace sf;
-void game(sf::RenderTarget* window);
+void game();
 struct DetectedImage :public Clicable {
 protected:
 	void update();

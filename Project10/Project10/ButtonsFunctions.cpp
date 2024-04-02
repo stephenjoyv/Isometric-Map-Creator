@@ -5,7 +5,7 @@ void StartNewGame() {
 	
 	pool_button.clear();
 	
-	game(pool_window[0].get());
+	game();
 	return;
 }
 void LoadNewGame() {
@@ -16,4 +16,10 @@ void Exit() {
 	{
 		pool_window[i].get()->close();
 	}
+}
+void changeGlobalColor() {
+
+}
+void Settings() {
+
 }

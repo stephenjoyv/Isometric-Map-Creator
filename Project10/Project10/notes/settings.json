@@ -1,0 +1,22 @@
+{
+  "Buttons": {
+    "1": {
+      "size_x": 500,
+      "size_y": 100,
+      "pos_x": 605,
+      "pos_y": 425,
+      "frames": 20,
+      "char*": "Set default color",
+      "function": 4
+    },
+    "2": {
+      "size_x": 400,
+      "size_y": 75,
+      "pos_x": 655,
+      "pos_y": 535,
+      "frames": 20,
+      "char*": "Apply settings",
+      "function": 5
+    }
+  }
+}

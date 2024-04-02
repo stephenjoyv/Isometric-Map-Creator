@@ -5,3 +5,5 @@
 void StartNewGame();
 void LoadNewGame();
 void Exit();
+void changeGlobalColor();
+void Settings();

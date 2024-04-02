@@ -15,7 +15,7 @@ int main() {
 	pool_window[0]->setFramerateLimit(FPS);
 	
 	Mouse mouse;
-	ButtonLoader(window, &mouse, Color::Color(50, 50, 80));
+	ButtonLoader(window, &mouse, Color::Color(50, 50, 80),"notes/buttons.json");
 	pool_window[0]->display();
 	while (pool_window[0]->isOpen()) {
 		Event event;

@@ -57,7 +57,7 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames,char* tex
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
 }
-Button::Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse)
+Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, RenderTarget* space, Mouse* mouse)
 {
 	this->pos_x = pos_x;
 	this->pos_y = pos_y;
@@ -212,6 +212,7 @@ void RectButtonImageRolled::isActive()
 	else if(frames[0]==0) {
 		active = false;
 		frames[0] = frames[1];
+		run();
 	}
 }
 void RectButtonImageRolled::setCenter()

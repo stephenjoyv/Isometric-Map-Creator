@@ -31,6 +31,12 @@
     <Filter Include="Game\Platform">
       <UniqueIdentifier>{bbec67bc-827b-4908-911e-a5eb6a775d52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="notes">
+      <UniqueIdentifier>{7e3b5e05-5b0c-4b29-891c-c8770b340031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Settings">
+      <UniqueIdentifier>{ad125c18-905c-4a9e-9ece-b244fee95db1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="Platform.cpp">
       <Filter>Game\Platform</Filter>
     </ClCompile>
+    <ClCompile Include="Settings.cpp">
+      <Filter>Settings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -89,10 +98,16 @@
     <ClInclude Include="Platform.h">
       <Filter>Game\Platform</Filter>
     </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Settings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="notes\buttons.json">
-      <Filter>Исходные файлы</Filter>
+      <Filter>notes</Filter>
+    </None>
+    <None Include="notes\settings.json">
+      <Filter>notes</Filter>
     </None>
   </ItemGroup>
 </Project>

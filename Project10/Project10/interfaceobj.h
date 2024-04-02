@@ -100,4 +100,4 @@ public:
 void globalDraw();
 void buttonWork();
 
-void ButtonLoader(sf::RenderTarget* space, sf::Mouse* mouse, sf::Color color);
+void ButtonLoader(sf::RenderTarget* space, sf::Mouse* mouse, sf::Color color,String adress);

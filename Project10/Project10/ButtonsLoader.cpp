@@ -9,10 +9,11 @@ char* anylize(const char* ptr ,int size) {
 	tmp[size] = '\0';
 	return tmp;
 }
-void ButtonLoader(sf::RenderTarget* space,sf::Mouse* mouse,sf::Color color) {
+void ButtonLoader(sf::RenderTarget* space,sf::Mouse* mouse,sf::Color color,String adress) {
 	n::json obj;
 	std::fstream File;
-	File.open("notes/buttons.json");
+	File.open(adress.toAnsiString());
+	std::cout << "file is open " << File.is_open() << '\n';
 	File >> obj;
 	std::cout << obj["Buttons"].size();
 	for (int i = 1; i <= obj["Buttons"].size(); i++) {
@@ -31,6 +32,14 @@ void ButtonLoader(sf::RenderTarget* space,sf::Mouse* mouse,sf::Color color) {
 		}
 		case 3: {
 			tmpv = Exit;
+			break;
+		}
+		case 4: {
+			tmpv = changeGlobalColor;
+			break;
+		}
+		case 5: {
+			tmpv = Settings;
 			break;
 		}
 		}

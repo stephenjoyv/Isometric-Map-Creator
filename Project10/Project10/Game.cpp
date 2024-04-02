@@ -183,12 +183,12 @@ Map::Map(string symbol_map, Mouse* mouse) {
 
 
 
-void game(RenderTarget* window) {
+void game() {
 	Mouse mouse;
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
-	RectButtonImageRolled* img = new RectButtonImageRolled{ 1400,300,1,"tyles/tile_005.png",[]() {},pool_window[0].get(),&mouse};
+	RectButtonImageRolled* img = new RectButtonImageRolled{ 1300,50,1,"images/settings.png",settings,pool_window[0].get(),&mouse};
 	
 	
 	
@@ -242,7 +242,7 @@ void game(RenderTarget* window) {
 			buttonWork();
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-			pool_window[0].get()->clear();
+			pool_window[0].get()->clear(Color::Color(255,40,90));
 			std::cout << "";
 			globalDraw();
 			pl->draw();
