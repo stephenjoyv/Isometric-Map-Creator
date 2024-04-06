@@ -10,9 +10,11 @@ struct Tile : public DetectedImage {
 class Map :IBaseClass {
 	int size[2];
 	int tyle_size[2];
-	Tile*** ownmap;
+	Tile**** ownmap;
+	int **info_z;
 public:
 	Map(string symbol_map, Mouse* mouse);
+	~Map();
 	void draw() override;
 	void click(std::pair<int, int>& data);
 	Tile* getTile(int x,int y);

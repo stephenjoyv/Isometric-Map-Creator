@@ -1,14 +1,21 @@
 #include "TileMap.h"
 void Map::draw()
 {
+	int t = 0;
 	for (int i = 0; i < 40; i++)
 	{
 		for (int j = 0; j < 40; j++)
 		{
-			ownmap[j][i]->draw();
+			for (int k = 4; k >= 0; k--)
+			{
+				ownmap[j][i][k]->draw();
+				t++;
+			}
+			
 		}
 
 	}
+	std::cout << "tyles drawned = " << t << '\n';
 }
 
 void Map::click(std::pair<int, int>&data)
@@ -18,14 +25,14 @@ void Map::click(std::pair<int, int>&data)
 	{
 		for (int j = 40-1; j >=0; j--)
 		{
-			ownmap[i][j]->setActive();
+			ownmap[i][j][0]->setActive();
 			//std::cout << ownmap[i][j]->getSize().x << '\n';
-			if (ownmap[i][j]->clicked)
+			if (ownmap[i][j][0]->clicked)
 			{
 				std::cout << "clicked tile x y " << i << " " << j << '\n';
 				data.first = i; data.second = j;
 				
-				ownmap[i][j]->clicked = false;
+				ownmap[i][j][0]->clicked = false;
 				clicked = true;
 				break; 
 			}
@@ -40,12 +47,12 @@ void Map::click(std::pair<int, int>&data)
 
 Tile* Map::getTile(int x, int y)
 {
-	return ownmap[x][y];
+	return ownmap[x][y][0];
 }
 
 void Map::setTile(Tile* tile,int x,int y)
 {
-	*ownmap[x][y] = *tile;
+	*ownmap[x][y][0] = *tile;
 	std::cout << "hdhawdakdk\n";
 }
 

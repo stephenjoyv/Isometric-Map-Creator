@@ -23,3 +23,7 @@ void changeGlobalColor() {
 void Settings() {
 
 }
+
+void Test() {
+
+}

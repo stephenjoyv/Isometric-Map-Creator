@@ -8,6 +8,8 @@ extern std::vector<std::shared_ptr<Button>> pool_button;
 extern std::vector<std::shared_ptr<RenderWindow>> pool_window;
 extern Font* font_global;
 extern int FPS;
+extern Color* color_main;
+extern Color* bg_color;
 
 
 class IBaseClass {

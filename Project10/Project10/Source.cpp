@@ -3,19 +3,24 @@ std::vector<std::shared_ptr<Button>> pool_button;
 std::vector<std::shared_ptr<RenderWindow>> pool_window;
 Font* font_global;
 int FPS;
+Color* color_main;
+Color* bg_color;
 
 int main() {
-	
+
+	//Задаём параметры основным переменным
 	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
 	font_global = new Font;
 	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
+	color_main = new Color{50,50,80};
+	bg_color = new Color{ 80,90,20 };
 	std::shared_ptr<RenderWindow> w(window);
 	pool_window.emplace_back(w);
 	FPS = 60;
 	pool_window[0]->setFramerateLimit(FPS);
 	
 	Mouse mouse;
-	ButtonLoader(window, &mouse, Color::Color(50, 50, 80),"notes/buttons.json");
+	ButtonLoader(window, &mouse, *color_main,"notes/buttons.json");
 	pool_window[0]->display();
 	while (pool_window[0]->isOpen()) {
 		Event event;
@@ -60,11 +65,14 @@ int main() {
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 
-		pool_window[0]->clear();
+		pool_window[0]->clear(*bg_color);
 		globalDraw();
 		pool_window[0]->display();
 	}
 	pool_button.clear();
 	pool_window.clear();
+	delete font_global;
+	delete color_main;
+	delete bg_color;
 	return 0;
 }

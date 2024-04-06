@@ -7,3 +7,4 @@ void LoadNewGame();
 void Exit();
 void changeGlobalColor();
 void Settings();
+void Test();

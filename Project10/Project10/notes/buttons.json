@@ -6,7 +6,7 @@
       "pos_x": 605,
       "pos_y": 425,
       "frames": 20,
-      "char*": "Start new game",
+      "char*": "Open map editor",
       "function": 1
     },
     "2": {

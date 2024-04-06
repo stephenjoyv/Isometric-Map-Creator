@@ -41,7 +41,7 @@ void DetectedImage::init_border()
 		borders->setPosition(pos_x, pos_y);
 		borders->setOutlineColor(Color::White);
 		borders->setOutlineThickness(4);
-		borders->setFillColor(Color(0, 0, 0, 0));
+		borders->setFillColor(*color_main);
 	}
 	
 }
@@ -98,8 +98,8 @@ void DetectedImage::Scale(int xmod, int ymod) {
 
 }
 void DetectedImage::draw() {
-	ObjTar->draw(*sprite);
 	if (is_bordered) ObjTar->draw(*borders);
+	ObjTar->draw(*sprite);
 }
 void DetectedImage::setActive() {
 	if (Click())
@@ -144,40 +144,93 @@ void DetectedImage::update()
 	size_y = texture->getSize().y;
 }
 Map::Map(string symbol_map, Mouse* mouse) {
-	ownmap = new Tile * *[40];
+	ownmap = new Tile ** *[40];
 	for (int i = 0; i < 40; i++)
 	{
-		ownmap[i] = new Tile * [40];
+		ownmap[i] = new Tile **[40];
+		for (int k = 0; k < 40; k++)
+		{
+			ownmap[i][k] = new Tile * [5];
+		}
 	}
 
 	for (int i = 0; i < 40; i++)
 	{
 		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
-		ownmap[i][0] = new Tile("tyles/tile_022.png", mouse);
+		ownmap[i][0][0] = new Tile("tyles/tile_022.png", mouse);
 		if (i > 0) {
-			int preposx = ownmap[i - 1][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0]->sprite->getPosition().y;
-			int presizex = ownmap[i - 1][0]->texture->getSize().x / 2;
-			int presizey = ownmap[i - 1][0]->texture->getSize().y / 4;
-			ownmap[i][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
+			int preposx = ownmap[i - 1][0][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0][0]->sprite->getPosition().y;
+			int presizex = ownmap[i - 1][0][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i - 1][0][0]->texture->getSize().y / 4;
+			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
 		}
 		else {
-			ownmap[i][0]->sprite->setPosition(500, 0);
+			ownmap[i][0][0]->sprite->setPosition(500, 0);
 		}
 	}
 	for (int i = 0; i < 40; i++)
 	{
 		for (int j = 1; j < 40; j++)
 		{
-			ownmap[i][j] = new Tile("tyles/tile_040.png", mouse);
+			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
 			if (i > 0) {
-				int preposx = ownmap[i][j - 1]->sprite->getPosition().x, preposy = ownmap[i][j - 1]->sprite->getPosition().y;
-				int presizex = ownmap[i][j - 1]->texture->getSize().x / 2;
-				int presizey = ownmap[i][j - 1]->texture->getSize().y * 1 / 4;
-				ownmap[i][j]->sprite->setPosition(preposx - presizex, preposy + presizey);
+				int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
+				int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
+				int presizey = ownmap[i][j - 1][0]->texture->getSize().y * 1 / 4;
+				ownmap[i][j][0]->sprite->setPosition(preposx - presizex, preposy + presizey);
 			}
 		}
 	}
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++) {
+			
+			for (int k = 1; k < 5; k++)
+			{
+				ownmap[i][j][k] = new Tile("tyles/tile_040.png", mouse);
+				int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 3 / 4;
+				int presizex = ownmap[i][j][k-1]->texture->getSize().x;
+				int presizey = ownmap[i][j][k-1]->texture->getSize().y * 2 / 4;
+				ownmap[i][j][k]->sprite->setPosition(preposx, preposy - presizey);
 
+			}
+		}
+	}
+	//Заполнение info_z
+	info_z = new int* [40];
+	for (int i = 0; i < 40; i++)
+	{
+		info_z[i] = new int[40];
+		for (int j = 0; j < 40; j++)
+		{
+			info_z[i][j] = 1;
+		}
+	}
+}
+
+Map::~Map()
+{
+	//Очистка ownmap
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			for (int k = 0; k < info_z[i][j]; k++)
+			{
+				delete ownmap[i][j][k];
+			}
+			delete ownmap[i][j];
+		}
+		delete ownmap[i];
+	}
+	delete ownmap;
+
+	//Очистка info_z
+	for (int i = 0; i < 40; i++)
+	{
+		delete info_z[i];
+	}
+	delete info_z;
 }
 
 
@@ -205,11 +258,12 @@ void game() {
 				switch (event.type)
 				{
 				case Event::Closed: {
-					for (int i = 0; i < pool_window.size(); i++)
+					/*for (int i = 0; i < pool_window.size(); i++)
 					{
 						pool_window[i].get()->close();
 					}
-					break;
+					break;*/
+					return;
 				}
 				case Event::KeyPressed: {
 					switch (event.key.scancode) {
@@ -242,7 +296,7 @@ void game() {
 			buttonWork();
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-			pool_window[0].get()->clear(Color::Color(255,40,90));
+			pool_window[0].get()->clear(*bg_color);
 			std::cout << "";
 			globalDraw();
 			pl->draw();
