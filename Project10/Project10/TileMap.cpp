@@ -6,7 +6,7 @@ void Map::draw()
 	{
 		for (int j = 0; j < 40; j++)
 		{
-			for (int k = 4; k >= 0; k--)
+			for (int k = 1; k >= 0; k--)
 			{
 				ownmap[j][i][k]->draw();
 				t++;
@@ -18,29 +18,35 @@ void Map::draw()
 	std::cout << "tyles drawned = " << t << '\n';
 }
 
-void Map::click(std::pair<int, int>&data)
+void Map::click(std::tuple<int,int,int>&data)
 {
 	bool clicked = false;
 	for (int i = 40-1; i >= 0; i--)
 	{
 		for (int j = 40-1; j >=0; j--)
 		{
-			ownmap[i][j][0]->setActive();
-			//std::cout << ownmap[i][j]->getSize().x << '\n';
-			if (ownmap[i][j][0]->clicked)
+			int k = info_z[i][j]; 
+			for (int z = 0; z < k; z++)
 			{
-				std::cout << "clicked tile x y " << i << " " << j << '\n';
-				data.first = i; data.second = j;
-				
-				ownmap[i][j][0]->clicked = false;
-				clicked = true;
-				break; 
+				ownmap[i][j][z]->setActive();
+				//std::cout << ownmap[i][j]->getSize().x << '\n';
+				if (ownmap[i][j][z]->clicked)
+				{
+					std::cout << "clicked tile x y " << i << " " << j << '\n';
+					data = std::tuple<int, int, int>{ i,j,z };
+
+
+					ownmap[i][j][z]->clicked = false;
+					clicked = true;
+					break;
+				}
 			}
+			if (clicked) break;		
 		}
 		if (clicked) break;
 	}
 	if (!clicked) {
-		data = make_pair(-1, -1); 
+		data = std::tuple<int, int, int>{ -1,-1,-1 };
 		std::cout << "wasn't drawn click\n";
 	}
 }
@@ -50,10 +56,15 @@ Tile* Map::getTile(int x, int y)
 	return ownmap[x][y][0];
 }
 
-void Map::setTile(Tile* tile,int x,int y)
+void Map::setTile(Tile* tile,int x,int y,int z)
 {
-	*ownmap[x][y][0] = *tile;
+	*ownmap[x][y][z] = *tile;
 	std::cout << "hdhawdakdk\n";
+}
+
+void Map::addTile(Tile* tile, int x, int y)
+{
+
 }
 
 std::vector<string> Map::splitter(string symbols) {
@@ -121,6 +132,12 @@ Tile& Tile::operator=(const Tile& copy)
 	//std::cout << "part 3\n";
 	return *this;
 	// TODO: вставьте здесь оператор return
+}
+Tile::~Tile()
+{
+	if (this->texture != nullptr)delete this->texture;
+	if (this->sprite != nullptr)delete this->sprite;
+	if (this->image != nullptr)delete this->image;
 }
 Tile::Tile(const Tile& m) {
 	this->sprite = m.sprite;

@@ -6,7 +6,8 @@ class Platform
 	TilePanel* panel;
 	Map* map;
 	SelectedTile* seltile;
-	std::pair<int, int> data;
+	std::tuple<int, int, int> data;
+	//std::pair<int, int> data;
 public:
 	Platform(Mouse* mouse);
 	void leftClicked();

@@ -5,7 +5,7 @@ struct Tile : public DetectedImage {
 	Tile();
 	Tile(const Tile& m);
 	Tile& operator=(const Tile& copy);
-	~Tile() = default;
+	~Tile();
 };
 class Map :IBaseClass {
 	int size[2];
@@ -16,9 +16,10 @@ public:
 	Map(string symbol_map, Mouse* mouse);
 	~Map();
 	void draw() override;
-	void click(std::pair<int, int>& data);
+	void click(std::tuple<int,int,int>& data);
 	Tile* getTile(int x,int y);
-	void setTile(Tile* tile, int x, int y);
+	void setTile(Tile* tile, int x, int y,int z);
+	void addTile(Tile* tile, int x, int y);
 private:
 	std::vector<string> splitter(string symbols);
 };

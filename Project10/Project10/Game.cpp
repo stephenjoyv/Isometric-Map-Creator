@@ -150,7 +150,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 		ownmap[i] = new Tile **[40];
 		for (int k = 0; k < 40; k++)
 		{
-			ownmap[i][k] = new Tile * [5];
+			ownmap[i][k] = new Tile * [2];
 		}
 	}
 
@@ -185,7 +185,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 	{
 		for (int j = 0; j < 40; j++) {
 			
-			for (int k = 1; k < 5; k++)
+			for (int k = 1; k < 2; k++)
 			{
 				ownmap[i][j][k] = new Tile("tyles/tile_040.png", mouse);
 				int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 3 / 4;

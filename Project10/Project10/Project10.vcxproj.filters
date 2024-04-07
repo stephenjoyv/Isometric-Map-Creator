@@ -37,6 +37,9 @@
     <Filter Include="Settings">
       <UniqueIdentifier>{ad125c18-905c-4a9e-9ece-b244fee95db1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SliderBar">
+      <UniqueIdentifier>{5234b18a-2555-434c-8f35-b5825281d02a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -72,6 +75,9 @@
     <ClCompile Include="Settings.cpp">
       <Filter>Settings</Filter>
     </ClCompile>
+    <ClCompile Include="SliderBar.cpp">
+      <Filter>SliderBar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -100,6 +106,9 @@
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Settings</Filter>
+    </ClInclude>
+    <ClInclude Include="SliderBar.h">
+      <Filter>SliderBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

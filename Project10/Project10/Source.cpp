@@ -12,8 +12,8 @@ int main() {
 	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
 	font_global = new Font;
 	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
-	color_main = new Color{50,50,80};
-	bg_color = new Color{ 80,90,20 };
+	color_main = new Color{ 85,52,218 };
+	bg_color = new Color{ 143,0,84 };
 	std::shared_ptr<RenderWindow> w(window);
 	pool_window.emplace_back(w);
 	FPS = 60;
