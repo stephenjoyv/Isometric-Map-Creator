@@ -61,7 +61,7 @@ public:
 	bool getActive();
 	int getFrames();
 	void isActive() override;
-	~Button() override;
+	virtual ~Button() override;
 };
 class CircleButton : public Button {
 public:
@@ -91,12 +91,14 @@ class RectButtonImageRolled : public RectButtonImage {
 private:
 	int angle,time;
 public:
+	int k;
 	RectButtonImageRolled(int pos_x, int pos_y,int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	RectButtonImageRolled();
 	void setCenter();
 	void setActive() override;
 	void isActive() override;
 	void draw() override;
+	void scale(double x, double y);
 	~RectButtonImageRolled();
 };
 void globalDraw();

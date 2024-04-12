@@ -47,11 +47,13 @@ void SliderBar::draw()
 	ObjTar->draw(*sprite);
 }
 
+//template <typename T>
+//static void delSm(T* obj);
 SliderBar::~SliderBar()
 {
-	if (image != nullptr) delete image;
-	if (texture != nullptr) delete texture;
-	if (sprite != nullptr) delete sprite;
+	/*delSm(image);
+	delSm(texture);
+	delSm(sprite);*/
 }
 
 static void makeLine(Image* image,int size, int where,Color color) {
@@ -86,3 +88,8 @@ static void makeLine(Image* image,int size, int where,Color color) {
 
 	cout << "makelien\n";
 }
+//
+//template <typename T>
+//static void delSm(T* obj) {
+//	if (obj != nullptr) delete obj;
+//}

@@ -15,7 +15,9 @@ void settings() {
 			switch (event.type)
 			{
 			case Event::Closed: {
-				pool_window[0].get()->close();
+				pool_button.clear();
+				return;
+				//pool_window[0].get()->close();
 			}
 			case Event::MouseButtonPressed: {
 				if (mouse->isButtonPressed(Mouse::Left)) {

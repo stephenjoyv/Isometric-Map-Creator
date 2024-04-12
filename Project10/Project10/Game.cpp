@@ -21,6 +21,11 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	update();
 }
 DetectedImage::DetectedImage() {
+	this->texture = nullptr;
+	this->sprite = nullptr;
+	this->image = nullptr;
+	std::cout << "sprite n = " << (this->sprite != nullptr);
+	ObjTar = pool_window[0].get();
 	is_bordered = false;
 	scale = Vector2i(1, 1);
 }
@@ -51,10 +56,12 @@ Vector2i DetectedImage::getScale()
 }
 Vector2f DetectedImage::getPosition()
 {
+	update();
 	return Vector2f(pos_x, pos_y);
 }
 Vector2f DetectedImage::getSize()
 {
+	update();
 	return Vector2f(size_x,size_y);
 }
 string DetectedImage::getLink()
@@ -99,7 +106,7 @@ void DetectedImage::Scale(int xmod, int ymod) {
 }
 void DetectedImage::draw() {
 	if (is_bordered) ObjTar->draw(*borders);
-	ObjTar->draw(*sprite);
+	if(sprite!=nullptr) ObjTar->draw(*sprite);
 }
 void DetectedImage::setActive() {
 	if (Click())
@@ -150,7 +157,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 		ownmap[i] = new Tile **[40];
 		for (int k = 0; k < 40; k++)
 		{
-			ownmap[i][k] = new Tile * [2];
+			ownmap[i][k] = new Tile * [64];
 		}
 	}
 
@@ -187,11 +194,11 @@ Map::Map(string symbol_map, Mouse* mouse) {
 			
 			for (int k = 1; k < 2; k++)
 			{
-				ownmap[i][j][k] = new Tile("tyles/tile_040.png", mouse);
-				int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 3 / 4;
+				ownmap[i][j][k] = new Tile("tyles/tile_01"+ to_string(k) + ".png", mouse);
+				int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 1 / 2;
 				int presizex = ownmap[i][j][k-1]->texture->getSize().x;
-				int presizey = ownmap[i][j][k-1]->texture->getSize().y * 2 / 4;
-				ownmap[i][j][k]->sprite->setPosition(preposx, preposy - presizey);
+				int presizey = ownmap[i][j][k - 1]->texture->getSize().y;
+				ownmap[i][j][k]->sprite->setPosition(preposx, preposy - ownmap[i][j][k]->getSize().y*3/4);
 
 			}
 		}
@@ -203,7 +210,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 		info_z[i] = new int[40];
 		for (int j = 0; j < 40; j++)
 		{
-			info_z[i][j] = 1;
+			info_z[i][j] = 2;
 		}
 	}
 }
@@ -242,9 +249,10 @@ void game() {
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
 	RectButtonImageRolled* img = new RectButtonImageRolled{ 1300,50,1,"images/settings.png",settings,pool_window[0].get(),&mouse};
+	img->scale(0.5, 0.5);
 	
-	
-	
+	bool jammed = false;
+	Jammed* jm = new Jammed{ FPS,0.1,[&pl]() {pl->leftClickedMap(); } };
 	/*SelectedTile *k = new SelectedTile;
 	Tile* m = new Tile("tyles/tile_000.png", &mouse);
 	m->Scale(5, 5);
@@ -263,6 +271,7 @@ void game() {
 						pool_window[i].get()->close();
 					}
 					break;*/
+					pool_button.clear();
 					return;
 				}
 				case Event::KeyPressed: {
@@ -274,13 +283,23 @@ void game() {
 					}
 					break;
 				}
+				case Event::MouseButtonReleased: {
+					if (event.mouseButton.button == mouse.Left) {
+						jm->disable();
+					}
+					break;
+				}
 				case Event::MouseButtonPressed: {
-
 					if (mouse.isButtonPressed(mouse.Left))
 					{
+						jm->enable();				
 						//m->setActive();
 						pl->leftClicked();
-						img->setActive();
+						
+						for (auto i : pool_button)
+						{
+							i.get()->setActive();
+						}
 						//std::cout << "frames = " << img->getFrames();
 					}
 					else if (mouse.isButtonPressed(mouse.Right) ){
@@ -294,15 +313,16 @@ void game() {
 
 			}
 			buttonWork();
+			jm->exec();
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 			pool_window[0].get()->clear(*bg_color);
 			std::cout << "";
 			globalDraw();
 			pl->draw();
-			img->draw();
-			
+
 			//m->draw();
 			pool_window[0].get()->display();
 		}
+	//if (img != nullptr) delete img;
 }

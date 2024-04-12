@@ -6,16 +6,16 @@ void Map::draw()
 	{
 		for (int j = 0; j < 40; j++)
 		{
-			for (int k = 1; k >= 0; k--)
+			for (int k = 0; k < info_z[i][j]; k++)
 			{
-				ownmap[j][i][k]->draw();
+				ownmap[i][j][k]->draw();
 				t++;
 			}
 			
 		}
 
 	}
-	std::cout << "tyles drawned = " << t << '\n';
+	//std::cout << "tyles drawned = " << t << '\n';
 }
 
 void Map::click(std::tuple<int,int,int>&data)
@@ -32,11 +32,13 @@ void Map::click(std::tuple<int,int,int>&data)
 				//std::cout << ownmap[i][j]->getSize().x << '\n';
 				if (ownmap[i][j][z]->clicked)
 				{
-					std::cout << "clicked tile x y " << i << " " << j << '\n';
+					cout << "COORDINATES | " << "x : " << i << " | " << "y : " << j << " | " << "z : " << z << '\n';
+					cout << "POSITION " << "X : " << ownmap[i][j][z]->getPosition().x << " Y : " << ownmap[i][j][z]->getPosition().y << '\n';
 					data = std::tuple<int, int, int>{ i,j,z };
 
 
 					ownmap[i][j][z]->clicked = false;
+					
 					clicked = true;
 					break;
 				}
@@ -64,7 +66,21 @@ void Map::setTile(Tile* tile,int x,int y,int z)
 
 void Map::addTile(Tile* tile, int x, int y)
 {
-
+	++info_z[x][y];
+	int z = info_z[x][y]-1;
+	cout << "z is " << z << '\n';
+	ownmap[x][y][z] = new Tile{};
+	*ownmap[x][y][z] = *tile;
+	int nx,ny;
+	if (info_z[x][y] > 0) {
+		//cout << "COMPONENTS ";
+		nx = ownmap[x][y][z - 1]->getPosition().x;
+		ny = ownmap[x][y][z - 1]->getPosition().y + ownmap[x][y][z - 1]->getSize().y / 2;
+		cout << "NEW TILE POSITION | X : " << nx << " Y : " << ny << '\n';
+		
+	}
+	else return;
+	ownmap[x][y][z]->setPosition(nx,ny);
 }
 
 std::vector<string> Map::splitter(string symbols) {
@@ -111,7 +127,7 @@ Tile& Tile::operator=(const Tile& copy)
 		this->sprite = new Sprite;
 		this->image = new Image;
 
-
+		this->mouse = copy.mouse;
 		*(this->texture) = *copy.texture;
 		//std::cout << "part 2\n";
 		*this->sprite = *copy.sprite;
@@ -128,6 +144,7 @@ Tile& Tile::operator=(const Tile& copy)
 
 		//*this = copy;
 		//std::cout << "dwada\n";
+		cout << "was copied\n";
 	}
 	//std::cout << "part 3\n";
 	return *this;
@@ -149,8 +166,5 @@ Tile::Tile(const Tile& m) {
 Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {}
 Tile::Tile()
 {
-	this->texture = nullptr;
-	this->sprite = nullptr;
-	this->image = nullptr;
-	std::cout <<"sprite n = "<< (this->sprite != nullptr);
+
 }

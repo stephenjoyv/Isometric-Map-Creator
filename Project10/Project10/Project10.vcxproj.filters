@@ -40,6 +40,9 @@
     <Filter Include="SliderBar">
       <UniqueIdentifier>{5234b18a-2555-434c-8f35-b5825281d02a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Jammed">
+      <UniqueIdentifier>{b06954b1-6849-43df-849b-6d70a1ab9202}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -78,6 +81,9 @@
     <ClCompile Include="SliderBar.cpp">
       <Filter>SliderBar</Filter>
     </ClCompile>
+    <ClCompile Include="Jammed.cpp">
+      <Filter>Game\Jammed</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="SliderBar.h">
       <Filter>SliderBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Jammed.h">
+      <Filter>Game\Jammed</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

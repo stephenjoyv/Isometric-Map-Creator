@@ -11,6 +11,8 @@ class Platform
 public:
 	Platform(Mouse* mouse);
 	void leftClicked();
+	void leftClickedMap();
+	void leftClickedPanel();
 	void rightClicked();
 	void draw();
 	~Platform();

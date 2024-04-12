@@ -202,6 +202,7 @@ RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std
 	frames[0] = time*FPS;
 	frames[1] = frames[0];
 	setCenter();
+	k = 15;
 }
 void RectButtonImageRolled::isActive()
 {
@@ -227,6 +228,11 @@ void RectButtonImageRolled::draw()
 	ObjTar->draw(*sprite);
 }
 
+void RectButtonImageRolled::scale(double x, double y)
+{
+	sprite->scale(x, y);
+}
+
 void RectButtonImageRolled::setActive()
 {
 	std::cout << "frames = " << frames[0] << " and " << frames[1]<<'\n';
@@ -240,5 +246,8 @@ RectButtonImageRolled::~RectButtonImageRolled()
 {
 	if (texture != nullptr) delete texture;
 	if (sprite != nullptr) delete sprite;
+
+	k = 0;
+	std::cout << "RECTDEST\n";
 }
 

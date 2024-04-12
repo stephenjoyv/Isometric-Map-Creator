@@ -18,11 +18,33 @@ void Platform::leftClicked()
 		z = get<2>(data);
 	if ((x != -1 && y!= -1 && z!=-1) && seltile->isSelected()) {
 		std::cout << "tile x = " << x << " tile y = " << y << '\n';
-		map->setTile(seltile->getTile(),x,y,z);
+		//map->setTile(seltile->getTile(),x,y,z);
+		map->addTile(seltile->getTile(), x, y);
 		map->click(data);
 		data = tuple<int, int, int>{ -1,-1,-1 };
 	}
 	
+}
+
+void Platform::leftClickedMap()
+{
+	map->click(data);
+	int x = get<0>(data),
+		y = get<1>(data),
+		z = get<2>(data);
+	if ((x != -1 && y != -1 && z != -1) && seltile->isSelected()) {
+		std::cout << "tile x = " << x << " tile y = " << y << '\n';
+		//map->setTile(seltile->getTile(),x,y,z);
+		map->addTile(seltile->getTile(), x, y);
+		map->click(data);
+		data = tuple<int, int, int>{ -1,-1,-1 };
+	}
+}
+
+void Platform::leftClickedPanel()
+{
+	panel->click(seltile);
+	std::cout << "Check of map\n";
 }
 
 void Platform::rightClicked()
