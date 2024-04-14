@@ -20,6 +20,7 @@ public:
 	Tile* getTile(int x,int y);
 	void setTile(Tile* tile, int x, int y,int z);
 	void addTile(Tile* tile, int x, int y);
+	bool controlTile(int x,int y,int z);
 private:
 	std::vector<string> splitter(string symbols);
 };

@@ -26,7 +26,7 @@ void Map::click(std::tuple<int,int,int>&data)
 		for (int j = 40-1; j >=0; j--)
 		{
 			int k = info_z[i][j]; 
-			for (int z = 0; z < k; z++)
+			for (int z = k-1; z >= 0; z--)
 			{
 				ownmap[i][j][z]->setActive();
 				//std::cout << ownmap[i][j]->getSize().x << '\n';
@@ -81,6 +81,14 @@ void Map::addTile(Tile* tile, int x, int y)
 	}
 	else return;
 	ownmap[x][y][z]->setPosition(nx,ny);
+}
+
+bool Map::controlTile(int x, int y, int z)
+{
+	if (z == info_z[x][y]) {
+		return true;
+	}
+	return false;
 }
 
 std::vector<string> Map::splitter(string symbols) {

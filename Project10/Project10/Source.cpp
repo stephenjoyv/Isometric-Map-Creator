@@ -13,7 +13,7 @@ int main() {
 	font_global = new Font;
 	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
 	color_main = new Color{ 85,52,218 };
-	bg_color = new Color{ 143,0,84 };
+	bg_color = new Color{ 129, 191, 115 };
 	std::shared_ptr<RenderWindow> w(window);
 	pool_window.emplace_back(w);
 	FPS = 60;
