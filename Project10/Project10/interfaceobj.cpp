@@ -28,7 +28,7 @@ bool Clicable::Click() {
 
 
 //Определение Button
-Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames,char* text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) {
+Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) {
 	this->size_x = size_x;
 	this->size_y = size_y;
 	this->pos_x = pos_x;
@@ -130,18 +130,18 @@ Button::~Button() {
 }
 
 //Определение Pair Array
-CircleButton::CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
+CircleButton::CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run,  space,  mouse, color) {
 	size_y = size_x;
 	CircleShape* tempshape = new CircleShape;
 	tempshape->setRadius(size_x / 2);
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
-	tempshape->setOutlineThickness(3);
+	tempshape->setOutlineThickness(4);
 	tempshape->setPosition(pos_x, pos_y);
 	but_shape = tempshape;
 }
-RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
+RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color) {
 	RectangleShape* tempshape = new RectangleShape;
 	but_shape = new RectangleShape;
@@ -149,10 +149,10 @@ RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames,
 	tempshape->setPosition(pos_x, pos_y);
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
-	tempshape->setOutlineThickness(3);
+	tempshape->setOutlineThickness(4);
 	but_shape = tempshape;
 }
-CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
+CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color) {
 	ConvexShape* tempshape = new ConvexShape;
 	tempshape->setPointCount(4);
@@ -163,7 +163,7 @@ CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int fra
 	tempshape->setPoint(3, Vector2f(pos_x + size_x + tmpn, pos_y));
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
-	tempshape->setOutlineThickness(3);
+	tempshape->setOutlineThickness(4);
 	but_shape = tempshape;
 }
 RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string img, std::function<void()> run, RenderTarget* space, Mouse* mouse) :
@@ -182,7 +182,7 @@ RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string im
 	tempshape->setSize(Vector2f(size_x,size_y));
 	tempshape->setPosition(pos_x, pos_y);
 	tempshape->setOutlineColor(Color::White);
-	tempshape->setOutlineThickness(3);
+	tempshape->setOutlineThickness(4);
 	tempshape->setFillColor(Color(0, 0, 0, 0));
 	but_shape = tempshape;
 }

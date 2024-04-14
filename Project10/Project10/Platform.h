@@ -6,6 +6,7 @@ class Platform
 	TilePanel* panel;
 	Map* map;
 	SelectedTile* seltile;
+	RectButton* saver;
 	std::tuple<int, int, int> data;
 	//std::pair<int, int> data;
 public:

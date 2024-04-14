@@ -172,7 +172,7 @@ Map::Map(string symbol_map, Mouse* mouse) {
 			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
 		}
 		else {
-			ownmap[i][0][0]->sprite->setPosition(500, 0);
+			ownmap[i][0][0]->sprite->setPosition(700, 50);
 		}
 	}
 	for (int i = 0; i < 40; i++)
@@ -180,12 +180,10 @@ Map::Map(string symbol_map, Mouse* mouse) {
 		for (int j = 1; j < 40; j++)
 		{
 			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
-			if (i > 0) {
-				int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
-				int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
-				int presizey = ownmap[i][j - 1][0]->texture->getSize().y * 1 / 4;
-				ownmap[i][j][0]->sprite->setPosition(preposx - presizex, preposy + presizey);
-			}
+			int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
+			int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i][j - 1][0]->texture->getSize().y * 1 / 4;
+			ownmap[i][j][0]->sprite->setPosition(preposx - presizex, preposy + presizey);			
 		}
 	}
 	for (int i = 0; i < 40; i++)
@@ -253,6 +251,7 @@ void game() {
 	
 	bool jammed = false;
 	Jammed* jm = new Jammed{ FPS,0.1,[&pl]() {pl->leftClickedMap(); } };
+	
 	/*SelectedTile *k = new SelectedTile;
 	Tile* m = new Tile("tyles/tile_000.png", &mouse);
 	m->Scale(5, 5);
@@ -318,9 +317,9 @@ void game() {
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 			pool_window[0].get()->clear(*bg_color);
 			std::cout << "";
-			globalDraw();
+			
 			pl->draw();
-
+			globalDraw();
 			//m->draw();
 			pool_window[0].get()->display();
 		}

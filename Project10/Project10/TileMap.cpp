@@ -91,6 +91,23 @@ bool Map::controlTile(int x, int y, int z)
 	return false;
 }
 
+void Map::saveMap()
+{
+	ofstream file;
+	file.open("map.txt");
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			for ( int k = 0; k < info_z[i][j]; k++)
+			{
+				file << "X : " << i << " Y : " << j << " Z : " << k << " LINK : "<< ownmap[i][j][k]->getLink()<<'\n';
+			}
+		}
+	}
+	file.close();
+}
+
 std::vector<string> Map::splitter(string symbols) {
 	std::vector<string> m;
 	string tmp = "";

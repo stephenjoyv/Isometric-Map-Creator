@@ -53,7 +53,7 @@ protected:
 	int frames[2];
 	std::function<void()> run;
 public:
-	Button(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text,std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
+	Button(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	void setActive() override;
 	void standart();
@@ -65,17 +65,17 @@ public:
 };
 class CircleButton : public Button {
 public:
-	CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
+	CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	~CircleButton()=default;
 };
 class RectButton : public Button {;
 public:
-	RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
+	RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	~RectButton()=default;
 };
 class CustomButton : public Button {
 public:
-	CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, char* text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
+	CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	~CustomButton()=default;
 };
 class RectButtonImage : public Button {
