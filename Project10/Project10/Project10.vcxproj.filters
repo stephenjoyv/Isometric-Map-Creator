@@ -43,12 +43,12 @@
     <Filter Include="Game\Jammed">
       <UniqueIdentifier>{b06954b1-6849-43df-849b-6d70a1ab9202}</UniqueIdentifier>
     </Filter>
+    <Filter Include="InterfaceObj">
+      <UniqueIdentifier>{2c066915-e2ab-4fa9-ac83-229c4bad9477}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="interfaceobj.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="ButtonsFunctions.cpp">
@@ -84,12 +84,12 @@
     <ClCompile Include="Jammed.cpp">
       <Filter>Game\Jammed</Filter>
     </ClCompile>
+    <ClCompile Include="interfaceobj.cpp">
+      <Filter>InterfaceObj</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="interfaceobj.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Libs.h">
@@ -118,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Jammed.h">
       <Filter>Game\Jammed</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaceobj.h">
+      <Filter>InterfaceObj</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -22,7 +22,7 @@ void settings() {
 			case Event::MouseButtonPressed: {
 				if (mouse->isButtonPressed(Mouse::Left)) {
 					leftJammed = true;
-					for (size_t i = 0; i < pool_button.size(); i++)
+					for (int i = 0; i < pool_button.size(); i++)
 					{
 						pool_button[i].get()->setActive();
 					}

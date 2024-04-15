@@ -1,6 +1,15 @@
 #pragma once
 #include "Game.h"
 struct Tile : public DetectedImage {
+private:
+	int _size[2];
+	int _index;
+	bool _is_priority;
+public:
+	void setSize(int x,int y);
+	Vector2i getInTileSize();
+	void setPriority(bool priority);
+	bool getPriority();
 	Tile(string str, Mouse* mouse);
 	Tile();
 	Tile(const Tile& m);
@@ -9,10 +18,12 @@ struct Tile : public DetectedImage {
 };
 class Map :IBaseClass {
 	int size[2];
-	int tyle_size[2];
+	int tile_size[2];
+	int default_tile_size;
 	Tile**** ownmap;
 	int **info_z;
 public:
+	Map(Mouse * mouse);
 	Map(string symbol_map, Mouse* mouse);
 	~Map();
 	void draw() override;

@@ -12,7 +12,7 @@ void globalDraw() {
 
 void buttonWork()
 {
-	for (size_t i = 0; i < pool_button.size(); i++)
+	for (int i = 0; i < pool_button.size(); i++)
 	{
 		pool_button[i].get()->isActive();
 	}
@@ -228,7 +228,7 @@ void RectButtonImageRolled::draw()
 	ObjTar->draw(*sprite);
 }
 
-void RectButtonImageRolled::scale(double x, double y)
+void RectButtonImageRolled::scale(float x, float y)
 {
 	sprite->scale(x, y);
 }

@@ -98,7 +98,7 @@ public:
 	void setActive() override;
 	void isActive() override;
 	void draw() override;
-	void scale(double x, double y);
+	void scale(float x, float y);
 	~RectButtonImageRolled();
 };
 void globalDraw();

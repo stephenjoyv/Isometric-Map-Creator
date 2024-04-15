@@ -48,7 +48,7 @@ int main() {
 				if (mouse.isButtonPressed(mouse.Left))
 				{
 
-					for (size_t i = 0; i < pool_button.size(); i++)
+					for (int i = 0; i < pool_button.size(); i++)
 					{
 						pool_button[i].get()->setActive();
 					}

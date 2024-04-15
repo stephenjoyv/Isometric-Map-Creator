@@ -1,4 +1,102 @@
 #include "TileMap.h"
+Map::Map(Mouse* mouse)
+{
+	size[0] = 40;
+	size[1] = 40;
+	Tile* tm = new Tile("tyles/tile_022.png", mouse);
+	tile_size[0] = tm->getSize().x;
+	tile_size[1] = tile_size[0];
+	delete tm;
+
+	ownmap = new Tile * **[40];
+	for (int i = 0; i < 40; i++)
+	{
+		ownmap[i] = new Tile * *[40];
+		for (int k = 0; k < 40; k++)
+		{
+			ownmap[i][k] = new Tile * [64];
+		}
+	}
+
+	for (int i = 0; i < 40; i++)
+	{
+		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
+		ownmap[i][0][0] = new Tile("tyles/tile_022.png", mouse);
+		ownmap[i][0][0]->setSize(1, 1);
+		if (i > 0) {
+			int preposx = ownmap[i - 1][0][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0][0]->sprite->getPosition().y;
+			int presizex = ownmap[i - 1][0][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i - 1][0][0]->texture->getSize().y / 4;
+			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
+		}
+		else {
+			ownmap[i][0][0]->sprite->setPosition(700, 50);
+		}
+	}
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 1; j < 40; j++)
+		{
+			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
+			int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
+			int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i][j - 1][0]->texture->getSize().y * 1 / 4;
+			ownmap[i][j][0]->sprite->setPosition(preposx - presizex, preposy + presizey);
+		}
+	}
+	/*for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++) {
+
+			for (int k = 1; k < 2; k++)
+			{
+				ownmap[i][j][k] = new Tile("tyles/tile_01"+ to_string(k) + ".png", mouse);
+				int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 1 / 2;
+				int presizex = ownmap[i][j][k-1]->texture->getSize().x;
+				int presizey = ownmap[i][j][k - 1]->texture->getSize().y;
+				ownmap[i][j][k]->sprite->setPosition(preposx, preposy - ownmap[i][j][k]->getSize().y*3/4);
+
+			}
+		}
+	}*/
+	//Заполнение info_z
+	info_z = new int* [40];
+	for (int i = 0; i < 40; i++)
+	{
+		info_z[i] = new int[40];
+		for (int j = 0; j < 40; j++)
+		{
+			info_z[i][j] = 1;
+		}
+	}
+}
+Map::Map(string symbol_map, Mouse* mouse) {
+
+}
+Map::~Map()
+{
+	//Очистка ownmap
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			for (int k = 0; k < info_z[i][j]; k++)
+			{
+				delete ownmap[i][j][k];
+			}
+			delete ownmap[i][j];
+		}
+		delete ownmap[i];
+	}
+	delete ownmap;
+
+	//Очистка info_z
+	for (int i = 0; i < 40; i++)
+	{
+		delete info_z[i];
+	}
+	delete info_z;
+}
 void Map::draw()
 {
 	int t = 0;
@@ -188,8 +286,27 @@ Tile::Tile(const Tile& m) {
 	this->image = m.image;
 	this->ObjTar = m.ObjTar;
 }
-Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {}
+void Tile::setSize(int x, int y)
+{
+	_size[0] = x; _size[1] = y;
+}
+Vector2i Tile::getInTileSize()
+{
+	return Vector2i(_size[0],_size[1]);
+}
+void Tile::setPriority(bool priority)
+{
+	_is_priority = priority;
+}
+bool Tile::getPriority()
+{
+	return _is_priority;
+}
+Tile::Tile(string str, Mouse* mouse) : DetectedImage(str, mouse) {
+	_is_priority = false;
+}
 Tile::Tile()
 {
 
 }
+

@@ -3,9 +3,8 @@
 Platform::Platform(Mouse* mouse)
 {
 	panel = new TilePanel(Vector2f(19,6), mouse);
-	map = new Map(string("daw"), mouse);
+	map = new Map(mouse);
 	seltile = new SelectedTile();
-	
 	saver = new RectButton{ 200,192,500-32,750-32*3/4,20,"SaveMap",[this]() {map->saveMap(); },pool_window[0].get(),mouse,*color_main};
 	data = tuple<int, int, int>{ -1,-1,-1 };
 }
@@ -62,8 +61,6 @@ void Platform::rightClicked()
 {
 	seltile->loadDefaultCur();
 	std::cout << normalizeString(24) << '\n';
-	map->saveMap();
-	cout << "map saved\n";
 }
 
 void Platform::draw()
