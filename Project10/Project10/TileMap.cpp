@@ -1,24 +1,26 @@
 #include "TileMap.h"
-Map::Map(Mouse* mouse)
+Map::Map(Mouse* mouse, int x, int y)
 {
-	size[0] = 40;
-	size[1] = 40;
+
+	ms = mouse;
+	size[0] = x;
+	size[1] = y;
 	Tile* tm = new Tile("tyles/tile_022.png", mouse);
 	tile_size[0] = tm->getSize().x;
 	tile_size[1] = tile_size[0];
 	delete tm;
 
-	ownmap = new Tile * **[40];
+	ownmap = new Tile * **[size[0]];
 	for (int i = 0; i < 40; i++)
 	{
-		ownmap[i] = new Tile * *[40];
+		ownmap[i] = new Tile * *[size[1]];
 		for (int k = 0; k < 40; k++)
 		{
 			ownmap[i][k] = new Tile * [64];
 		}
 	}
 
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < size[0]; i++)
 	{
 		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
 		ownmap[i][0][0] = new Tile("tyles/tile_022.png", mouse);
@@ -33,9 +35,9 @@ Map::Map(Mouse* mouse)
 			ownmap[i][0][0]->sprite->setPosition(700, 50);
 		}
 	}
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < size[0]; i++)
 	{
-		for (int j = 1; j < 40; j++)
+		for (int j = 1; j < size[1]; j++)
 		{
 			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
 			int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
@@ -60,10 +62,10 @@ Map::Map(Mouse* mouse)
 		}
 	}*/
 	//Заполнение info_z
-	info_z = new int* [40];
+	info_z = new int* [size[0]];
 	for (int i = 0; i < 40; i++)
 	{
-		info_z[i] = new int[40];
+		info_z[i] = new int[size[1]];
 		for (int j = 0; j < 40; j++)
 		{
 			info_z[i][j] = 1;
@@ -189,6 +191,20 @@ bool Map::controlTile(int x, int y, int z)
 	return false;
 }
 
+void Map::clearMap()
+{
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			for (int k = 0; k < info_z[i][j]; k++)
+			{
+				delete ownmap[i][j][k];
+			}
+		}
+	}
+}
+
 void Map::saveMap()
 {
 	ofstream file;
@@ -204,6 +220,93 @@ void Map::saveMap()
 		}
 	}
 	file.close();
+}
+
+void Map::loadMap(std::string link)
+{
+	std::string line;
+	ifstream str{ link };
+	/*ownmap = new Tile * **[size[0]];
+	for (int i = 0; i < size[0]; i++)
+	{
+		ownmap[i] = new Tile * *[size[1]];
+		for (int j = 0; j < size[1]; j++)
+		{
+			ownmap[i][j] = new Tile * [64];
+		}
+	}*/
+	clearMap();
+
+	if (str.is_open()) {
+		while (std::getline(str, line)) {
+			bool read_x = false,
+				read_y = false,
+				read_z = false,
+				read_t = false;
+			int x, y, z;
+			std::string lnk;
+			for (auto i = line.begin(); i < line.end(); i++)
+			{
+				if (read_x) {
+					std::string tm;
+					i += 4;
+					while (*i != ' ') {
+						tm += *i;
+						i++;
+					}
+					x = atoi(tm.c_str());
+					read_x = false;
+				}
+				if (read_y) {
+					std::string tm;
+					i += 4;
+					while (*i != ' ') {
+						tm += *i;
+						i++;
+					}
+					y = atoi(tm.c_str());
+					read_y = false;
+				}
+				if (read_z) {
+					std::string tm;
+					i += 4;
+					while (*i != ' ') {
+						tm += *i;
+						i++;
+					}
+					z = atoi(tm.c_str());
+					read_z = false;
+				}
+				if (read_t) {
+					std::string tm;
+					i += 4;
+					while (*i != '\n' && *i != -1) {
+						tm += *i;
+						i++;
+					}
+					lnk = tm;
+					read_t = false;
+				}
+
+
+
+				if (*i == 'X') read_x = true;
+				else if (*i == 'Y') {
+					read_y = true;
+				}
+				else if (*i == 'Z') {
+					read_z = true;
+				}
+				else if (*i == 'K') {
+					read_t = true;
+				}
+
+			}
+			ownmap[x][y][z] = new Tile{ lnk,ms };
+			info_z[x][y] = z+1;
+		}
+	}
+	str.close();
 }
 
 std::vector<string> Map::splitter(string symbols) {

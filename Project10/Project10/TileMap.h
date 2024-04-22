@@ -22,8 +22,9 @@ class Map :IBaseClass {
 	int default_tile_size;
 	Tile**** ownmap;
 	int **info_z;
+	Mouse* ms;
 public:
-	Map(Mouse * mouse);
+	Map(Mouse * mouse,int x, int y);
 	Map(string symbol_map, Mouse* mouse);
 	~Map();
 	void draw() override;
@@ -32,7 +33,9 @@ public:
 	void setTile(Tile* tile, int x, int y,int z);
 	void addTile(Tile* tile, int x, int y);
 	bool controlTile(int x,int y,int z);
+	void clearMap();
 	void saveMap();
+	void loadMap(std::string link);
 private:
 	std::vector<string> splitter(string symbols);
 };

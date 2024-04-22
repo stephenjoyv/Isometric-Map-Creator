@@ -183,12 +183,12 @@ void game() {
 				switch (event.type)
 				{
 				case Event::Closed: {
-					/*for (int i = 0; i < pool_window.size(); i++)
+					for (int i = 0; i < pool_window.size(); i++)
 					{
 						pool_window[i].get()->close();
 					}
-					break;*/
-					pool_button.clear();
+					break;
+					//pool_button.clear();
 					return;
 				}
 				case Event::KeyPressed: {
@@ -198,7 +198,10 @@ void game() {
 						break;
 					}
 					}
+					
+					pl->input(event.text.unicode);
 					break;
+
 				}
 				case Event::MouseButtonReleased: {
 					if (event.mouseButton.button == mouse.Left) {

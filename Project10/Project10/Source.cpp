@@ -1,15 +1,17 @@
 #include "Header.h"
+#include "Game.h"
 std::vector<std::shared_ptr<Button>> pool_button;
 std::vector<std::shared_ptr<RenderWindow>> pool_window;
 Font* font_global;
 int FPS;
+bool close_app;
 Color* color_main;
 Color* bg_color;
 
 int main() {
-
 	//Задаём параметры основным переменным
 	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
+	close_app = false;
 	font_global = new Font;
 	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
 	color_main = new Color{ 85,52,218 };
@@ -64,7 +66,6 @@ int main() {
 		buttonWork();
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-
 		pool_window[0]->clear(*bg_color);
 		globalDraw();
 		pool_window[0]->display();
