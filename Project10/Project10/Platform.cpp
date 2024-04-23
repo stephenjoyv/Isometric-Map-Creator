@@ -12,23 +12,9 @@ Platform::Platform(Mouse* mouse)
 		saving = true;
 
 		setlocale(LC_ALL, "Russian");
-		Texture* tx = new Texture;
-		bg_sp = new Sprite;
-		tx->loadFromFile("images/inter_menu.png");
-		bg_sp->setTexture(*tx);
-		bg_sp->setPosition(500, 0);
-		//sp->setColor(Color::Color(255,0,0,255));
-		bg_sp->setScale(1, 0.85);
+		RenderTarget* tm = pool_window[0].get();
+		inp = new InputTab{500,200,300,500,Color::Black,tm };
 
-		input_tx = new Text;
-		inp = new String;
-		*inp = "Hey";
-		input_tx->setFont(*font_global);
-		input_tx->setString(*inp);
-		//String::fromUtf8(inp->begin(), inp->end())
-		input_tx->setFillColor(Color::White);
-		input_tx->setPosition(500, 500);
-		input_tx->setCharacterSize(50);
 
 
 
@@ -94,10 +80,7 @@ void Platform::draw()
 {
 	panel->draw();
 	map->draw();
-	if (saving) {
-		pool_window[0].get()->draw(*bg_sp);
-		pool_window[0].get()->draw(*input_tx);
-	}
+	if(saving)inp->draw();
 }
 
 Platform::~Platform()
@@ -107,15 +90,22 @@ Platform::~Platform()
 	delete seltile;
 }
 
+void Platform::textClear()
+{
+	if (saving) inp->clear();
+}
+
 void Platform::input(const sf::Uint32& tx)
 {
 	if (saving) {
-		String m;
-		m += static_cast<char>(tx);
-		*inp += tx;
-		input_tx->setString(m);
-		cout << tx << '\n';
-		//String::fromUtf32(inp->begin(), inp->end())
+		inp->input(tx);
+		//String m;
+		//m += static_cast<char>(tx);
+		//*inp += tx;
+		//
+		//input_tx->setString(L"Привет");
+		//cout << tx << '\n';
+		////String::fromUtf32(inp->begin(), inp->end())
 	}
 }
 

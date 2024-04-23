@@ -1,6 +1,7 @@
 #pragma once
 #include "TilePanel.h"
 #include "TileMap.h"
+#include "Input.h"
 extern Font* font_global;
 class Platform
 {
@@ -10,9 +11,7 @@ class Platform
 	RectButton* saver;
 	std::tuple<int, int, int> data;
 	bool saving;
-	String* inp;
-	Text* input_tx;
-	Sprite* bg_sp;
+	InputTab* inp;
 	//std::pair<int, int> data;
 public:
 	Platform(Mouse* mouse);
@@ -21,6 +20,7 @@ public:
 	void leftClickedPanel();
 	void rightClicked();
 	void input(const sf::Uint32& tx);
+	void textClear();
 	void draw();
 	~Platform();
 };

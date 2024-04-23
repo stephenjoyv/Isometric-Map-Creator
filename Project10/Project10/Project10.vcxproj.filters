@@ -46,6 +46,9 @@
     <Filter Include="InterfaceObj">
       <UniqueIdentifier>{2c066915-e2ab-4fa9-ac83-229c4bad9477}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{37f89d53-d085-4fbe-b599-d0917b4dd369}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -87,6 +90,9 @@
     <ClCompile Include="interfaceobj.cpp">
       <Filter>InterfaceObj</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h">
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="interfaceobj.h">
       <Filter>InterfaceObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

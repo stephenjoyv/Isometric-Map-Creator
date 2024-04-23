@@ -13,7 +13,7 @@ int main() {
 	RenderWindow* window = new RenderWindow(VideoMode(1610, 1000), "application");
 	close_app = false;
 	font_global = new Font;
-	font_global->loadFromFile("EduNSWACTFoundation-Regular.ttf");
+	font_global->loadFromFile("tt-squares-condensed-8.ttf");//EduNSWACTFoundation - Regular.ttf
 	color_main = new Color{ 85,52,218 };
 	bg_color = new Color{ 129, 191, 115 };
 	std::shared_ptr<RenderWindow> w(window);

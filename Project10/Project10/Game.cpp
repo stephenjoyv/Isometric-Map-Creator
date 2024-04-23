@@ -170,6 +170,11 @@ void game() {
 	DetectedImage* dm = new DetectedImage{ "tyles/house/rem_0014.png",&mouse };
 	dm->sprite->setScale(0.25, 0.25);
 	dm->setPosition(200, 400);
+	sf::Text texp;
+	texp.setFont(*font_global);
+	texp.setPosition(500, 500);
+	texp.setCharacterSize(50);
+	texp.setFillColor(Color::White);
 	/*SelectedTile *k = new SelectedTile;
 	Tile* m = new Tile("tyles/tile_000.png", &mouse);
 	m->Scale(5, 5);
@@ -193,13 +198,14 @@ void game() {
 				}
 				case Event::KeyPressed: {
 					switch (event.key.scancode) {
-					case Keyboard::W:
+					case Keyboard::C:
 					{
+						pl->textClear();
 						break;
 					}
 					}
 					
-					pl->input(event.text.unicode);
+					
 					break;
 
 				}
@@ -227,8 +233,11 @@ void game() {
 					}
 					break;
 				}
+				case Event::TextEntered:
+					texp.setString(event.text.unicode);
+					pl->input(event.text.unicode);
+					break;
 				}
-
 				//Sleep(5);
 
 			}
@@ -242,6 +251,7 @@ void game() {
 			pl->draw();
 			dm->draw();
 			globalDraw();
+			pool_window[0].get()->draw(texp);
 			//m->draw();
 			pool_window[0].get()->display();
 		}

@@ -133,6 +133,7 @@
     <ClCompile Include="ButtonsFunctions.cpp" />
     <ClCompile Include="ButtonsLoader.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="interfaceobj.cpp" />
     <ClCompile Include="Jammed.cpp" />
     <ClCompile Include="Platform.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="ButtonsFunctions.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Header.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="interfaceobj.h" />
     <ClInclude Include="Jammed.h" />
     <ClInclude Include="Libs.h" />
