@@ -6,19 +6,23 @@ Platform::Platform(Mouse* mouse)
 	map = new Map(mouse,40,40);
 	seltile = new SelectedTile();
 	saving = false;
-	saver = new RectButton{ 200,192,500 - 32,750 - 32 * 3 / 4,20,"SaveMap",[this,mouse]() {
+	saver = new RectButton{ 200,192,500 - 32,750 - 32 * 3 / 4,10,"Save Map",[this,mouse]() {
 
 		//map->saveMap();
-		saving = true;
+		//saving = true;
 
 		setlocale(LC_ALL, "Russian");
-		RenderTarget* tm = pool_window[0].get();
-		inp = new InputTab{500,200,300,500,Color::Black,tm };
-
+		//RenderTarget* tm = pool_window[0].get();
+		//inp = new InputTab{ 1000,200,300,500,Color::Yellow,tm,String{L"¬ведите путь к файлу"}};
+		map->saveMap();
 
 
 
 		},pool_window[0].get(),mouse,*color_main};
+	loader = new RectButton{ 200,192,300 - 32,750 - 32 * 3 / 4,10,"Load Map",[this,mouse]() {
+		map->loadMap("map.txt");
+		},
+	pool_window[0].get(),mouse,*color_main};
 	data = tuple<int, int, int>{ -1,-1,-1 };
 }
 
@@ -93,6 +97,11 @@ Platform::~Platform()
 void Platform::textClear()
 {
 	if (saving) inp->clear();
+}
+
+void Platform::deleteLast()
+{
+	if (saving) inp->deleteLast();
 }
 
 void Platform::input(const sf::Uint32& tx)

@@ -10,8 +10,8 @@ class SliderBar : public Clicable {
 	int def_per;
 	Color color;
 public:
-	SliderBar(int sx,int sy,int px,int py,RenderTarget* tg,int percent,Color cl,Mouse* mouse);
-	
+	SliderBar(int sx, int sy, int px, int py, RenderTarget* tg, int percent, Color cl, Mouse* mouse);
+
 	void update();
 	void setActive() override;
 	void isActive() override;

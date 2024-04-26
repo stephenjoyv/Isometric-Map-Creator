@@ -198,11 +198,16 @@ void game() {
 				}
 				case Event::KeyPressed: {
 					switch (event.key.scancode) {
-					case Keyboard::C:
+					case Keyboard::Scan::LAlt:
 					{
+						std::cout << "LALT\n";
 						pl->textClear();
 						break;
 					}
+					case Keyboard::Scan::Backspace:
+						pl->deleteLast();
+						cout << "dellast\n";
+						break;
 					}
 					
 					
@@ -234,8 +239,11 @@ void game() {
 					break;
 				}
 				case Event::TextEntered:
-					texp.setString(event.text.unicode);
-					pl->input(event.text.unicode);
+					if (event.text.unicode != 8) {
+						texp.setString(event.text.unicode);
+						pl->input(event.text.unicode);
+					}
+					
 					break;
 				}
 				//Sleep(5);

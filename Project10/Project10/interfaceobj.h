@@ -14,7 +14,7 @@ extern Color* bg_color;
 
 class IBaseClass {
 protected:
-	int size_x, size_y,pos_x,pos_y;
+	int size_x, size_y, pos_x, pos_y;
 	RenderTarget* ObjTar;
 public:
 	virtual void draw() = 0;
@@ -33,8 +33,8 @@ public:
 	virtual bool Click();
 	virtual void setActive() = 0;
 	virtual void isActive() = 0;
-	Clicable()=default;
-	virtual ~Clicable()=default;
+	Clicable() = default;
+	virtual ~Clicable() = default;
 };
 
 //Сетчатая панель для спавнера
@@ -44,7 +44,7 @@ class Button;
 
 
 //Класс кнопки
-class Button:public virtual Clicable,public virtual IBaseClass {
+class Button :public virtual Clicable, public virtual IBaseClass {
 protected:
 	Shape* but_shape;
 	Color color;
@@ -66,17 +66,18 @@ public:
 class CircleButton : public Button {
 public:
 	CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~CircleButton()=default;
+	~CircleButton() = default;
 };
-class RectButton : public Button {;
+class RectButton : public Button {
+	;
 public:
 	RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~RectButton()=default;
+	~RectButton() = default;
 };
 class CustomButton : public Button {
 public:
 	CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~CustomButton()=default;
+	~CustomButton() = default;
 };
 class RectButtonImage : public Button {
 protected:
@@ -89,10 +90,10 @@ public:
 };
 class RectButtonImageRolled : public RectButtonImage {
 private:
-	int angle,time;
+	int angle, time;
 public:
 	int k;
-	RectButtonImageRolled(int pos_x, int pos_y,int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
+	RectButtonImageRolled(int pos_x, int pos_y, int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	RectButtonImageRolled();
 	void setCenter();
 	void setActive() override;
@@ -104,4 +105,4 @@ public:
 void globalDraw();
 void buttonWork();
 
-void ButtonLoader(sf::RenderTarget* space, sf::Mouse* mouse, sf::Color color,String adress);
+void ButtonLoader(sf::RenderTarget* space, sf::Mouse* mouse, sf::Color color, String adress);

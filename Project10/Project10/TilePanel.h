@@ -4,12 +4,12 @@
 using namespace std;
 using namespace sf;
 class TilePanel {
-	int size_x,size_y;
+	int size_x, size_y;
 	Tile*** pnl;
 	RenderTarget* ObjTar;
 	SelectedTile* cur;
 public:
-	TilePanel(Vector2f amount,Mouse* mouse);
+	TilePanel(Vector2f amount, Mouse* mouse);
 	void draw();
 	bool click(SelectedTile* m);
 	void clickRight();

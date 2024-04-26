@@ -236,9 +236,10 @@ void Map::loadMap(std::string link)
 		}
 	}*/
 	clearMap();
-
+	std::cout << "print\n";
 	if (str.is_open()) {
 		while (std::getline(str, line)) {
+			std::cout << "cwdaw\n";
 			bool read_x = false,
 				read_y = false,
 				read_z = false,
@@ -249,7 +250,7 @@ void Map::loadMap(std::string link)
 			{
 				if (read_x) {
 					std::string tm;
-					i += 4;
+					i += 3;
 					while (*i != ' ') {
 						tm += *i;
 						i++;
@@ -259,7 +260,7 @@ void Map::loadMap(std::string link)
 				}
 				if (read_y) {
 					std::string tm;
-					i += 4;
+					i += 3;
 					while (*i != ' ') {
 						tm += *i;
 						i++;
@@ -269,7 +270,7 @@ void Map::loadMap(std::string link)
 				}
 				if (read_z) {
 					std::string tm;
-					i += 4;
+					i += 3;
 					while (*i != ' ') {
 						tm += *i;
 						i++;
@@ -279,13 +280,14 @@ void Map::loadMap(std::string link)
 				}
 				if (read_t) {
 					std::string tm;
-					i += 4;
-					while (*i != '\n' && *i != -1) {
+					i += 3;
+					while (i!=line.end() && *i != '\n' && *i != '\0') {
 						tm += *i;
 						i++;
 					}
 					lnk = tm;
 					read_t = false;
+					break;
 				}
 
 
@@ -302,11 +304,52 @@ void Map::loadMap(std::string link)
 				}
 
 			}
+			cout << "COORDINATES | " << "x : " << x << " | " << "y : " << y << " | " << "z : " << z << '\n';
 			ownmap[x][y][z] = new Tile{ lnk,ms };
 			info_z[x][y] = z+1;
 		}
 	}
 	str.close();
+	for (int i = 0; i < size[0]; i++)
+	{
+		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
+		ownmap[i][0][0]->setSize(ownmap[i][0][0]->getSize().x, ownmap[i][0][0]->getSize().y);
+		if (i > 0) {
+			int preposx = ownmap[i - 1][0][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0][0]->sprite->getPosition().y;
+			int presizex = ownmap[i - 1][0][0]->texture->getSize().x / 2;
+			int presizey = ownmap[i - 1][0][0]->texture->getSize().y / 4;
+			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
+		}
+		else {
+			ownmap[i][0][0]->sprite->setPosition(700, 50);
+		}
+	}
+	for (int i = 0; i < size[0]; i++)
+	{
+		for (int j = 1; j < size[1]; j++)
+		{
+			for (int k = 0; k < info_z[i][j];k++) {
+				if (k == 0) {
+					int preposx = ownmap[i][j - 1][k]->sprite->getPosition().x, preposy = ownmap[i][j - 1][k]->sprite->getPosition().y;
+					int presizex = ownmap[i][j - 1][k]->texture->getSize().x / 2;
+					int presizey = ownmap[i][j - 1][k]->texture->getSize().y * 1 / 4;
+					ownmap[i][j][k]->sprite->setPosition(preposx - presizex, preposy + presizey);
+				}
+				else {
+					int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 1 / 2;
+					int presizex = ownmap[i][j][k - 1]->texture->getSize().x;
+					int presizey = ownmap[i][j][k - 1]->texture->getSize().y;
+					ownmap[i][j][k]->sprite->setPosition(preposx, preposy - ownmap[i][j][k]->getSize().y * 3 / 4);
+				}
+			}
+			
+		}
+	}
+
+
+
+
+	
 }
 
 std::vector<string> Map::splitter(string symbols) {

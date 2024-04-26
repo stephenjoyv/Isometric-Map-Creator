@@ -1,7 +1,9 @@
 #include "interfaceobj.h"
 
 
-IBaseClass::~IBaseClass() { std::cout << "Destructor\n"; }
+IBaseClass::~IBaseClass() { 
+	//std::cout << "Destructor\n";
+}
 
 
 void globalDraw() {

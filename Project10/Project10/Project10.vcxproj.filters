@@ -63,9 +63,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="TileMap.h">
-      <Filter>Game\TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="TileMap.cpp">
       <Filter>Game\TileMap</Filter>
     </ClCompile>
@@ -95,26 +92,32 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Header.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Jammed.h">
+      <Filter>Game\Jammed</Filter>
     </ClInclude>
-    <ClInclude Include="Libs.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Platform.h">
+      <Filter>Game\Platform</Filter>
     </ClInclude>
     <ClInclude Include="ButtonsFunctions.h">
       <Filter>ButtonsFunctions</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
+    <ClInclude Include="SelectedTile.h">
+      <Filter>Game\SelectedTile</Filter>
     </ClInclude>
     <ClInclude Include="TilePanel.h">
       <Filter>Game\TileMap\TilePanel</Filter>
     </ClInclude>
-    <ClInclude Include="SelectedTile.h">
-      <Filter>Game\SelectedTile</Filter>
+    <ClInclude Include="TileMap.h">
+      <Filter>Game\TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="Platform.h">
-      <Filter>Game\Platform</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="interfaceobj.h">
+      <Filter>InterfaceObj</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
       <Filter>Settings</Filter>
@@ -122,14 +125,11 @@
     <ClInclude Include="SliderBar.h">
       <Filter>SliderBar</Filter>
     </ClInclude>
-    <ClInclude Include="Jammed.h">
-      <Filter>Game\Jammed</Filter>
+    <ClInclude Include="Header.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="interfaceobj.h">
-      <Filter>InterfaceObj</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="Libs.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

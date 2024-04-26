@@ -8,7 +8,7 @@ class Platform
 	TilePanel* panel;
 	Map* map;
 	SelectedTile* seltile;
-	RectButton* saver;
+	RectButton* saver,*loader;
 	std::tuple<int, int, int> data;
 	bool saving;
 	InputTab* inp;
@@ -21,6 +21,7 @@ public:
 	void rightClicked();
 	void input(const sf::Uint32& tx);
 	void textClear();
+	void deleteLast();
 	void draw();
 	~Platform();
 };
