@@ -26,6 +26,15 @@
       "frames": 20,
       "char*": "Exit",
       "function": 3
+    },
+    "4": {
+      "size_x": 500,
+      "size_y": 100,
+      "pos_x": 605,
+      "pos_y": 730,
+      "frames": 20,
+      "char*": "Start New Game",
+      "function": 1
     }
   }
 }

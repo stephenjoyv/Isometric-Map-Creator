@@ -236,10 +236,10 @@ void Map::loadMap(std::string link)
 		}
 	}*/
 	clearMap();
-	std::cout << "print\n";
+	//std::cout << "print\n";
 	if (str.is_open()) {
 		while (std::getline(str, line)) {
-			std::cout << "cwdaw\n";
+			//std::cout << "cwdaw\n";
 			bool read_x = false,
 				read_y = false,
 				read_z = false,
@@ -304,7 +304,7 @@ void Map::loadMap(std::string link)
 				}
 
 			}
-			cout << "COORDINATES | " << "x : " << x << " | " << "y : " << y << " | " << "z : " << z << '\n';
+			//cout << "COORDINATES | " << "x : " << x << " | " << "y : " << y << " | " << "z : " << z << '\n';
 			ownmap[x][y][z] = new Tile{ lnk,ms };
 			info_z[x][y] = z+1;
 		}

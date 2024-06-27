@@ -24,7 +24,7 @@ DetectedImage::DetectedImage() {
 	this->texture = nullptr;
 	this->sprite = nullptr;
 	this->image = nullptr;
-	std::cout << "sprite n = " << (this->sprite != nullptr);
+	//std::cout << "sprite n = " << (this->sprite != nullptr);
 	ObjTar = pool_window[0].get();
 	is_bordered = false;
 	scale = Vector2i(1, 1);

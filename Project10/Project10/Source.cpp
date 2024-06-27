@@ -20,7 +20,13 @@ int main() {
 	pool_window.emplace_back(w);
 	FPS = 60;
 	pool_window[0]->setFramerateLimit(FPS);
-	
+	Animation** anim_pool = new Animation *[3] ;
+	anim_pool[0] = new Animation{"images/flowers/sprite_flower",9,1,window};
+	anim_pool[1] = new Animation{ "images/flowers/sprite_flower",9,1,window };
+	anim_pool[2] = new Animation{ "images/tree/sprite_tree",8,1.5,window };
+	anim_pool[0]->moveTo(200, 200);
+	anim_pool[1]->moveTo(200, 400);
+	anim_pool[2]->moveTo(1100, 200);
 	Mouse mouse;
 	ButtonLoader(window, &mouse, *color_main,"notes/buttons.json");
 	pool_window[0]->display();
@@ -64,10 +70,18 @@ int main() {
 			
 		}
 		buttonWork();
+		for (size_t i = 0; i < 3; i++)
+		{
+			anim_pool[i]->changing();
+		}
 		//std::cout << '\n';
 		//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
 		pool_window[0]->clear(*bg_color);
 		globalDraw();
+		for (size_t i = 0; i < 3; i++)
+		{
+			anim_pool[i]->draw();
+		}
 		pool_window[0]->display();
 	}
 	pool_button.clear();
