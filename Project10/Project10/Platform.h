@@ -19,6 +19,7 @@ public:
 	void leftClickedMap();
 	void leftClickedPanel();
 	void rightClicked();
+	void wheelClicked();
 	void input(const sf::Uint32& tx);
 	void textClear();
 	void deleteLast();

@@ -18,7 +18,7 @@ protected:
 	RenderTarget* ObjTar;
 public:
 	virtual void draw() = 0;
-	IBaseClass() = default;
+	IBaseClass();
 	virtual ~IBaseClass();
 };
 
@@ -31,6 +31,7 @@ protected:
 	Mouse* mouse;
 public:
 	virtual bool Click();
+	virtual bool Click(int difference_x, int difference_y);
 	virtual void setActive() = 0;
 	virtual void isActive() = 0;
 	Clicable() = default;

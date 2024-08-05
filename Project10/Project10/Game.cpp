@@ -16,7 +16,7 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	image->loadFromFile(link.c_str());
 	texture->loadFromImage(*image);
 	sprite->setTexture(*texture);
-	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
+	setOrigin(0, texture->getSize().y * 3 / 4);
 	clicked = false;
 	update();
 }
@@ -34,6 +34,15 @@ void DetectedImage::setPosition(int x, int y)
 	sprite->setPosition(x, y);
 	update();
 	if (is_bordered) borders->setPosition(pos_x, pos_y);
+}
+void DetectedImage::setOrigin(int x, int y)
+{
+	sprite->setOrigin(x, y);
+	sprite->setPosition(pos_x+sprite->getOrigin().x, pos_y + sprite->getOrigin().y);
+}
+void DetectedImage::setTarget(RenderTarget* target)
+{
+	ObjTar = target;
 }
 void DetectedImage::init_border()
 {
@@ -124,7 +133,7 @@ bool DetectedImage::Click() {
 	RenderWindow* temp = pool_window[0].get();
 	update();
 	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
-	bool in_area = Mouse::isButtonPressed(Mouse::Left) &&
+	bool in_area = (Mouse::isButtonPressed(Mouse::Left) || Mouse::isButtonPressed(Mouse::Right)) &&
 		(mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y < pos_y + size_y) &&
 		(mouse->getPosition(*temp).x >= pos_x) &&
@@ -137,6 +146,29 @@ bool DetectedImage::Click() {
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
 			mouse->getPosition(*temp).y - pos_y).a);
+		if (alpha_pixel) clicked = true;
+		return alpha_pixel;
+	}
+	return in_area;
+}
+bool DetectedImage::Click(int difference_x, int difference_y)
+{
+	RenderWindow* temp = pool_window[0].get();
+	update();
+	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
+	bool in_area = Mouse::isButtonPressed(Mouse::Left) &&
+		(mouse->getPosition(*temp).y >= pos_y + difference_y) &&
+		(mouse->getPosition(*temp).y < pos_y + size_y + difference_y) &&
+		(mouse->getPosition(*temp).x >= pos_x + difference_x) &&
+		(mouse->getPosition(*temp).x < pos_x + size_x + difference_x);
+	if (is_bordered) {
+		clicked = true;
+		return in_area;
+	}
+	if (in_area)
+	{
+		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x - difference_x,
+			mouse->getPosition(*temp).y - pos_y - difference_y).a);
 		if (alpha_pixel) clicked = true;
 		return alpha_pixel;
 	}
@@ -168,7 +200,7 @@ void game() {
 	Jammed* jm = new Jammed{ FPS,0.1,[&pl]() {pl->leftClickedMap(); } };
 	
 	DetectedImage* dm = new DetectedImage{ "tyles/house/rem_0014.png",&mouse };
-	dm->sprite->setScale(0.25, 0.25);
+	dm->sprite->setScale(1 / 4.5234375, 1 / 5.16964286);
 	dm->setPosition(200, 400);
 	sf::Text texp;
 	texp.setFont(*font_global);
@@ -236,6 +268,11 @@ void game() {
 					else if (mouse.isButtonPressed(mouse.Right) ){
 						pl->rightClicked();
 					}
+					else if (mouse.isButtonPressed(mouse.Middle))
+					{
+						pl->wheelClicked();
+					}
+					
 					break;
 				}
 				case Event::TextEntered:

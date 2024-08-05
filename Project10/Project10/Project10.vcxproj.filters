@@ -52,6 +52,9 @@
     <Filter Include="Animation">
       <UniqueIdentifier>{de206895-940f-422d-9cf8-a0a503ad98ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Playable">
+      <UniqueIdentifier>{fe1c9fc0-ba7e-43bc-8666-f96d8ffeb051}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -96,6 +99,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="Playable.cpp">
+      <Filter>Game\Playable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jammed.h">
@@ -139,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Playable.h">
+      <Filter>Game\Playable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

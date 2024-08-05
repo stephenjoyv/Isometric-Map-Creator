@@ -22,12 +22,15 @@ public:
 	DetectedImage(string str, Mouse* mouse);
 	DetectedImage();
 	void setPosition(int x, int y);
+	void setOrigin(int x, int y);
+	void setTarget(RenderTarget* target);
 	void init_border();
 	Vector2i getScale();
 	Vector2f getPosition();
 	Vector2f getSize();
 	string getLink();
 	bool Click() override;
+	bool Click(int difference_x, int difference_y) override;
 	void draw() override;
 	void setActive() override;
 	void isActive() override {};

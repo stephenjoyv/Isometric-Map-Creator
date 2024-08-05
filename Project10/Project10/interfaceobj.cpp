@@ -1,7 +1,11 @@
 #include "interfaceobj.h"
 
 
-IBaseClass::~IBaseClass() { 
+IBaseClass::IBaseClass()
+{
+}
+
+IBaseClass::~IBaseClass() {
 	//std::cout << "Destructor\n";
 }
 
@@ -25,6 +29,15 @@ bool Clicable::Click() {
 
 	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y <= pos_y + size_y) && (mouse->getPosition(*temp).x >= pos_x) && (mouse->getPosition(*temp).x <= pos_x + size_x);
+	return tmp;
+}
+
+bool Clicable::Click(int difference_x, int difference_y)
+{
+	RenderWindow* temp = pool_window[0].get();
+
+	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y+difference_y) &&
+		(mouse->getPosition(*temp).y <= pos_y + size_y+difference_y) && (mouse->getPosition(*temp).x >= pos_x+difference_x) && (mouse->getPosition(*temp).x <= pos_x + size_x+difference_x);
 	return tmp;
 }
 

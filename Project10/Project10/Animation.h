@@ -18,5 +18,6 @@ public:
 	void moveTo(int x, int y);
 	void draw() override;
 	void changing();
+	void scaleImage(double x,double y);
 };
 

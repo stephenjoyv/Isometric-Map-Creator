@@ -141,6 +141,7 @@
     <ClCompile Include="interfaceobj.cpp" />
     <ClCompile Include="Jammed.cpp" />
     <ClCompile Include="Platform.cpp" />
+    <ClCompile Include="Playable.cpp" />
     <ClCompile Include="SelectedTile.cpp" />
     <ClCompile Include="Settings.cpp" />
     <ClCompile Include="SliderBar.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Jammed.h" />
     <ClInclude Include="Libs.h" />
     <ClInclude Include="Platform.h" />
+    <ClInclude Include="Playable.h" />
     <ClInclude Include="SelectedTile.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="SliderBar.h" />

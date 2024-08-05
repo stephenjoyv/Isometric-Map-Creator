@@ -2,7 +2,7 @@
 
 Platform::Platform(Mouse* mouse)
 {
-	panel = new TilePanel(Vector2f(19,6), mouse);
+	panel = new TilePanel(115,20,Vector2i(700,722), mouse);
 	map = new Map(mouse,40,40);
 	seltile = new SelectedTile();
 	saving = false;
@@ -36,11 +36,11 @@ void Platform::leftClicked()
 		z = get<2>(data);
 	if ((x != -1 && y!= -1 && z!=-1) && seltile->isSelected()) {
 		std::cout << "tile x = " << x << " tile y = " << y << '\n';
-		//map->setTile(seltile->getTile(),x,y,z);
 		if (map->controlTile(x, y, z+1)) {
-			map->addTile(seltile->getTile(), x, y);
 			cout << "----CLICKED LAST TILE-----\n";
 		}
+		map->addTile(seltile->getTile(), x, y,z);
+
 		map->click(data);
 		data = tuple<int, int, int>{ -1,-1,-1 };
 	}
@@ -58,7 +58,7 @@ void Platform::leftClickedMap()
 		//map->setTile(seltile->getTile(),x,y,z);
 		
 		if (map->controlTile(x, y, z+1)) {
-			map->addTile(seltile->getTile(), x, y);
+			map->addTile(seltile->getTile(), x, y,z);
 			cout << "----CLICKED LAST TILE-----\n";
 		}
 	
@@ -76,8 +76,26 @@ void Platform::leftClickedPanel()
 
 void Platform::rightClicked()
 {
+	/*seltile->loadDefaultCur();
+	std::cout << normalizeString(24) << '\n';*/
+	map->click(data);
+	int x = get<0>(data),
+		y = get<1>(data),
+		z = get<2>(data);
+	if ((x != -1 && y != -1 && z != -1) && seltile->isSelected()) {
+		std::cout << "tile x = " << x << " tile y = " << y << '\n';
+		//map->setTile(seltile->getTile(),x,y,z);
+		map->deleteTile(x, y,z);
+
+		//map->click(data);
+
+		data = tuple<int, int, int>{ -1,-1,-1 };
+	}
+}
+
+void Platform::wheelClicked()
+{
 	seltile->loadDefaultCur();
-	std::cout << normalizeString(24) << '\n';
 }
 
 void Platform::draw()

@@ -19,6 +19,7 @@ public:
 class Map :IBaseClass {
 	int size[2];
 	int tile_size[2];
+	int map_size[2];
 	int default_tile_size;
 	Tile**** ownmap;
 	int** info_z;
@@ -27,11 +28,13 @@ public:
 	Map(Mouse* mouse, int x, int y);
 	Map(string symbol_map, Mouse* mouse);
 	~Map();
+	void reDraw();
 	void draw() override;
 	void click(std::tuple<int, int, int>& data);
 	Tile* getTile(int x, int y);
 	void setTile(Tile* tile, int x, int y, int z);
-	void addTile(Tile* tile, int x, int y);
+	void addTile(Tile* tile, int x, int y,int z);
+	void deleteTile(int x, int y, int z);
 	bool controlTile(int x, int y, int z);
 	void clearMap();
 	void saveMap();

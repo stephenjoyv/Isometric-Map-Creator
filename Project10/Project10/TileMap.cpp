@@ -8,6 +8,8 @@ Map::Map(Mouse* mouse, int x, int y)
 	Tile* tm = new Tile("tyles/tile_022.png", mouse);
 	tile_size[0] = tm->getSize().x;
 	tile_size[1] = tile_size[0];
+	map_size[0] = size[0] * tile_size[0];
+	map_size[1] = size[1] * tile_size[1];
 	delete tm;
 
 	ownmap = new Tile * **[size[0]];
@@ -25,6 +27,7 @@ Map::Map(Mouse* mouse, int x, int y)
 		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
 		ownmap[i][0][0] = new Tile("tyles/tile_022.png", mouse);
 		ownmap[i][0][0]->setSize(1, 1);
+		//ownmap[i][0][0]->Scale(2, 2);
 		if (i > 0) {
 			int preposx = ownmap[i - 1][0][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0][0]->sprite->getPosition().y;
 			int presizex = ownmap[i - 1][0][0]->texture->getSize().x / 2;
@@ -34,16 +37,19 @@ Map::Map(Mouse* mouse, int x, int y)
 		else {
 			ownmap[i][0][0]->sprite->setPosition(700, 50);
 		}
+		
 	}
 	for (int i = 0; i < size[0]; i++)
 	{
 		for (int j = 1; j < size[1]; j++)
 		{
 			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
+			//ownmap[i][j][0]->Scale(2, 2);
 			int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
 			int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
 			int presizey = ownmap[i][j - 1][0]->texture->getSize().y * 1 / 4;
 			ownmap[i][j][0]->sprite->setPosition(preposx - presizex, preposy + presizey);
+			
 		}
 	}
 	/*for (int i = 0; i < 40; i++)
@@ -99,6 +105,28 @@ Map::~Map()
 	}
 	delete info_z;
 }
+void Map::reDraw()
+{
+
+	int t = 0;
+	for (int i = 0; i < 40; i++)
+	{
+		for (int j = 0; j < 40; j++)
+		{
+			for (int k = 0; k < info_z[i][j]; k++)
+			{
+				if (ownmap[i][j][k])
+				{
+					ownmap[i][j][k]->draw();
+					t++;
+				}
+			}
+
+		}
+
+	}
+	//std::cout << "tyles drawned = " << t << '\n';
+}
 void Map::draw()
 {
 	int t = 0;
@@ -108,8 +136,11 @@ void Map::draw()
 		{
 			for (int k = 0; k < info_z[i][j]; k++)
 			{
-				ownmap[i][j][k]->draw();
-				t++;
+				if (ownmap[i][j][k])
+				{
+					ownmap[i][j][k]->draw();
+					t++;
+				}
 			}
 			
 		}
@@ -128,19 +159,22 @@ void Map::click(std::tuple<int,int,int>&data)
 			int k = info_z[i][j]; 
 			for (int z = k-1; z >= 0; z--)
 			{
-				ownmap[i][j][z]->setActive();
-				//std::cout << ownmap[i][j]->getSize().x << '\n';
-				if (ownmap[i][j][z]->clicked)
+				if (ownmap[i][j][z])
 				{
-					cout << "COORDINATES | " << "x : " << i << " | " << "y : " << j << " | " << "z : " << z << '\n';
-					cout << "POSITION " << "X : " << ownmap[i][j][z]->getPosition().x << " Y : " << ownmap[i][j][z]->getPosition().y << '\n';
-					data = std::tuple<int, int, int>{ i,j,z };
+					ownmap[i][j][z]->setActive();
+					//std::cout << ownmap[i][j]->getSize().x << '\n';
+					if (ownmap[i][j][z]->clicked)
+					{
+						cout << "COORDINATES | " << "x : " << i << " | " << "y : " << j << " | " << "z : " << z << '\n';
+						cout << "POSITION " << "X : " << ownmap[i][j][z]->getPosition().x << " Y : " << ownmap[i][j][z]->getPosition().y << '\n';
+						data = std::tuple<int, int, int>{ i,j,z };
 
 
-					ownmap[i][j][z]->clicked = false;
-					
-					clicked = true;
-					break;
+						ownmap[i][j][z]->clicked = false;
+
+						clicked = true;
+						break;
+					}
 				}
 			}
 			if (clicked) break;		
@@ -164,23 +198,46 @@ void Map::setTile(Tile* tile,int x,int y,int z)
 	std::cout << "hdhawdakdk\n";
 }
 
-void Map::addTile(Tile* tile, int x, int y)
+void Map::addTile(Tile* tile, int x, int y, int z)
 {
-	++info_z[x][y];
-	int z = info_z[x][y]-1;
+	if (z == info_z[x][y]-1)
+	{
+		++info_z[x][y];
+	}
+	
 	cout << "z is " << z << '\n';
-	ownmap[x][y][z] = new Tile{};
-	*ownmap[x][y][z] = *tile;
+	cout << "info z " << info_z[x][y] << '\n';
+	ownmap[x][y][z+1] = new Tile{};
+	*ownmap[x][y][z+1] = *tile;
 	int nx,ny;
 	if (info_z[x][y] > 0) {
 		//cout << "COMPONENTS ";
-		nx = ownmap[x][y][z - 1]->getPosition().x;
-		ny = ownmap[x][y][z - 1]->getPosition().y + ownmap[x][y][z - 1]->getSize().y / 2;
+		nx = ownmap[x][y][z]->getPosition().x;
+		ny = ownmap[x][y][z]->getPosition().y + ownmap[x][y][z]->getSize().y / 2;
 		cout << "NEW TILE POSITION | X : " << nx << " Y : " << ny << '\n';
 		
 	}
 	else return;
-	ownmap[x][y][z]->setPosition(nx,ny);
+	ownmap[x][y][z+1]->setPosition(nx,ny);
+}
+
+void Map::deleteTile(int x, int y,int z)
+{
+
+	//--info_z[x][y];
+	if (z!=0)
+	{
+		ownmap[x][y][z] = nullptr;
+	}
+	//if (info_z[x][y] > 0) {
+	//	//cout << "COMPONENTS ";
+	//	nx = ownmap[x][y][z - 1]->getPosition().x;
+	//	ny = ownmap[x][y][z - 1]->getPosition().y + ownmap[x][y][z - 1]->getSize().y / 2;
+	//	cout << "NEW TILE POSITION | X : " << nx << " Y : " << ny << '\n';
+
+	//}
+	//else return;
+	//ownmap[x][y][z]->setPosition(nx, ny);
 }
 
 bool Map::controlTile(int x, int y, int z)

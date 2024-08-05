@@ -10,7 +10,7 @@ void SelectedTile::loadTile(Tile* newtile)
 {
 	std::cout << "load started\n";
 	*tile = *newtile;
-	std::cout << "successfull copy\n";
+	std::cout << "successfully copy\n";
 	loadCur(tile);
 	/*selected = true;
 	cur.loadFromSystem(Cursor::Type::Arrow);
@@ -25,7 +25,7 @@ bool SelectedTile::isSelected()
 void SelectedTile::loadCur(Tile* tile)
 {
 	selected = true;
-	std::cout << "load successfull\n";
+	std::cout << "load successfully\n";
 	Image curimg = *(tile->image);
 	for (int i = 0; i < 10; i++)
 	{

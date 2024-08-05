@@ -35,7 +35,7 @@ void Jammed::exec()
 		if (counter % (int)(100 * frequency) == 0) {
 			func();
 		}
-		cout << "|||COUNTER = " << counter << "|||\n";
+		//cout << "|||COUNTER = " << counter << "|||\n";
 		counter++;
 	}
 	

@@ -73,3 +73,12 @@ void Animation::changing()
 		frame_changing_counter = 0;
 	}
 }
+
+void Animation::scaleImage(double x, double y)
+{
+	for (size_t i = 0; i < frame_count; i++)
+	{
+		animation_sp[i].setScale(x, y);
+		
+	}
+}

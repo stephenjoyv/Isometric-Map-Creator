@@ -1,15 +1,19 @@
 #pragma once
 #include "Game.h"
 #include "SelectedTile.h"
+#include "cmath"
 using namespace std;
 using namespace sf;
 class TilePanel {
 	int size_x, size_y;
+	int pos_x, pos_y;
 	Tile*** pnl;
 	RenderTarget* ObjTar;
 	SelectedTile* cur;
+	RenderTexture* TilePanel_tx;
+	Sprite* TilePanel_sp;
 public:
-	TilePanel(Vector2f amount, Mouse* mouse);
+	TilePanel(size_t tile_count,size_t rows_count,Vector2i position, Mouse* mouse);
 	void draw();
 	bool click(SelectedTile* m);
 	void clickRight();
