@@ -4,7 +4,7 @@ TilePanel::TilePanel(size_t tile_count,size_t rows, Vector2i pos, Mouse* mouse) 
 	size_y = rows;
 	pos_x = pos.x;
 	pos_y = pos.y;
-	ObjTar = pool_window[0].get();
+	ObjTar = Singleton::instance().getPoolWindow()[0].get();
 	pnl = new Tile * *[round(tile_count*1.0/rows)];
 	cout << "ceil " << round(tile_count*1.0 / rows) << '\n';
 	TilePanel_tx = new RenderTexture;
@@ -93,10 +93,10 @@ void TilePanel::draw()
 		std::cout << "DRAWING i - " << i << "  j - " << j << " c - " << c << '\n';
 
 	}*/
-	pool_window[0].get()->draw(*TilePanel_sp);
+	Singleton::instance().getPoolWindow()[0].get()->draw(*TilePanel_sp);
 }
 
-bool TilePanel::click(SelectedTile* seltile)
+bool TilePanel::click(std::unique_ptr<SelectedTile>& seltile)
 {
 	//Доделать
 

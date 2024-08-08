@@ -48,7 +48,7 @@ void SelectedTile::loadCur(Tile* tile)
 
 void SelectedTile::enableCur()
 {
-	pool_window[0].get()->setMouseCursor(cur);
+	Singleton::instance().getPoolWindow()[0].get()->setMouseCursor(cur);
 }
 
 void SelectedTile::loadDefaultCur()

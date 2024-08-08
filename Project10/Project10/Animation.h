@@ -1,7 +1,6 @@
 #pragma once
 #include "Libs.h"
 #include "interfaceobj.h"
-extern int FPS;
 class Animation:public IBaseClass
 {
 private:

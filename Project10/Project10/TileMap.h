@@ -24,8 +24,10 @@ class Map :IBaseClass {
 	Tile**** ownmap;
 	int** info_z;
 	Mouse* ms;
+	RenderTexture surface_tx;
+	Sprite surface_sp;
 public:
-	Map(Mouse* mouse, int x, int y);
+	Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y);
 	Map(string symbol_map, Mouse* mouse);
 	~Map();
 	void reDraw();

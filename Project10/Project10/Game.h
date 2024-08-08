@@ -3,6 +3,7 @@
 #include "interfaceobj.h"
 #include "Settings.h"
 #include "Jammed.h"
+#include "Playable.h"
 using namespace std;
 using namespace sf;
 void game();

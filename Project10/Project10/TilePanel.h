@@ -15,7 +15,7 @@ class TilePanel {
 public:
 	TilePanel(size_t tile_count,size_t rows_count,Vector2i position, Mouse* mouse);
 	void draw();
-	bool click(SelectedTile* m);
+	bool click(std::unique_ptr<SelectedTile>& m);
 	void clickRight();
 	~TilePanel();
 };

@@ -12,19 +12,19 @@ InputTab::InputTab(int width, int heigth, int pos_ex, int pos_ey, Color ecolor, 
 
 
 
-	backgr = new RectangleShape;
+	backgr = std::make_unique<RectangleShape>();
 	backgr->setSize(Vector2f(size_x, size_y*11/8));
 	backgr->setFillColor(color);
 	backgr->setPosition(pos_x, pos_y);
 
 	text_string = new String{"Dwad"};
 
-	text_front = new Text;
+	text_front = std::make_unique<Text>();
 	if (color.r + color.g + color.b <= 305) text_front->setFillColor(Color::White);
 	else text_front->setFillColor(Color::Black);
 	text_front->setCharacterSize(size_y*0.5);
 	text_front->setPosition(pos_x, pos_y);
-	text_front->setFont(*font_global);
+	text_front->setFont(*Singleton::instance().getGlobalFont());
 	if (title != nullptr) text_front->setString(*title +'\n' + *text_string);
 	else text_front->setString(*text_string);
 	

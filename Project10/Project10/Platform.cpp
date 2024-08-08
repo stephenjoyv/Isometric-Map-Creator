@@ -2,9 +2,9 @@
 
 Platform::Platform(Mouse* mouse)
 {
-	panel = new TilePanel(115,20,Vector2i(700,722), mouse);
-	map = new Map(mouse,40,40);
-	seltile = new SelectedTile();
+	panel = std::make_unique<TilePanel>(115, 20, Vector2i(700, 722), mouse);
+	map = std::make_unique<Map>(Singleton::instance().getPoolWindow()[0].get(), mouse, 40, 40);
+	seltile = std::make_unique<SelectedTile>();
 	saving = false;
 	saver = new RectButton{ 200,192,500 - 32,750 - 32 * 3 / 4,10,"Save Map",[this,mouse]() {
 
@@ -18,11 +18,11 @@ Platform::Platform(Mouse* mouse)
 
 
 
-		},pool_window[0].get(),mouse,*color_main};
+		},Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor()};
 	loader = new RectButton{ 200,192,300 - 32,750 - 32 * 3 / 4,10,"Load Map",[this,mouse]() {
 		map->loadMap("map.txt");
 		},
-	pool_window[0].get(),mouse,*color_main};
+	Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor() };
 	data = tuple<int, int, int>{ -1,-1,-1 };
 }
 
@@ -107,9 +107,6 @@ void Platform::draw()
 
 Platform::~Platform()
 {
-	delete panel;
-	delete map;
-	delete seltile;
 }
 
 void Platform::textClear()
