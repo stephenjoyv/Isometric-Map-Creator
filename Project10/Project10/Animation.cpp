@@ -6,16 +6,21 @@ Animation::Animation(std::string dir, int count,double duration, RenderTarget* t
 	ObjTar = target;
 	frame_count = count;
 	frame_duration = duration;
-	animation_tx = new sf::Texture[count];
-	animation_sp = new sf::Sprite[count];
 	for (size_t i = 0; i < count; i++)
 	{
-		animation_tx[i].loadFromFile(dir+ std::to_string(i)+".png");
-		animation_sp[i].setTexture(animation_tx[i]);
-		animation_sp[i].setScale(5, 5);
+		Texture* tx = new sf::Texture;
+		Sprite* sp = new sf::Sprite;
+
+		
+
+		tx->loadFromFile(dir+ std::to_string(i)+".png");
+		sp->setTexture(*tx);
+		sp->setScale(5, 5);
+		animation_tx.emplace_back(std::unique_ptr<Texture>(tx));
+		animation_sp.emplace_back(std::unique_ptr<Sprite>(sp));
 	}
-	size_x = animation_tx[0].getSize().x;
-	size_y = animation_tx[0].getSize().y;
+	size_x = animation_tx[0]->getSize().x;
+	size_y = animation_tx[0]->getSize().y;
 	pos_x = 0;
 	pos_y = 0;
 	timings = new int[count];
@@ -25,29 +30,20 @@ Animation::Animation(std::string dir, int count,double duration, RenderTarget* t
 	}
 }
 
-Animation::~Animation()
-{
-	for (size_t i = 0; i < frame_count; i++)
-	{
-		delete animation_tx, animation_sp;
-		animation_sp = nullptr;
-		animation_tx = nullptr;
-	}
-}
 
 void Animation::moveTo(int x, int y)
 {
 	pos_x = x;
 	pos_y = y;
-	for (size_t i = 0; i < frame_count; i++)
+	for (auto s = animation_sp.begin();s!=animation_sp.end();s++)
 	{
-		animation_sp[i].setPosition(x, y);
+		s->get()->setPosition(x, y);
 	}
 }
 
 void Animation::draw()
 {
-	ObjTar->draw(animation_sp[current_frame]);
+	ObjTar->draw(*animation_sp.at(current_frame));
 }
 
 void Animation::changing()
@@ -76,9 +72,8 @@ void Animation::changing()
 
 void Animation::scaleImage(double x, double y)
 {
-	for (size_t i = 0; i < frame_count; i++)
+	for (auto s = animation_sp.begin(); s != animation_sp.end(); s++)
 	{
-		animation_sp[i].setScale(x, y);
-		
+		s->get()->setScale(x,y);
 	}
 }

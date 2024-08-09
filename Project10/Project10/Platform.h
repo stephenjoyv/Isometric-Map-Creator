@@ -19,6 +19,7 @@ public:
 	void leftClicked();
 	void leftClickedMap();
 	void leftClickedPanel();
+	void initButtons(sf::Mouse * mouse);
 	void rightClicked();
 	void wheelClicked();
 	void input(const sf::Uint32& tx);

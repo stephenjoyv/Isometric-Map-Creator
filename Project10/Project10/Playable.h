@@ -13,6 +13,6 @@ public:
 	void load(const std::string& path);
 	void move(Direction dir,int value);
 	void setActive() override;
-	void isActive() override;
+	bool isActive() override;
 	void draw() override;
 };

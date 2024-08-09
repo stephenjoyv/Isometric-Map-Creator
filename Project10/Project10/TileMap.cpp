@@ -20,6 +20,10 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 		for (int k = 0; k < 40; k++)
 		{
 			ownmap[i][k] = new Tile * [64];
+			for (int j = 0; j<64;j++)
+			{
+				ownmap[i][k][j] = nullptr;
+			}
 		}
 	}
 
@@ -251,9 +255,12 @@ void Map::clearMap()
 			for (int k = 0; k < info_z[i][j]; k++)
 			{
 				delete ownmap[i][j][k];
+				ownmap[i][j][k] = nullptr;
 			}
 		}
 	}
+	surface_tx.clear(sf::Color::Color(0, 0, 0, 0));
+	surface_sp.setTexture(surface_tx.getTexture());
 }
 
 void Map::saveMap()
@@ -266,7 +273,10 @@ void Map::saveMap()
 		{
 			for ( int k = 0; k < info_z[i][j]; k++)
 			{
-				file << "X : " << i << " Y : " << j << " Z : " << k << " LINK : "<< ownmap[i][j][k]->getLink()<<'\n';
+				if (ownmap[i][j][k])
+				{
+					file << "X : " << i << " Y : " << j << " Z : " << k << " LINK : " << ownmap[i][j][k]->getLink() << '\n';
+				}
 			}
 		}
 	}
@@ -357,9 +367,19 @@ void Map::loadMap(std::string link)
 			}
 			//cout << "COORDINATES | " << "x : " << x << " | " << "y : " << y << " | " << "z : " << z << '\n';
 			ownmap[x][y][z] = new Tile{ lnk,ms };
+			ownmap[x][y][z]->setTarget(&surface_tx);
 			info_z[x][y] = z+1;
 		}
 	}
+
+	if (ownmap[0][8][4])
+	{
+		ownmap[0][8][4]->getPosition();
+		std::cout << "OWNMAP\n";
+		
+	}
+
+
 	str.close();
 	for (int i = 0; i < size[0]; i++)
 	{
@@ -372,7 +392,7 @@ void Map::loadMap(std::string link)
 			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
 		}
 		else {
-			ownmap[i][0][0]->sprite->setPosition(700, 50);
+			ownmap[i][0][0]->sprite->setPosition((surface_tx.getSize().x - ownmap[i][0][0]->getSize().x) / 2.f, ownmap[i][0][0]->getSize().y * 3.f / 4);
 		}
 	}
 	for (int i = 0; i < size[0]; i++)
@@ -380,17 +400,20 @@ void Map::loadMap(std::string link)
 		for (int j = 1; j < size[1]; j++)
 		{
 			for (int k = 0; k < info_z[i][j];k++) {
-				if (k == 0) {
-					int preposx = ownmap[i][j - 1][k]->sprite->getPosition().x, preposy = ownmap[i][j - 1][k]->sprite->getPosition().y;
-					int presizex = ownmap[i][j - 1][k]->texture->getSize().x / 2;
-					int presizey = ownmap[i][j - 1][k]->texture->getSize().y * 1 / 4;
-					ownmap[i][j][k]->sprite->setPosition(preposx - presizex, preposy + presizey);
-				}
-				else {
-					int preposx = ownmap[i][j][k - 1]->sprite->getPosition().x, preposy = ownmap[i][j][k - 1]->sprite->getPosition().y + ownmap[i][j][k - 1]->texture->getSize().y * 1 / 2;
-					int presizex = ownmap[i][j][k - 1]->texture->getSize().x;
-					int presizey = ownmap[i][j][k - 1]->texture->getSize().y;
-					ownmap[i][j][k]->sprite->setPosition(preposx, preposy - ownmap[i][j][k]->getSize().y * 3 / 4);
+				if (ownmap[i][j][k]!=nullptr)
+				{
+					if (k == 0) {
+						int preposx = ownmap[i][j - 1][k]->sprite->getPosition().x, preposy = ownmap[i][j - 1][k]->sprite->getPosition().y;
+						int presizex = ownmap[i][j - 1][k]->texture->getSize().x / 2;
+						int presizey = ownmap[i][j - 1][k]->texture->getSize().y * 1 / 4;
+						ownmap[i][j][k]->sprite->setPosition(preposx - presizex, preposy + presizey);
+					}
+					else {
+						int preposx = ownmap[i][j][0]->sprite->getPosition().x; //preposy = ownmap[i][j][0]->sprite->getPosition().y - (ownmap[i][j][0]->texture->getSize().y * 1 / 2)*(k-1);
+						int presizex = ownmap[i][j][0]->texture->getSize().x;
+						int presizey = ownmap[i][j][0]->texture->getSize().y;
+						ownmap[i][j][k]->sprite->setPosition(preposx, ownmap[i][j][0]->sprite->getPosition().y - ownmap[i][j][0]->texture->getSize().y*(1.f/4)*k);
+					}
 				}
 			}
 			
@@ -425,35 +448,15 @@ Tile& Tile::operator=(const Tile& copy)
 	//std::cout << "part 1\n";
 	if (this != &copy)
 	{
-		int x = 0, y = 0;
-		
+		texture.reset();
+		sprite.reset();
+		image.reset();
 
-		if (this->texture!=nullptr)
-		{
-			
-			delete this->texture;
-		}
-		if (this->sprite != nullptr) {
-			x = this->sprite->getPosition().x, y = this->sprite->getPosition().y;
-			delete this->sprite;
-		}
-		if (this->image != nullptr) {
-			delete this->image;
-		}
-
-		
-
-		this->texture = new Texture;
-		this->sprite = new Sprite;
-		this->image = new Image;
 
 		this->mouse = copy.mouse;
-		*(this->texture) = *copy.texture;
-		//std::cout << "part 2\n";
-		*this->sprite = *copy.sprite;
-		if(x!=0 && y!=0)this->sprite->setPosition(x, y);
-		Singleton::instance().getPoolWindow()[0].get()->draw(*this->sprite);
-		*this->image = *copy.image;
+		texture = std::unique_ptr<sf::Texture>(new sf::Texture{ *copy.texture });
+		sprite = std::unique_ptr<sf::Sprite>(new sf::Sprite{ *copy.sprite });
+		image = std::unique_ptr<sf::Image>(new sf::Image{ *copy.image });
 		//*this->borders = *copy.borders;
 		this->clicked = 0;
 		//this->is_bordered = copy.
@@ -470,17 +473,15 @@ Tile& Tile::operator=(const Tile& copy)
 	return *this;
 	// TODO: вставьте здесь оператор return
 }
-Tile::~Tile()
-{
-	if (this->texture != nullptr)delete this->texture;
-	if (this->sprite != nullptr)delete this->sprite;
-	if (this->image != nullptr)delete this->image;
-}
+
 Tile::Tile(const Tile& m) {
-	this->sprite = m.sprite;
-	this->texture = m.texture;
+	/*sprite.reset();
+	sprite = std::make_unique<sf::Sprite>(m.sprite);
+	texture.reset();
+	texture = std::make_unique<sf::Texture>(m.texture);
+	image.reset();
+	image = std::make_unique<sf::Image>(m.image);*/
 	this->mouse = m.mouse;
-	this->image = m.image;
 	this->ObjTar = m.ObjTar;
 }
 void Tile::setSize(int x, int y)

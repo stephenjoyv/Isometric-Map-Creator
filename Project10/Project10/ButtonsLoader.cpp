@@ -35,7 +35,7 @@ void ButtonLoader(sf::RenderTarget* space,sf::Mouse* mouse,sf::Color color,Strin
 			break;
 		}
 		case 4: {
-			tmpv = changeGlobalColor;
+			tmpv = loadDefaultColor;
 			break;
 		}
 		case 5: {

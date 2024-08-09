@@ -28,7 +28,7 @@ public:
 	virtual bool Click();
 	virtual bool Click(int difference_x, int difference_y);
 	virtual void setActive() = 0;
-	virtual void isActive() = 0;
+	virtual bool isActive() = 0;
 	Clicable() = default;
 	virtual ~Clicable() = default;
 };
@@ -48,15 +48,21 @@ protected:
 	bool active = false;
 	int frames[2];
 	std::function<void()> run;
+	std::string id;
 public:
 	Button(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse);
+	Button();
 	void setActive() override;
+	void setId(const std::string&);
+	std::string getId();
+	void setRunFunction(std::function<void()>);
 	void standart();
+	void scale(float x, float y);
 	void draw() override;
 	bool getActive();
 	int getFrames();
-	void isActive() override;
+	bool isActive() override;
 	virtual ~Button() override;
 };
 class CircleButton : public Button {
@@ -65,10 +71,9 @@ public:
 	~CircleButton() = default;
 };
 class RectButton : public Button {
-	;
 public:
 	RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~RectButton() = default;
+	~RectButton();
 };
 class CustomButton : public Button {
 public:
@@ -93,7 +98,7 @@ public:
 	RectButtonImageRolled() = default;
 	void setCenter();
 	void setActive() override;
-	void isActive() override;
+	bool isActive() override;
 	void draw() override;
 	void scale(float x, float y);
 	~RectButtonImageRolled();
