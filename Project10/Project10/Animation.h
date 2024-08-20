@@ -1,7 +1,6 @@
 #pragma once
 #include "Libs.h"
 #include "interfaceobj.h"
-extern int FPS;
 class Animation:public IBaseClass
 {
 private:
@@ -18,5 +17,6 @@ public:
 	void moveTo(int x, int y);
 	void draw() override;
 	void changing();
+	void scaleImage(double x,double y);
 };
 

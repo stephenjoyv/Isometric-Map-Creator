@@ -1,30 +1,52 @@
 #include "interfaceobj.h"
 
 
-IBaseClass::~IBaseClass() { 
+IBaseClass::IBaseClass()
+{
+}
+
+IBaseClass::~IBaseClass() {
 	//std::cout << "Destructor\n";
 }
 
 
 void globalDraw() {
-	for (auto c : pool_button) {
+	//std::shared_ptr<Singleton> sgl(&Singleton::instance());
+	
+	/*for (auto i = Singleton::getPoolButton().begin();)
+	{
+	}*/
+	for (auto c : Singleton::instance().getPoolButton()) {
 		c.get()->draw();
 	}
 }
 
 void buttonWork()
 {
-	for (int i = 0; i < pool_button.size(); i++)
+	for (auto c: Singleton::instance().getPoolButton())
+	{
+		c.get()->isActive();
+	}
+	/*for (int i = 0; i < Singleton::instance().getPoolButton().size(); i++)
 	{
 		pool_button[i].get()->isActive();
-	}
+	}*/
 }
 
 bool Clicable::Click() {
-	RenderWindow* temp = pool_window[0].get();
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
 
 	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y <= pos_y + size_y) && (mouse->getPosition(*temp).x >= pos_x) && (mouse->getPosition(*temp).x <= pos_x + size_x);
+	return tmp;
+}
+
+bool Clicable::Click(int difference_x, int difference_y)
+{
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
+
+	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y+difference_y) &&
+		(mouse->getPosition(*temp).y <= pos_y + size_y+difference_y) && (mouse->getPosition(*temp).x >= pos_x+difference_x) && (mouse->getPosition(*temp).x <= pos_x + size_x+difference_x);
 	return tmp;
 }
 
@@ -41,7 +63,7 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::str
 	this->frames[0] = frames;
 	this->frames[1] = frames;
 	active = false;
-	this->text.setFont(*font_global);
+	this->text.setFont(*Singleton::instance().getGlobalFont());
 	
 	
 	this->text.setFillColor(Color::White);
@@ -55,7 +77,8 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::str
 	//but_shape.setPosition(Vector2f(pos_x, pos_y));
 
 	std::shared_ptr<Button> a(this);
-	pool_button.emplace_back(a);
+	Singleton::instance().getPoolButton().emplace_back(a);
+	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
 }
@@ -74,7 +97,8 @@ Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, Rend
 	//but_shape.setPosition(Vector2f(pos_x, pos_y));
 
 	std::shared_ptr<Button> a(this);
-	pool_button.emplace_back(a);
+	Singleton::instance().getPoolButton().emplace_back(a);
+	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
 }
@@ -201,15 +225,16 @@ RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std
 	delete but_shape;
 	this->time = time;
 	angle = 0;
-	frames[0] = time*FPS;
+	frames[0] = time*Singleton::instance().getFPS();
 	frames[1] = frames[0];
 	setCenter();
 	k = 15;
 }
+
 void RectButtonImageRolled::isActive()
 {
 	if (active && frames[0]>0) {
-		sprite->rotate(360 / (FPS * time));
+		sprite->rotate(360 / (Singleton::instance().getFPS() * time));
 		frames[0] -= 1;
 	}
 	else if(frames[0]==0) {

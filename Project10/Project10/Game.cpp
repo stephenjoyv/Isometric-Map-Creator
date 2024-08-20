@@ -3,12 +3,14 @@
 #include "TilePanel.h"
 #include "interfaceobj.h"
 #include "Platform.h"
+#include "Singleton.h"
 using namespace std;
 using namespace sf;
 
 DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	link = str;
-	ObjTar = pool_window[0].get();
+	ObjTar = Singleton::instance().getPoolWindow()[0].get();
+		//pool_window[0].get();
 	image = new Image;
 	texture = new Texture;
 	sprite = new Sprite;
@@ -16,7 +18,7 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	image->loadFromFile(link.c_str());
 	texture->loadFromImage(*image);
 	sprite->setTexture(*texture);
-	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
+	setOrigin(0, texture->getSize().y * 3 / 4);
 	clicked = false;
 	update();
 }
@@ -25,7 +27,7 @@ DetectedImage::DetectedImage() {
 	this->sprite = nullptr;
 	this->image = nullptr;
 	//std::cout << "sprite n = " << (this->sprite != nullptr);
-	ObjTar = pool_window[0].get();
+	ObjTar = Singleton::instance().getPoolWindow()[0].get();
 	is_bordered = false;
 	scale = Vector2i(1, 1);
 }
@@ -34,6 +36,15 @@ void DetectedImage::setPosition(int x, int y)
 	sprite->setPosition(x, y);
 	update();
 	if (is_bordered) borders->setPosition(pos_x, pos_y);
+}
+void DetectedImage::setOrigin(int x, int y)
+{
+	sprite->setOrigin(x, y);
+	sprite->setPosition(pos_x+sprite->getOrigin().x, pos_y + sprite->getOrigin().y);
+}
+void DetectedImage::setTarget(RenderTarget* target)
+{
+	ObjTar = target;
 }
 void DetectedImage::init_border()
 {
@@ -46,7 +57,7 @@ void DetectedImage::init_border()
 		borders->setPosition(pos_x, pos_y);
 		borders->setOutlineColor(Color::White);
 		borders->setOutlineThickness(4);
-		borders->setFillColor(*color_main);
+		borders->setFillColor(*Singleton::instance().getMainColor());
 	}
 	
 }
@@ -121,10 +132,10 @@ void DetectedImage::setActive() {
 	}
 }
 bool DetectedImage::Click() {
-	RenderWindow* temp = pool_window[0].get();
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
 	update();
 	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
-	bool in_area = Mouse::isButtonPressed(Mouse::Left) &&
+	bool in_area = (Mouse::isButtonPressed(Mouse::Left) || Mouse::isButtonPressed(Mouse::Right)) &&
 		(mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y < pos_y + size_y) &&
 		(mouse->getPosition(*temp).x >= pos_x) &&
@@ -137,6 +148,29 @@ bool DetectedImage::Click() {
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
 			mouse->getPosition(*temp).y - pos_y).a);
+		if (alpha_pixel) clicked = true;
+		return alpha_pixel;
+	}
+	return in_area;
+}
+bool DetectedImage::Click(int difference_x, int difference_y)
+{
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
+	update();
+	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
+	bool in_area = Mouse::isButtonPressed(Mouse::Left) &&
+		(mouse->getPosition(*temp).y >= pos_y + difference_y) &&
+		(mouse->getPosition(*temp).y < pos_y + size_y + difference_y) &&
+		(mouse->getPosition(*temp).x >= pos_x + difference_x) &&
+		(mouse->getPosition(*temp).x < pos_x + size_x + difference_x);
+	if (is_bordered) {
+		clicked = true;
+		return in_area;
+	}
+	if (in_area)
+	{
+		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x - difference_x,
+			mouse->getPosition(*temp).y - pos_y - difference_y).a);
 		if (alpha_pixel) clicked = true;
 		return alpha_pixel;
 	}
@@ -161,17 +195,19 @@ void game() {
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
-	RectButtonImageRolled* img = new RectButtonImageRolled{ 1300,50,1,"images/settings.png",settings,pool_window[0].get(),&mouse};
+	RectButtonImageRolled* img = new RectButtonImageRolled{ 1300,50,1,"images/settings.png",settings,Singleton::instance().getPoolWindow()[0].get(),&mouse};
 	img->scale(0.5, 0.5);
 	
 	bool jammed = false;
-	Jammed* jm = new Jammed{ FPS,0.1,[&pl]() {pl->leftClickedMap(); } };
-	
+	Jammed* jm = new Jammed{ Singleton::instance().getFPS(),0.1,[&pl]() {pl->leftClickedMap(); } };
+	std::unique_ptr<Playable> player;
+	player = std::make_unique<Playable>(Singleton::instance().getPoolWindow()[0].get());
+	player->load("images/lords_avatars/blu_1.png");
 	DetectedImage* dm = new DetectedImage{ "tyles/house/rem_0014.png",&mouse };
-	dm->sprite->setScale(0.25, 0.25);
+	dm->sprite->setScale(1 / 4.5234375, 1 / 5.16964286);
 	dm->setPosition(200, 400);
 	sf::Text texp;
-	texp.setFont(*font_global);
+	texp.setFont(*Singleton::instance().getGlobalFont());
 	texp.setPosition(500, 500);
 	texp.setCharacterSize(50);
 	texp.setFillColor(Color::White);
@@ -181,16 +217,16 @@ void game() {
 	m->setPosition(0, 400);
 	k->loadCur(m);*/
 
-	while (pool_window[0].get()->isOpen())
+	while (Singleton::instance().getPoolWindow()[0].get()->isOpen())
 		{
 			Event event;
-			while (pool_window[0].get()->pollEvent(event)) {
+			while (Singleton::instance().getPoolWindow()[0].get()->pollEvent(event)) {
 				switch (event.type)
 				{
 				case Event::Closed: {
-					for (int i = 0; i < pool_window.size(); i++)
+					for (int i = 0; i < Singleton::instance().getPoolWindow().size(); i++)
 					{
-						pool_window[i].get()->close();
+						Singleton::instance().getPoolWindow()[0].get()->close();
 					}
 					break;
 					//pool_button.clear();
@@ -208,6 +244,26 @@ void game() {
 						pl->deleteLast();
 						cout << "dellast\n";
 						break;
+					case Keyboard::Scancode::Left:
+					{
+						player->move(Playable::Direction::left, 15);
+						break;
+					}
+					case Keyboard::Scancode::Up:
+					{
+						player->move(Playable::Direction::up, 15);
+						break;
+					}
+					case Keyboard::Scancode::Down:
+					{
+						player->move(Playable::Direction::down, 15);
+						break;
+					}
+					case Keyboard::Scancode::Right:
+					{
+						player->move(Playable::Direction::right, 15);
+						break;
+					}
 					}
 					
 					
@@ -227,7 +283,7 @@ void game() {
 						//m->setActive();
 						pl->leftClicked();
 						
-						for (auto i : pool_button)
+						for (auto i : Singleton::instance().getPoolButton())
 						{
 							i.get()->setActive();
 						}
@@ -236,6 +292,11 @@ void game() {
 					else if (mouse.isButtonPressed(mouse.Right) ){
 						pl->rightClicked();
 					}
+					else if (mouse.isButtonPressed(mouse.Middle))
+					{
+						pl->wheelClicked();
+					}
+					
 					break;
 				}
 				case Event::TextEntered:
@@ -253,15 +314,16 @@ void game() {
 			jm->exec();
 			//std::cout << '\n';
 			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-			pool_window[0].get()->clear(*bg_color);
+			Singleton::instance().getPoolWindow()[0].get()->clear(*Singleton::instance().getBackgroundColor());
 			std::cout << "";
 			
 			pl->draw();
 			dm->draw();
+			player->draw();
 			globalDraw();
-			pool_window[0].get()->draw(texp);
+			Singleton::instance().getPoolWindow()[0].get()->draw(texp);
 			//m->draw();
-			pool_window[0].get()->display();
+			Singleton::instance().getPoolWindow()[0].get()->display();
 		}
 	//if (img != nullptr) delete img;
 }
