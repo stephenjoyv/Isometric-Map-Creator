@@ -21,7 +21,7 @@ Animation::Animation(std::string dir, int count,double duration, RenderTarget* t
 	timings = new int[count];
 	for (size_t i = 0; i < count; i++)
 	{
-		timings[i] = ((Singleton::instance().getFPS() * 1.f) / count) * i*duration;
+		timings[i] = ((FPS * 1.f) / count) * i*duration;
 	}
 }
 
@@ -53,7 +53,7 @@ void Animation::draw()
 void Animation::changing()
 {
 	frame_changing_counter++;
-	if (frame_changing_counter>= Singleton::instance().getFPS() *frame_duration)
+	if (frame_changing_counter>=FPS*frame_duration)
 	{
 		current_frame = 0;
 		frame_changing_counter = 0;
@@ -71,14 +71,5 @@ void Animation::changing()
 	{
 		current_frame == 0;
 		frame_changing_counter = 0;
-	}
-}
-
-void Animation::scaleImage(double x, double y)
-{
-	for (size_t i = 0; i < frame_count; i++)
-	{
-		animation_sp[i].setScale(x, y);
-		
 	}
 }

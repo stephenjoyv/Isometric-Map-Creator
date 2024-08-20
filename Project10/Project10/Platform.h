@@ -2,13 +2,12 @@
 #include "TilePanel.h"
 #include "TileMap.h"
 #include "Input.h"
-#include <memory>
-
+extern Font* font_global;
 class Platform
 {
-	std::unique_ptr<TilePanel> panel;
-	std::unique_ptr<Map> map;
-	std::unique_ptr<SelectedTile> seltile;
+	TilePanel* panel;
+	Map* map;
+	SelectedTile* seltile;
 	RectButton* saver,*loader;
 	std::tuple<int, int, int> data;
 	bool saving;
@@ -20,7 +19,6 @@ public:
 	void leftClickedMap();
 	void leftClickedPanel();
 	void rightClicked();
-	void wheelClicked();
 	void input(const sf::Uint32& tx);
 	void textClear();
 	void deleteLast();

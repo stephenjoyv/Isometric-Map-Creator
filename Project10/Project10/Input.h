@@ -4,8 +4,8 @@
 using namespace sf;
 class InputTab :IBaseClass {
 private:
-	std::unique_ptr<RectangleShape> backgr;
-	std::unique_ptr<Text> text_front;
+	RectangleShape* backgr;
+	Text* text_front;
 	Color color;
 	String* text_string;
 	String* title;

@@ -3,7 +3,8 @@
 
 void StartNewGame() {
 	
-	Singleton::instance().getPoolButton().clear();
+	pool_button.clear();
+	
 	game();
 	return;
 }
@@ -11,13 +12,10 @@ void LoadNewGame() {
 
 }
 void Exit() {
-	for (auto c: Singleton::instance().getPoolWindow()) {
-		c.get()->close();
-	}
-	/*for (int i = 0; i < Singleton::instance().getPoolWindow().size(); i++)
+	for (int i = 0; i < pool_window.size(); i++)
 	{
 		pool_window[i].get()->close();
-	}*/
+	}
 }
 void changeGlobalColor() {
 

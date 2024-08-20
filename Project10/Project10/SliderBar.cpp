@@ -31,7 +31,7 @@ void SliderBar::setActive()
 	cout << "np-click\n";
 	if (Click()) {
 		cout << "click\n";
-		RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
+		RenderWindow* temp = pool_window[0].get();
 		int x = mouse->getPosition(*temp).x;
 		makeLine(image, 5, x - pos_x, color);
 		texture->loadFromImage(*image);

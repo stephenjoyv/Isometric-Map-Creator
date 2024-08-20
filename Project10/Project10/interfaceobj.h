@@ -1,10 +1,15 @@
 #pragma once
 #include "Libs.h"
-#include "Singleton.h"
 using namespace sf;
 class IBaseClass;
 class Button;
 class Clicable;
+extern std::vector<std::shared_ptr<Button>> pool_button;
+extern std::vector<std::shared_ptr<RenderWindow>> pool_window;
+extern Font* font_global;
+extern int FPS;
+extern Color* color_main;
+extern Color* bg_color;
 
 
 class IBaseClass {
@@ -13,7 +18,7 @@ protected:
 	RenderTarget* ObjTar;
 public:
 	virtual void draw() = 0;
-	IBaseClass();
+	IBaseClass() = default;
 	virtual ~IBaseClass();
 };
 
@@ -26,7 +31,6 @@ protected:
 	Mouse* mouse;
 public:
 	virtual bool Click();
-	virtual bool Click(int difference_x, int difference_y);
 	virtual void setActive() = 0;
 	virtual void isActive() = 0;
 	Clicable() = default;
@@ -90,7 +94,7 @@ private:
 public:
 	int k;
 	RectButtonImageRolled(int pos_x, int pos_y, int time, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
-	RectButtonImageRolled() = default;
+	RectButtonImageRolled();
 	void setCenter();
 	void setActive() override;
 	void isActive() override;

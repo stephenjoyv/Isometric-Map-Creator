@@ -1,4 +1,5 @@
 X : 0 Y : 0 Z : 0 LINK : tyles/tile_022.png
+X : 0 Y : 0 Z : 1 LINK : tyles/tile_041.png
 X : 0 Y : 1 Z : 0 LINK : tyles/tile_040.png
 X : 0 Y : 2 Z : 0 LINK : tyles/tile_040.png
 X : 0 Y : 3 Z : 0 LINK : tyles/tile_040.png
@@ -214,7 +215,6 @@ X : 5 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 5 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 5 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 5 Y : 15 Z : 0 LINK : tyles/tile_040.png
-X : 5 Y : 15 Z : 1 LINK : tyles/tile_045.png
 X : 5 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 5 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 5 Y : 18 Z : 0 LINK : tyles/tile_040.png
@@ -251,7 +251,6 @@ X : 6 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 11 Z : 0 LINK : tyles/tile_040.png
-X : 6 Y : 11 Z : 1 LINK : tyles/tile_045.png
 X : 6 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 14 Z : 0 LINK : tyles/tile_040.png
@@ -262,7 +261,6 @@ X : 6 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 21 Z : 0 LINK : tyles/tile_040.png
-X : 6 Y : 21 Z : 1 LINK : tyles/tile_031.png
 X : 6 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 6 Y : 24 Z : 0 LINK : tyles/tile_040.png
@@ -339,7 +337,6 @@ X : 8 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 8 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 8 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 8 Y : 17 Z : 0 LINK : tyles/tile_040.png
-X : 8 Y : 17 Z : 1 LINK : tyles/tile_045.png
 X : 8 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 8 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 8 Y : 20 Z : 0 LINK : tyles/tile_040.png
@@ -434,7 +431,6 @@ X : 10 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 10 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 10 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 10 Y : 31 Z : 0 LINK : tyles/tile_040.png
-X : 10 Y : 31 Z : 1 LINK : tyles/tile_058.png
 X : 10 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 10 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 10 Y : 34 Z : 0 LINK : tyles/tile_040.png
@@ -457,14 +453,12 @@ X : 11 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 13 Z : 0 LINK : tyles/tile_040.png
-X : 11 Y : 13 Z : 1 LINK : tyles/tile_031.png
 X : 11 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 19 Z : 0 LINK : tyles/tile_040.png
-X : 11 Y : 19 Z : 1 LINK : tyles/tile_045.png
 X : 11 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 11 Y : 22 Z : 0 LINK : tyles/tile_040.png
@@ -546,6 +540,13 @@ X : 13 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 20 Z : 0 LINK : tyles/tile_040.png
+X : 13 Y : 20 Z : 1 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 2 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 3 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 4 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 5 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 6 LINK : tyles/tile_063.png
+X : 13 Y : 20 Z : 7 LINK : tyles/tile_063.png
 X : 13 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 23 Z : 0 LINK : tyles/tile_040.png
@@ -554,7 +555,6 @@ X : 13 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 26 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 27 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 28 Z : 0 LINK : tyles/tile_040.png
-X : 13 Y : 28 Z : 1 LINK : tyles/tile_073.png
 X : 13 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 13 Y : 31 Z : 0 LINK : tyles/tile_040.png
@@ -602,7 +602,6 @@ X : 14 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 14 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 14 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 14 Y : 35 Z : 0 LINK : tyles/tile_040.png
-X : 14 Y : 35 Z : 1 LINK : tyles/tile_058.png
 X : 14 Y : 36 Z : 0 LINK : tyles/tile_040.png
 X : 14 Y : 37 Z : 0 LINK : tyles/tile_040.png
 X : 14 Y : 38 Z : 0 LINK : tyles/tile_040.png
@@ -620,20 +619,16 @@ X : 15 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 12 Z : 0 LINK : tyles/tile_040.png
-X : 15 Y : 12 Z : 1 LINK : tyles/tile_044.png
 X : 15 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 15 Z : 0 LINK : tyles/tile_040.png
-X : 15 Y : 15 Z : 1 LINK : tyles/tile_031.png
 X : 15 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 19 Z : 0 LINK : tyles/tile_040.png
-X : 15 Y : 19 Z : 1 LINK : tyles/tile_031.png
 X : 15 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 22 Z : 0 LINK : tyles/tile_040.png
-X : 15 Y : 22 Z : 1 LINK : tyles/tile_045.png
 X : 15 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 15 Y : 25 Z : 0 LINK : tyles/tile_040.png
@@ -657,6 +652,8 @@ X : 16 Y : 2 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 3 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 4 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 5 Z : 0 LINK : tyles/tile_040.png
+X : 16 Y : 5 Z : 1 LINK : tyles/tile_063.png
+X : 16 Y : 5 Z : 2 LINK : tyles/tile_063.png
 X : 16 Y : 6 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 8 Z : 0 LINK : tyles/tile_040.png
@@ -670,14 +667,14 @@ X : 16 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 18 Z : 0 LINK : tyles/tile_040.png
+X : 16 Y : 18 Z : 1 LINK : tyles/tile_041.png
 X : 16 Y : 19 Z : 0 LINK : tyles/tile_040.png
-X : 16 Y : 19 Z : 1 LINK : tyles/tile_044.png
 X : 16 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 21 Z : 0 LINK : tyles/tile_040.png
-X : 16 Y : 21 Z : 1 LINK : tyles/tile_045.png
 X : 16 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 24 Z : 0 LINK : tyles/tile_040.png
+X : 16 Y : 24 Z : 1 LINK : tyles/tile_041.png
 X : 16 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 26 Z : 0 LINK : tyles/tile_040.png
 X : 16 Y : 27 Z : 0 LINK : tyles/tile_040.png
@@ -700,6 +697,7 @@ X : 17 Y : 3 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 4 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 5 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 6 Z : 0 LINK : tyles/tile_040.png
+X : 17 Y : 6 Z : 1 LINK : tyles/tile_063.png
 X : 17 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 9 Z : 0 LINK : tyles/tile_040.png
@@ -725,7 +723,6 @@ X : 17 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 31 Z : 0 LINK : tyles/tile_040.png
-X : 17 Y : 31 Z : 1 LINK : tyles/tile_031.png
 X : 17 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 17 Y : 34 Z : 0 LINK : tyles/tile_040.png
@@ -746,9 +743,9 @@ X : 18 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 11 Z : 0 LINK : tyles/tile_040.png
-X : 18 Y : 11 Z : 1 LINK : tyles/tile_044.png
 X : 18 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 13 Z : 0 LINK : tyles/tile_040.png
+X : 18 Y : 13 Z : 1 LINK : tyles/tile_041.png
 X : 18 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 16 Z : 0 LINK : tyles/tile_040.png
@@ -766,7 +763,7 @@ X : 18 Y : 27 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 30 Z : 0 LINK : tyles/tile_040.png
-X : 18 Y : 30 Z : 1 LINK : tyles/tile_073.png
+X : 18 Y : 30 Z : 1 LINK : tyles/tile_041.png
 X : 18 Y : 31 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 18 Y : 33 Z : 0 LINK : tyles/tile_040.png
@@ -785,6 +782,7 @@ X : 19 Y : 5 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 6 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 8 Z : 0 LINK : tyles/tile_040.png
+X : 19 Y : 8 Z : 1 LINK : tyles/tile_063.png
 X : 19 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 11 Z : 0 LINK : tyles/tile_040.png
@@ -800,7 +798,6 @@ X : 19 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 23 Z : 0 LINK : tyles/tile_040.png
-X : 19 Y : 23 Z : 1 LINK : tyles/tile_044.png
 X : 19 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 26 Z : 0 LINK : tyles/tile_040.png
@@ -812,7 +809,6 @@ X : 19 Y : 31 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 34 Z : 0 LINK : tyles/tile_040.png
-X : 19 Y : 34 Z : 1 LINK : tyles/tile_058.png
 X : 19 Y : 35 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 36 Z : 0 LINK : tyles/tile_040.png
 X : 19 Y : 37 Z : 0 LINK : tyles/tile_040.png
@@ -828,11 +824,9 @@ X : 20 Y : 6 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 9 Z : 0 LINK : tyles/tile_040.png
-X : 20 Y : 9 Z : 1 LINK : tyles/tile_031.png
 X : 20 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 12 Z : 0 LINK : tyles/tile_040.png
-X : 20 Y : 12 Z : 1 LINK : tyles/tile_031.png
 X : 20 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 15 Z : 0 LINK : tyles/tile_040.png
@@ -847,7 +841,6 @@ X : 20 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 26 Z : 0 LINK : tyles/tile_040.png
-X : 20 Y : 26 Z : 1 LINK : tyles/tile_073.png
 X : 20 Y : 27 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 20 Y : 29 Z : 0 LINK : tyles/tile_040.png
@@ -872,6 +865,7 @@ X : 21 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 21 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 21 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 21 Y : 10 Z : 0 LINK : tyles/tile_040.png
+X : 21 Y : 10 Z : 1 LINK : tyles/tile_063.png
 X : 21 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 21 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 21 Y : 13 Z : 0 LINK : tyles/tile_040.png
@@ -916,10 +910,10 @@ X : 22 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 14 Z : 0 LINK : tyles/tile_040.png
-X : 22 Y : 14 Z : 1 LINK : tyles/tile_031.png
 X : 22 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 17 Z : 0 LINK : tyles/tile_040.png
+X : 22 Y : 17 Z : 1 LINK : tyles/tile_041.png
 X : 22 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 22 Y : 20 Z : 0 LINK : tyles/tile_040.png
@@ -1003,7 +997,6 @@ X : 24 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 24 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 24 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 24 Y : 20 Z : 0 LINK : tyles/tile_040.png
-X : 24 Y : 20 Z : 1 LINK : tyles/tile_044.png
 X : 24 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 24 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 24 Y : 23 Z : 0 LINK : tyles/tile_040.png
@@ -1030,6 +1023,7 @@ X : 25 Y : 3 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 4 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 5 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 6 Z : 0 LINK : tyles/tile_040.png
+X : 25 Y : 6 Z : 1 LINK : tyles/tile_063.png
 X : 25 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 9 Z : 0 LINK : tyles/tile_040.png
@@ -1038,13 +1032,15 @@ X : 25 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 14 Z : 0 LINK : tyles/tile_040.png
-X : 25 Y : 14 Z : 1 LINK : tyles/tile_042.png
 X : 25 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 17 Z : 0 LINK : tyles/tile_040.png
-X : 25 Y : 17 Z : 1 LINK : tyles/tile_042.png
 X : 25 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 19 Z : 0 LINK : tyles/tile_040.png
+X : 25 Y : 19 Z : 1 LINK : tyles/tile_063.png
+X : 25 Y : 19 Z : 2 LINK : tyles/tile_063.png
+X : 25 Y : 19 Z : 3 LINK : tyles/tile_063.png
+X : 25 Y : 19 Z : 4 LINK : tyles/tile_063.png
 X : 25 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 22 Z : 0 LINK : tyles/tile_040.png
@@ -1053,6 +1049,7 @@ X : 25 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 26 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 27 Z : 0 LINK : tyles/tile_040.png
+X : 25 Y : 27 Z : 1 LINK : tyles/tile_041.png
 X : 25 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 25 Y : 30 Z : 0 LINK : tyles/tile_040.png
@@ -1090,15 +1087,14 @@ X : 26 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 24 Z : 0 LINK : tyles/tile_040.png
-X : 26 Y : 24 Z : 1 LINK : tyles/tile_031.png
 X : 26 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 26 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 27 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 29 Z : 0 LINK : tyles/tile_040.png
+X : 26 Y : 29 Z : 1 LINK : tyles/tile_041.png
 X : 26 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 31 Z : 0 LINK : tyles/tile_040.png
-X : 26 Y : 31 Z : 1 LINK : tyles/tile_073.png
 X : 26 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 26 Y : 34 Z : 0 LINK : tyles/tile_040.png
@@ -1134,7 +1130,6 @@ X : 27 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 26 Z : 0 LINK : tyles/tile_040.png
-X : 27 Y : 26 Z : 1 LINK : tyles/tile_058.png
 X : 27 Y : 27 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 29 Z : 0 LINK : tyles/tile_040.png
@@ -1142,7 +1137,6 @@ X : 27 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 31 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 33 Z : 0 LINK : tyles/tile_040.png
-X : 27 Y : 33 Z : 1 LINK : tyles/tile_058.png
 X : 27 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 35 Z : 0 LINK : tyles/tile_040.png
 X : 27 Y : 36 Z : 0 LINK : tyles/tile_040.png
@@ -1159,7 +1153,6 @@ X : 28 Y : 6 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 7 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 8 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 9 Z : 0 LINK : tyles/tile_040.png
-X : 28 Y : 9 Z : 1 LINK : tyles/tile_031.png
 X : 28 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 12 Z : 0 LINK : tyles/tile_040.png
@@ -1183,7 +1176,6 @@ X : 28 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 31 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 32 Z : 0 LINK : tyles/tile_040.png
-X : 28 Y : 32 Z : 1 LINK : tyles/tile_058.png
 X : 28 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 28 Y : 35 Z : 0 LINK : tyles/tile_040.png
@@ -1204,18 +1196,19 @@ X : 29 Y : 9 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 10 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 12 Z : 0 LINK : tyles/tile_040.png
+X : 29 Y : 12 Z : 1 LINK : tyles/tile_063.png
 X : 29 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 18 Z : 0 LINK : tyles/tile_040.png
+X : 29 Y : 18 Z : 1 LINK : tyles/tile_041.png
 X : 29 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 22 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 23 Z : 0 LINK : tyles/tile_040.png
-X : 29 Y : 23 Z : 1 LINK : tyles/tile_042.png
 X : 29 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 25 Z : 0 LINK : tyles/tile_040.png
 X : 29 Y : 26 Z : 0 LINK : tyles/tile_040.png
@@ -1251,7 +1244,6 @@ X : 30 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 18 Z : 0 LINK : tyles/tile_040.png
-X : 30 Y : 18 Z : 1 LINK : tyles/tile_031.png
 X : 30 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 21 Z : 0 LINK : tyles/tile_040.png
@@ -1270,7 +1262,6 @@ X : 30 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 35 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 36 Z : 0 LINK : tyles/tile_040.png
-X : 30 Y : 36 Z : 1 LINK : tyles/tile_058.png
 X : 30 Y : 37 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 38 Z : 0 LINK : tyles/tile_040.png
 X : 30 Y : 39 Z : 0 LINK : tyles/tile_040.png
@@ -1289,7 +1280,6 @@ X : 31 Y : 11 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 12 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 13 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 14 Z : 0 LINK : tyles/tile_040.png
-X : 31 Y : 14 Z : 1 LINK : tyles/tile_031.png
 X : 31 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 17 Z : 0 LINK : tyles/tile_040.png
@@ -1308,7 +1298,6 @@ X : 31 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 31 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 32 Z : 0 LINK : tyles/tile_040.png
-X : 31 Y : 32 Z : 1 LINK : tyles/tile_031.png
 X : 31 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 31 Y : 35 Z : 0 LINK : tyles/tile_040.png
@@ -1376,10 +1365,10 @@ X : 33 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 19 Z : 0 LINK : tyles/tile_040.png
+X : 33 Y : 19 Z : 1 LINK : tyles/tile_063.png
 X : 33 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 22 Z : 0 LINK : tyles/tile_040.png
-X : 33 Y : 22 Z : 1 LINK : tyles/tile_058.png
 X : 33 Y : 23 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 24 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 25 Z : 0 LINK : tyles/tile_040.png
@@ -1389,7 +1378,6 @@ X : 33 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 31 Z : 0 LINK : tyles/tile_040.png
-X : 33 Y : 31 Z : 1 LINK : tyles/tile_031.png
 X : 33 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 33 Y : 34 Z : 0 LINK : tyles/tile_040.png
@@ -1416,7 +1404,6 @@ X : 34 Y : 14 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 15 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 17 Z : 0 LINK : tyles/tile_040.png
-X : 34 Y : 17 Z : 1 LINK : tyles/tile_031.png
 X : 34 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 19 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 20 Z : 0 LINK : tyles/tile_040.png
@@ -1431,7 +1418,6 @@ X : 34 Y : 28 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 29 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 30 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 31 Z : 0 LINK : tyles/tile_040.png
-X : 34 Y : 31 Z : 1 LINK : tyles/tile_058.png
 X : 34 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 34 Y : 34 Z : 0 LINK : tyles/tile_040.png
@@ -1540,6 +1526,7 @@ X : 37 Y : 16 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 17 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 18 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 19 Z : 0 LINK : tyles/tile_040.png
+X : 37 Y : 19 Z : 1 LINK : tyles/tile_063.png
 X : 37 Y : 20 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 21 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 22 Z : 0 LINK : tyles/tile_040.png
@@ -1556,7 +1543,6 @@ X : 37 Y : 32 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 33 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 34 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 35 Z : 0 LINK : tyles/tile_040.png
-X : 37 Y : 35 Z : 1 LINK : tyles/tile_058.png
 X : 37 Y : 36 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 37 Z : 0 LINK : tyles/tile_040.png
 X : 37 Y : 38 Z : 0 LINK : tyles/tile_040.png

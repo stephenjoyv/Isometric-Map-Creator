@@ -2,9 +2,9 @@
 
 Platform::Platform(Mouse* mouse)
 {
-	panel = std::make_unique<TilePanel>(115, 20, Vector2i(700, 722), mouse);
-	map = std::make_unique<Map>(Singleton::instance().getPoolWindow()[0].get(), mouse, 40, 40);
-	seltile = std::make_unique<SelectedTile>();
+	panel = new TilePanel(Vector2f(19,6), mouse);
+	map = new Map(mouse,40,40);
+	seltile = new SelectedTile();
 	saving = false;
 	saver = new RectButton{ 200,192,500 - 32,750 - 32 * 3 / 4,10,"Save Map",[this,mouse]() {
 
@@ -18,11 +18,11 @@ Platform::Platform(Mouse* mouse)
 
 
 
-		},Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor()};
+		},pool_window[0].get(),mouse,*color_main};
 	loader = new RectButton{ 200,192,300 - 32,750 - 32 * 3 / 4,10,"Load Map",[this,mouse]() {
 		map->loadMap("map.txt");
 		},
-	Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor() };
+	pool_window[0].get(),mouse,*color_main};
 	data = tuple<int, int, int>{ -1,-1,-1 };
 }
 
@@ -36,11 +36,11 @@ void Platform::leftClicked()
 		z = get<2>(data);
 	if ((x != -1 && y!= -1 && z!=-1) && seltile->isSelected()) {
 		std::cout << "tile x = " << x << " tile y = " << y << '\n';
+		//map->setTile(seltile->getTile(),x,y,z);
 		if (map->controlTile(x, y, z+1)) {
+			map->addTile(seltile->getTile(), x, y);
 			cout << "----CLICKED LAST TILE-----\n";
 		}
-		map->addTile(seltile->getTile(), x, y,z);
-
 		map->click(data);
 		data = tuple<int, int, int>{ -1,-1,-1 };
 	}
@@ -58,7 +58,7 @@ void Platform::leftClickedMap()
 		//map->setTile(seltile->getTile(),x,y,z);
 		
 		if (map->controlTile(x, y, z+1)) {
-			map->addTile(seltile->getTile(), x, y,z);
+			map->addTile(seltile->getTile(), x, y);
 			cout << "----CLICKED LAST TILE-----\n";
 		}
 	
@@ -76,26 +76,8 @@ void Platform::leftClickedPanel()
 
 void Platform::rightClicked()
 {
-	/*seltile->loadDefaultCur();
-	std::cout << normalizeString(24) << '\n';*/
-	map->click(data);
-	int x = get<0>(data),
-		y = get<1>(data),
-		z = get<2>(data);
-	if ((x != -1 && y != -1 && z != -1) && seltile->isSelected()) {
-		std::cout << "tile x = " << x << " tile y = " << y << '\n';
-		//map->setTile(seltile->getTile(),x,y,z);
-		map->deleteTile(x, y,z);
-
-		//map->click(data);
-
-		data = tuple<int, int, int>{ -1,-1,-1 };
-	}
-}
-
-void Platform::wheelClicked()
-{
 	seltile->loadDefaultCur();
+	std::cout << normalizeString(24) << '\n';
 }
 
 void Platform::draw()
@@ -107,6 +89,9 @@ void Platform::draw()
 
 Platform::~Platform()
 {
+	delete panel;
+	delete map;
+	delete seltile;
 }
 
 void Platform::textClear()
