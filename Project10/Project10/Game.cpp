@@ -11,9 +11,9 @@ DetectedImage::DetectedImage(string str, Mouse* mouse):DetectedImage() {
 	link = str;
 	ObjTar = Singleton::instance().getPoolWindow()[0].get();
 		//pool_window[0].get();
-	image = new Image;
-	texture = new Texture;
-	sprite = new Sprite;
+	image = std::make_unique<sf::Image>();
+	texture = std::make_unique<sf::Texture>();
+	sprite = std::make_unique<sf::Sprite>();
 	this->mouse = mouse;
 	image->loadFromFile(link.c_str());
 	texture->loadFromImage(*image);
@@ -51,7 +51,7 @@ void DetectedImage::init_border()
 	if (!is_bordered)
 	{
 		is_bordered = true;
-		borders = new RectangleShape;
+		borders = std::make_unique<RectangleShape>();
 		update();
 		borders->setSize(Vector2f(size_x, size_y));
 		borders->setPosition(pos_x, pos_y);
@@ -104,11 +104,12 @@ void DetectedImage::Scale(int xmod, int ymod) {
 		}
 
 	}
-	delete texture, sprite, image;
-	image = tempimage;
-	texture = new Texture;
+	texture.reset();
+	sprite.reset();
+	image.reset(tempimage);
+	texture = std::make_unique<sf::Texture>();
+	sprite = std::make_unique<sf::Sprite>();
 	texture->loadFromImage(*tempimage);
-	sprite = new Sprite;
 	sprite->setTexture(*texture);
 	sprite->setOrigin(0, texture->getSize().y * 3 / 4);
 	sprite->setPosition(texture->getSize().x / 2, texture->getSize().y);
@@ -130,6 +131,10 @@ void DetectedImage::setActive() {
 		sprite->setTexture(*texture);*/
 		std::cout << "click\n";
 	}
+}
+bool DetectedImage::isActive()
+{
+	return false;
 }
 bool DetectedImage::Click() {
 	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
@@ -195,17 +200,11 @@ void game() {
 	/*Tile m("tyles/tile_022.png", &mouse);
 	Tile k = m;*/
 	Platform* pl = new Platform(&mouse);
-	RectButtonImageRolled* img = new RectButtonImageRolled{ 1300,50,1,"images/settings.png",settings,Singleton::instance().getPoolWindow()[0].get(),&mouse};
+	std::unique_ptr<RectButtonImageRolled> img = std::make_unique<RectButtonImageRolled>(1300, 50, 1, "images/settings.png", [&pl, &mouse]() {settings(); pl->initButtons(&mouse); }, Singleton::instance().getPoolWindow()[0].get(), &mouse);
 	img->scale(0.5, 0.5);
-	
+	img->setId("game");
 	bool jammed = false;
 	Jammed* jm = new Jammed{ Singleton::instance().getFPS(),0.1,[&pl]() {pl->leftClickedMap(); } };
-	std::unique_ptr<Playable> player;
-	player = std::make_unique<Playable>(Singleton::instance().getPoolWindow()[0].get());
-	player->load("images/lords_avatars/blu_1.png");
-	DetectedImage* dm = new DetectedImage{ "tyles/house/rem_0014.png",&mouse };
-	dm->sprite->setScale(1 / 4.5234375, 1 / 5.16964286);
-	dm->setPosition(200, 400);
 	sf::Text texp;
 	texp.setFont(*Singleton::instance().getGlobalFont());
 	texp.setPosition(500, 500);
@@ -224,12 +223,9 @@ void game() {
 				switch (event.type)
 				{
 				case Event::Closed: {
-					for (int i = 0; i < Singleton::instance().getPoolWindow().size(); i++)
-					{
-						Singleton::instance().getPoolWindow()[0].get()->close();
-					}
-					break;
-					//pool_button.clear();
+					Singleton::instance().getPoolButton().clear();
+					ButtonLoader(Singleton::instance().getPoolWindow()[0].get(), &mouse, *Singleton::instance().getMainColor(), "notes/buttons.json");
+					
 					return;
 				}
 				case Event::KeyPressed: {
@@ -244,28 +240,7 @@ void game() {
 						pl->deleteLast();
 						cout << "dellast\n";
 						break;
-					case Keyboard::Scancode::Left:
-					{
-						player->move(Playable::Direction::left, 15);
-						break;
 					}
-					case Keyboard::Scancode::Up:
-					{
-						player->move(Playable::Direction::up, 15);
-						break;
-					}
-					case Keyboard::Scancode::Down:
-					{
-						player->move(Playable::Direction::down, 15);
-						break;
-					}
-					case Keyboard::Scancode::Right:
-					{
-						player->move(Playable::Direction::right, 15);
-						break;
-					}
-					}
-					
 					
 					break;
 
@@ -304,7 +279,7 @@ void game() {
 						texp.setString(event.text.unicode);
 						pl->input(event.text.unicode);
 					}
-					
+
 					break;
 				}
 				//Sleep(5);
@@ -318,8 +293,6 @@ void game() {
 			std::cout << "";
 			
 			pl->draw();
-			dm->draw();
-			player->draw();
 			globalDraw();
 			Singleton::instance().getPoolWindow()[0].get()->draw(texp);
 			//m->draw();

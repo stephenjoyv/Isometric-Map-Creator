@@ -37,8 +37,9 @@ void Playable::setActive()
 {
 }
 
-void Playable::isActive()
+bool Playable::isActive()
 {
+	return false;
 }
 
 void Playable::draw()

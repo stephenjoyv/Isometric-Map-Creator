@@ -4,8 +4,8 @@
 class Animation:public IBaseClass
 {
 private:
-	sf::Texture* animation_tx;
-	sf::Sprite* animation_sp;
+	std::vector<std::unique_ptr<sf::Texture>> animation_tx;
+	std::vector<std::unique_ptr<sf::Sprite>> animation_sp;
 	int frame_count;
 	int current_frame;
 	double frame_duration;
@@ -13,7 +13,6 @@ private:
 	int* timings;
 public:
 	Animation(std::string dir,int frames_count,double duration,RenderTarget* target);
-	~Animation();
 	void moveTo(int x, int y);
 	void draw() override;
 	void changing();

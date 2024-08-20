@@ -17,7 +17,7 @@ void globalDraw() {
 	{
 	}*/
 	for (auto c : Singleton::instance().getPoolButton()) {
-		c.get()->draw();
+		c->draw();
 	}
 }
 
@@ -25,7 +25,10 @@ void buttonWork()
 {
 	for (auto c: Singleton::instance().getPoolButton())
 	{
-		c.get()->isActive();
+		if (c->isActive())
+		{
+			break;
+		}
 	}
 	/*for (int i = 0; i < Singleton::instance().getPoolButton().size(); i++)
 	{
@@ -81,6 +84,7 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::str
 	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
+	id = "";
 }
 Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, RenderTarget* space, Mouse* mouse)
 {
@@ -101,6 +105,10 @@ Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, Rend
 	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
+	id = "";
+}
+Button::Button()
+{
 }
 void Button::setActive() {
 	//std::cout << "is clicked\n";
@@ -116,6 +124,18 @@ void Button::setActive() {
 		std::cout << "CLICK!!!";
 		but_shape->setFillColor(Color::Color(color.r + 40, color.g + 40, color.b + 40));
 	}
+}
+void Button::setId(const std::string& newId)
+{
+	id = newId;
+}
+std::string Button::getId()
+{
+	return id;
+}
+void Button::setRunFunction(std::function<void()> fun)
+{
+	run = fun;
 }
 void Button::standart() {
 	but_shape->setFillColor(color);
@@ -135,7 +155,7 @@ int Button::getFrames()
 	return frames[1];
 }
 
-void Button::isActive() {
+bool Button::isActive() {
 	if (active)
 	{
 		if (this->getFrames() != 0) {
@@ -148,8 +168,9 @@ void Button::isActive() {
 			frames[1] = frames[0];
 			standart();
 		}
+		return true;
 	}
-	
+	return false;
 }
 Button::~Button() {
 	std::cout << '\n' << this << '\n';
@@ -167,8 +188,36 @@ CircleButton::CircleButton(int size_x, int size_y, int pos_x, int pos_y, int fra
 	tempshape->setPosition(pos_x, pos_y);
 	but_shape = tempshape;
 }
-RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
-	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color) {
+//	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color)
+RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color)
+{
+	this->size_x = size_x;
+	this->size_y = size_y;
+	this->pos_x = pos_x;
+	this->pos_y = pos_y;
+	this->ObjTar = space;
+	this->mouse = mouse;
+	this->color = color;
+	this->frames[0] = frames;
+	this->frames[1] = frames;
+	active = false;
+	this->text.setFont(*Singleton::instance().getGlobalFont());
+
+
+	this->text.setFillColor(Color::White);
+	this->text.setString(String(text));
+	std::cout << "x= " << this->text.getGlobalBounds().getSize().x;
+	this->text.setPosition(pos_x + size_x / 2 - (this->text.getGlobalBounds().getSize().x) / 2, pos_y + size_y / 2 - (this->text.getGlobalBounds().getSize().y) / 2);
+
+
+
+	//but_shape.setSize(Vector2f(size_x, size_y));
+	//but_shape.setPosition(Vector2f(pos_x, pos_y));
+
+	
+	//pool_button.emplace_back(a);
+	//std::cout << (pool_pair[0].get());
+	this->run = run;
 	RectangleShape* tempshape = new RectangleShape;
 	but_shape = new RectangleShape;
 	tempshape->setSize(Vector2f(size_x, size_y));
@@ -177,6 +226,10 @@ RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames,
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(4);
 	but_shape = tempshape;
+}
+RectButton::~RectButton()
+{
+	std::cout << "destr "<< this << '\n';
 }
 CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color) {
@@ -231,17 +284,19 @@ RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std
 	k = 15;
 }
 
-void RectButtonImageRolled::isActive()
+bool RectButtonImageRolled::isActive()
 {
 	if (active && frames[0]>0) {
 		sprite->rotate(360 / (Singleton::instance().getFPS() * time));
 		frames[0] -= 1;
+		return false;
 	}
 	else if(frames[0]==0) {
 		active = false;
 		frames[0] = frames[1];
 		run();
 	}
+	return true;
 }
 void RectButtonImageRolled::setCenter()
 {

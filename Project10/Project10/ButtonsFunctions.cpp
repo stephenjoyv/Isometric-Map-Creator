@@ -19,7 +19,7 @@ void Exit() {
 		pool_window[i].get()->close();
 	}*/
 }
-void changeGlobalColor() {
+void loadDefaultColor() {
 
 }
 void Settings() {

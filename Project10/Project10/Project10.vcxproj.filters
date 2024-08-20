@@ -58,6 +58,9 @@
     <Filter Include="WelcomeMenu">
       <UniqueIdentifier>{0f145214-4710-478b-9aae-ab25497cd548}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Settings\SelectingColor">
+      <UniqueIdentifier>{dac306e9-85ad-4d9a-a580-88c72d80a857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -110,6 +113,9 @@
     </ClCompile>
     <ClCompile Include="Singleton.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="ColorSel.cpp">
+      <Filter>Settings\SelectingColor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -164,12 +170,18 @@
     <ClInclude Include="Singleton.h">
       <Filter>Исходные файлы</Filter>
     </ClInclude>
+    <ClInclude Include="ColorSel.h">
+      <Filter>Settings\SelectingColor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="notes\buttons.json">
       <Filter>notes</Filter>
     </None>
     <None Include="notes\settings.json">
+      <Filter>notes</Filter>
+    </None>
+    <None Include="colors.json">
       <Filter>notes</Filter>
     </None>
   </ItemGroup>

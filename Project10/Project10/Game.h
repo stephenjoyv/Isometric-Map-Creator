@@ -14,11 +14,11 @@ protected:
 	string link;
 	Vector2i scale;
 public:
-	Texture* texture;
-	Sprite* sprite;
-	Image* image;
+	std::unique_ptr<sf::Texture> texture;
+	std::unique_ptr<sf::Sprite> sprite;
+	std::unique_ptr<sf::Image> image;
+	std::unique_ptr<sf::RectangleShape> borders;
 	RenderTexture rtexture;
-	RectangleShape* borders;
 	bool clicked;
 	DetectedImage(string str, Mouse* mouse);
 	DetectedImage();
@@ -34,6 +34,6 @@ public:
 	bool Click(int difference_x, int difference_y) override;
 	void draw() override;
 	void setActive() override;
-	void isActive() override {};
+	bool isActive() override;
 	void Scale(int xmod, int ymod);
 };

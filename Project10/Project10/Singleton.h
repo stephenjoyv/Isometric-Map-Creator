@@ -2,6 +2,8 @@
 #include <iostream>
 #include "Libs.h"
 #include "interfaceobj.h"
+#include <nlohmann/json.hpp>
+namespace n = nlohmann;
 class Button;
 class Singleton
 {

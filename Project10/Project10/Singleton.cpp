@@ -3,8 +3,26 @@
 Singleton::Singleton()
 {
 	font_global = std::make_unique<sf::Font>();
-	color_main = std::make_unique<sf::Color>(85, 52, 218);;
-	bg_color = std::make_unique<sf::Color>(129, 191, 115);
+	/*color_main = std::make_unique<sf::Color>(85, 52, 218);
+	bg_color = std::make_unique<sf::Color>(129, 191, 115);*/
+
+	auto load_colors = [](std::unique_ptr<sf::Color>& main, std::unique_ptr<sf::Color>& bg) {
+		n::json obj;
+		std::fstream File;
+		File.open("notes/colors.json");
+		std::cout << "file is open " << File.is_open() << '\n';
+		File >> obj;
+		std::cout << obj["colors"].size();
+		main.reset(new sf::Color(
+			static_cast<int>(obj["colors"]["main"]["red"]),
+			static_cast<int>(obj["colors"]["main"]["green"]),
+			static_cast<int>(obj["colors"]["main"]["blue"])));
+		bg.reset(new sf::Color(
+			static_cast<int>(obj["colors"]["background"]["red"]),
+			static_cast<int>(obj["colors"]["background"]["green"]),
+			static_cast<int>(obj["colors"]["background"]["blue"])));
+		};
+	load_colors(color_main,bg_color);
 	std::shared_ptr<RenderWindow> w = std::make_shared<sf::RenderWindow>(VideoMode(1610, 1000), "application");
 	font_global->loadFromFile("tt-squares-condensed-8.ttf");//EduNSWACTFoundation - Regular.ttf
 	appActivity = true;

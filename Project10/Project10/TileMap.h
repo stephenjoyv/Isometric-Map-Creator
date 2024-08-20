@@ -14,7 +14,6 @@ public:
 	Tile();
 	Tile(const Tile& m);
 	Tile& operator=(const Tile& copy);
-	~Tile();
 };
 class Map :IBaseClass {
 	int size[2];

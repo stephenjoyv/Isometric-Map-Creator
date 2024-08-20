@@ -136,6 +136,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="ButtonsFunctions.cpp" />
     <ClCompile Include="ButtonsLoader.cpp" />
+    <ClCompile Include="ColorSel.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="interfaceobj.cpp" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="ButtonsFunctions.h" />
+    <ClInclude Include="ColorSel.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Header.h" />
     <ClInclude Include="Input.h" />
@@ -173,6 +175,7 @@
     <ClInclude Include="TilePanel.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="colors.json" />
     <None Include="notes\buttons.json" />
     <None Include="notes\settings.json" />
   </ItemGroup>
