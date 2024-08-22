@@ -1,5 +1,7 @@
 #include "Platform.h"
-
+#include "TilePanel.h"
+#include "TileMap.h"
+#include "Input.h"
 Platform::Platform(Mouse* mouse)
 {
 	panel = std::make_unique<TilePanel>(115, 20, Vector2i(700, 722), mouse);
@@ -7,25 +9,6 @@ Platform::Platform(Mouse* mouse)
 	seltile = std::make_unique<SelectedTile>();
 	saving = false;
 	initButtons(mouse);
-	//saver = new RectButton{ 200,192,500 - 32,750 - 32 * 3 / 4,10,"Save Map",[this,mouse]() {
-
-	//	//map->saveMap();
-	//	//saving = true;
-
-	//	setlocale(LC_ALL, "Russian");
-	//	//RenderTarget* tm = pool_window[0].get();
-	//	//inp = new InputTab{ 1000,200,300,500,Color::Yellow,tm,String{L"¬ведите путь к файлу"}};
-	//	map->saveMap();
-
-
-
-	//	},Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor()};
-	//loader = new RectButton{ 200,192,300 - 32,750 - 32 * 3 / 4,10,"Load Map",[this,mouse]() {
-	//	map->loadMap("map.txt");
-	//	},
-	//Singleton::instance().getPoolWindow()[0].get(),mouse,*Singleton::instance().getMainColor() };
-
-
 	data = tuple<int, int, int>{ -1,-1,-1 };
 }
 

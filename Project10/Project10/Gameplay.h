@@ -1,21 +1,25 @@
 #pragma once
 #include "Libs.h"
-#include "TileMap.h"
-#include "Platform.h"
-class Gameplay
+#include "Menu.h"
+class Map;
+class Playable;
+class IBaseClass;
+class Jammed;
+
+
+class GameplayScene : public Scene
 {
-	sf::Mouse mouse;
 	std::shared_ptr<Map> map;
 	std::tuple<int, int, int> clickArea;
 	std::shared_ptr<Playable> player;
 	std::vector<std::shared_ptr<IBaseClass>> objectsDrawable;
-	Jammed* jm;
+	std::unique_ptr<Jammed> jammable;
 protected:
-	virtual void drawing();
-	virtual bool verifyEvents(const sf::Event& event);
-	virtual void runEvents();
+	virtual void drawing() override;
+	virtual bool verifyEvents(const sf::Event& event) override;
+	virtual void runEvents() override;
 public:
-	Gameplay();
+	GameplayScene();
 	void eventLoop();
 };
 

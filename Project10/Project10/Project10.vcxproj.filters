@@ -28,9 +28,6 @@
     <Filter Include="Game\SelectedTile">
       <UniqueIdentifier>{bf75c79d-36cd-473f-85cd-e279197e8574}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Platform">
-      <UniqueIdentifier>{bbec67bc-827b-4908-911e-a5eb6a775d52}</UniqueIdentifier>
-    </Filter>
     <Filter Include="notes">
       <UniqueIdentifier>{7e3b5e05-5b0c-4b29-891c-c8770b340031}</UniqueIdentifier>
     </Filter>
@@ -61,6 +58,12 @@
     <Filter Include="Settings\SelectingColor">
       <UniqueIdentifier>{dac306e9-85ad-4d9a-a580-88c72d80a857}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Playable\Platform">
+      <UniqueIdentifier>{bbec67bc-827b-4908-911e-a5eb6a775d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay">
+      <UniqueIdentifier>{27f30cfe-b610-42d2-9a07-516343985914}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -81,11 +84,8 @@
     <ClCompile Include="TilePanel.cpp">
       <Filter>Game\TileMap\TilePanel</Filter>
     </ClCompile>
-    <ClCompile Include="SelectedTile.cpp">
-      <Filter>Game\SelectedTile</Filter>
-    </ClCompile>
     <ClCompile Include="Platform.cpp">
-      <Filter>Game\Platform</Filter>
+      <Filter>Game\Playable\Platform</Filter>
     </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Settings</Filter>
@@ -117,13 +117,19 @@
     <ClCompile Include="ColorSel.cpp">
       <Filter>Settings\SelectingColor</Filter>
     </ClCompile>
+    <ClCompile Include="SelectedTile.cpp">
+      <Filter>Game\SelectedTile</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jammed.h">
       <Filter>Game\Jammed</Filter>
     </ClInclude>
     <ClInclude Include="Platform.h">
-      <Filter>Game\Platform</Filter>
+      <Filter>Game\Playable\Platform</Filter>
     </ClInclude>
     <ClInclude Include="ButtonsFunctions.h">
       <Filter>ButtonsFunctions</Filter>
@@ -172,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="ColorSel.h">
       <Filter>Settings\SelectingColor</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay.h">
+      <Filter>Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

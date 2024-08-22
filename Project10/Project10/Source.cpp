@@ -8,7 +8,8 @@
 int main() {
 	//Задаём параметры основным переменным
 	Singleton* tm = &Singleton::instance();
-	menu();
+	WelcomeScene scene{};
+	scene.eventLoop();
 	return 0;
 }
 

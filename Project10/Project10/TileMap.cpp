@@ -1,8 +1,12 @@
 #include "TileMap.h"
+#include "boost/algorithm/string.hpp"
+#include "boost/lexical_cast.hpp"
 Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 {
 	ObjTar = targetToDraw;
 	ms = mouse;
+	surface_tx = std::make_unique<sf::RenderTexture>();
+	surface_sp = std::make_unique<sf::Sprite>();
 	size[0] = x;
 	size[1] = y;
 	Tile* tm = new Tile("tyles/tile_022.png", mouse);
@@ -10,7 +14,7 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 	tile_size[1] = tile_size[0];
 	map_size[0] = size[0] * tile_size[0];
 	map_size[1] = size[1] * tile_size[1];
-	surface_tx.create(map_size[0], map_size[1]);
+	surface_tx->create(map_size[0], map_size[1]);
 	delete tm;
 
 	ownmap = new Tile * **[size[0]];
@@ -32,7 +36,7 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 		//Tile* tmp = new Tile("tyles/tile_022.png", mouse);
 		ownmap[i][0][0] = new Tile("tyles/tile_022.png", mouse);
 		ownmap[i][0][0]->setSize(1, 1);
-		ownmap[i][0][0]->setTarget(&surface_tx);
+		ownmap[i][0][0]->setTarget(surface_tx.get());
 		//ownmap[i][0][0]->Scale(2, 2);
 		if (i > 0) {
 			int preposx = ownmap[i - 1][0][0]->sprite->getPosition().x, preposy = ownmap[i - 1][0][0]->sprite->getPosition().y;
@@ -41,7 +45,7 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
 		}
 		else {
-			ownmap[i][0][0]->sprite->setPosition((surface_tx.getSize().x-ownmap[i][0][0]->getSize().x)/2.f, ownmap[i][0][0]->getSize().y*3.f/4);
+			ownmap[i][0][0]->sprite->setPosition((surface_tx->getSize().x-ownmap[i][0][0]->getSize().x)/2.f, ownmap[i][0][0]->getSize().y*3.f/4);
 		}
 				
 	}
@@ -50,7 +54,7 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 		for (int j = 1; j < size[1]; j++)
 		{
 			ownmap[i][j][0] = new Tile("tyles/tile_040.png", mouse);
-			ownmap[i][j][0]->setTarget(&surface_tx);
+			ownmap[i][j][0]->setTarget(surface_tx.get());
 			//ownmap[i][j][0]->Scale(2, 2);
 			int preposx = ownmap[i][j - 1][0]->sprite->getPosition().x, preposy = ownmap[i][j - 1][0]->sprite->getPosition().y;
 			int presizex = ownmap[i][j - 1][0]->texture->getSize().x / 2;
@@ -115,7 +119,7 @@ Map::~Map()
 }
 void Map::reDraw()
 {
-	surface_tx.clear(sf::Color::Color(0, 0, 0, 0));
+	surface_tx->clear(sf::Color::Color(0, 0, 0, 0));
 	int t = 0;
 	for (int i = 0; i < 40; i++)
 	{
@@ -133,13 +137,13 @@ void Map::reDraw()
 		}
 
 	}
-	surface_tx.display();
-	surface_sp.setTexture(surface_tx.getTexture());
+	surface_tx->display();
+	surface_sp->setTexture(surface_tx->getTexture());
 	//std::cout << "tyles drawned = " << t << '\n';
 }
 void Map::draw()
 {
-	ObjTar->draw(surface_sp);
+	ObjTar->draw(*surface_sp);
 	//std::cout << "tyles drawned = " << t << '\n';
 }
 
@@ -214,27 +218,16 @@ void Map::addTile(Tile* tile, int x, int y, int z)
 	}
 	else return;
 	ownmap[x][y][z+1]->setPosition(nx,ny);
-	ownmap[x][y][z+1]->setTarget(&surface_tx);
+	ownmap[x][y][z+1]->setTarget(surface_tx.get());
 	reDraw();
 }
 
 void Map::deleteTile(int x, int y,int z)
 {
-
-	//--info_z[x][y];
 	if (z!=0)
 	{
 		ownmap[x][y][z] = nullptr;
 	}
-	//if (info_z[x][y] > 0) {
-	//	//cout << "COMPONENTS ";
-	//	nx = ownmap[x][y][z - 1]->getPosition().x;
-	//	ny = ownmap[x][y][z - 1]->getPosition().y + ownmap[x][y][z - 1]->getSize().y / 2;
-	//	cout << "NEW TILE POSITION | X : " << nx << " Y : " << ny << '\n';
-
-	//}
-	//else return;
-	//ownmap[x][y][z]->setPosition(nx, ny);
 	reDraw();
 }
 
@@ -259,8 +252,8 @@ void Map::clearMap()
 			}
 		}
 	}
-	surface_tx.clear(sf::Color::Color(0, 0, 0, 0));
-	surface_sp.setTexture(surface_tx.getTexture());
+	surface_tx->clear(sf::Color::Color(0, 0, 0, 0));
+	surface_sp->setTexture(surface_tx->getTexture());
 }
 
 void Map::saveMap()
@@ -287,99 +280,20 @@ void Map::loadMap(std::string link)
 {
 	std::string line;
 	ifstream str{ link };
-	/*ownmap = new Tile * **[size[0]];
-	for (int i = 0; i < size[0]; i++)
-	{
-		ownmap[i] = new Tile * *[size[1]];
-		for (int j = 0; j < size[1]; j++)
-		{
-			ownmap[i][j] = new Tile * [64];
-		}
-	}*/
 	clearMap();
-	//std::cout << "print\n";
 	if (str.is_open()) {
 		while (std::getline(str, line)) {
-			//std::cout << "cwdaw\n";
-			bool read_x = false,
-				read_y = false,
-				read_z = false,
-				read_t = false;
-			int x, y, z;
-			std::string lnk;
-			for (auto i = line.begin(); i < line.end(); i++)
-			{
-				if (read_x) {
-					std::string tm;
-					i += 3;
-					while (*i != ' ') {
-						tm += *i;
-						i++;
-					}
-					x = atoi(tm.c_str());
-					read_x = false;
-				}
-				if (read_y) {
-					std::string tm;
-					i += 3;
-					while (*i != ' ') {
-						tm += *i;
-						i++;
-					}
-					y = atoi(tm.c_str());
-					read_y = false;
-				}
-				if (read_z) {
-					std::string tm;
-					i += 3;
-					while (*i != ' ') {
-						tm += *i;
-						i++;
-					}
-					z = atoi(tm.c_str());
-					read_z = false;
-				}
-				if (read_t) {
-					std::string tm;
-					i += 3;
-					while (i!=line.end() && *i != '\n' && *i != '\0') {
-						tm += *i;
-						i++;
-					}
-					lnk = tm;
-					read_t = false;
-					break;
-				}
-
-
-
-				if (*i == 'X') read_x = true;
-				else if (*i == 'Y') {
-					read_y = true;
-				}
-				else if (*i == 'Z') {
-					read_z = true;
-				}
-				else if (*i == 'K') {
-					read_t = true;
-				}
-
-			}
-			//cout << "COORDINATES | " << "x : " << x << " | " << "y : " << y << " | " << "z : " << z << '\n';
-			ownmap[x][y][z] = new Tile{ lnk,ms };
-			ownmap[x][y][z]->setTarget(&surface_tx);
+			std::vector<std::string> data;
+			boost::split(data, line, boost::is_any_of(" "));
+			int x = boost::lexical_cast<int>(data[2]),
+				y = boost::lexical_cast<int>(data[5]),
+				z = boost::lexical_cast<int>(data[8]);
+			std::string link = data[11];
+			ownmap[x][y][z] = new Tile{link,ms};
+			ownmap[x][y][z]->setTarget(surface_tx.get());
 			info_z[x][y] = z+1;
 		}
 	}
-
-	if (ownmap[0][8][4])
-	{
-		ownmap[0][8][4]->getPosition();
-		std::cout << "OWNMAP\n";
-		
-	}
-
-
 	str.close();
 	for (int i = 0; i < size[0]; i++)
 	{
@@ -392,7 +306,7 @@ void Map::loadMap(std::string link)
 			ownmap[i][0][0]->sprite->setPosition(preposx + presizex, preposy + presizey);
 		}
 		else {
-			ownmap[i][0][0]->sprite->setPosition((surface_tx.getSize().x - ownmap[i][0][0]->getSize().x) / 2.f, ownmap[i][0][0]->getSize().y * 3.f / 4);
+			ownmap[i][0][0]->sprite->setPosition((surface_tx->getSize().x - ownmap[i][0][0]->getSize().x) / 2.f, ownmap[i][0][0]->getSize().y * 3.f / 4);
 		}
 	}
 	for (int i = 0; i < size[0]; i++)

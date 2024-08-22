@@ -1,16 +1,16 @@
 #include "Gameplay.h"
-
-void Gameplay::drawing()
+#include "TileMap.h"
+#include "Playable.h"
+void GameplayScene::drawing()
 {
 	Singleton::instance().getPoolWindow()[0].get()->clear(*Singleton::instance().getBackgroundColor());
 	player->draw();
 	map->draw();
 	globalDraw();
-
 	Singleton::instance().getPoolWindow()[0].get()->display();
 }
 
-bool Gameplay::verifyEvents(const sf::Event& event)
+bool GameplayScene::verifyEvents(const sf::Event& event)
 {
 	switch (event.type)
 	{
@@ -46,15 +46,15 @@ bool Gameplay::verifyEvents(const sf::Event& event)
 
 	}
 	case Event::MouseButtonReleased: {
-		if (event.mouseButton.button == mouse.Left) {
-			jm->disable();
+		if (event.mouseButton.button == Singleton::instance().getMouse().Left) {
+			jammable->disable();
 		}
 		break;
 	}
 	case Event::MouseButtonPressed: {
-		if (mouse.isButtonPressed(mouse.Left))
+		if (Singleton::instance().getMouse().isButtonPressed(Singleton::instance().getMouse().Left))
 		{
-			jm->enable();
+			jammable->enable();
 			for (auto i : Singleton::instance().getPoolButton())
 			{
 				i.get()->setActive();
@@ -66,18 +66,18 @@ bool Gameplay::verifyEvents(const sf::Event& event)
 	return true;
 }
 
-void Gameplay::runEvents()
+void GameplayScene::runEvents()
 {
 	buttonWork();
-	jm->exec();
+	jammable->exec();
 }
 
-Gameplay::Gameplay()
+GameplayScene::GameplayScene()
 {
-	map = std::make_shared<Map>(Singleton::instance().getPoolWindow()[0].get(), &mouse, 40, 40);
+	map = std::make_shared<Map>(Singleton::instance().getPoolWindow()[0].get(), &Singleton::instance().getMouse(), 40, 40);
 	player = std::make_unique<Playable>(Singleton::instance().getPoolWindow()[0].get());
 	player->load("images/lords_avatars/blu_1.png");
-	jm = new Jammed{ Singleton::instance().getFPS(),0.1,[this]() {
+	jammable = std::make_unique<Jammed>( Singleton::instance().getFPS(),0.1,[this]() {
 		map->click(clickArea);
 		int x = std::get<0>(clickArea),
 			y = std::get<1>(clickArea),
@@ -86,12 +86,11 @@ Gameplay::Gameplay()
 		{
 			//something to do	
 		}
-		} };
+		} );
 	objectsDrawable.push_back(map);
-
 }
 
-void Gameplay::eventLoop()
+void GameplayScene::eventLoop()
 {
 	while (Singleton::instance().getPoolWindow()[0].get()->isOpen())
 	{

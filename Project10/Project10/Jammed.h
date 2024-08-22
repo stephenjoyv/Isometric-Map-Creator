@@ -1,7 +1,6 @@
 #pragma once
 #include "Libs.h"
 using namespace std;
-using namespace sf;
 class Jammed {
 private :
 	bool condition;

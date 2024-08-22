@@ -3,8 +3,8 @@
 #include "interfaceobj.h"
 class Playable : public Clicable{
 private:
-	std::unique_ptr<Sprite> sprite;
-	std::unique_ptr<Texture> texture;
+	std::unique_ptr<sf::Sprite> sprite;
+	std::unique_ptr<sf::Texture> texture;
 public:
 	enum class Direction {
 		left, right, up, down

@@ -1,8 +1,11 @@
 #pragma once
-#include "TilePanel.h"
-#include "TileMap.h"
-#include "Input.h"
 #include <memory>
+#include "Libs.h"
+class TilePanel;
+class Map;
+class SelectedTile;
+class RectButton;
+class InputTab;
 
 class Platform
 {
@@ -13,9 +16,8 @@ class Platform
 	std::tuple<int, int, int> data;
 	bool saving;
 	InputTab* inp;
-	//std::pair<int, int> data;
 public:
-	Platform(Mouse* mouse);
+	Platform(sf::Mouse* mouse);
 	void leftClicked();
 	void leftClickedMap();
 	void leftClickedPanel();

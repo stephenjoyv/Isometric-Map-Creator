@@ -52,6 +52,10 @@ std::unique_ptr<sf::Color>& Singleton::getBackgroundColor()
 {
 	return bg_color;
 }
+sf::Mouse& Singleton::getMouse()
+{
+	return mouse;
+}
 int Singleton::getFPS()
 {
 	return FPS;

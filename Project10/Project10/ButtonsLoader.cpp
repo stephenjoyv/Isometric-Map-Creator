@@ -1,5 +1,7 @@
-
 #include "ButtonsFunctions.h"
+#include "Libs.h"
+#include "interfaceobj.h"
+
 namespace n = nlohmann;
 char* anylize(const char* ptr ,int size) {
 	char* tmp = new char[size+1];

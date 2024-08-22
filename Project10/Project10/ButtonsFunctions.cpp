@@ -1,6 +1,7 @@
-
 #include "ButtonsFunctions.h"
-
+#include "interfaceobj.h"
+#include "Libs.h"
+#include "Game.h"
 void StartNewGame() {
 	
 	Singleton::instance().getPoolButton().clear();

@@ -9,9 +9,9 @@ class TilePanel {
 	int pos_x, pos_y;
 	Tile*** pnl;
 	RenderTarget* ObjTar;
-	SelectedTile* cur;
-	RenderTexture* TilePanel_tx;
-	Sprite* TilePanel_sp;
+	std::unique_ptr<SelectedTile> cur;
+	std::unique_ptr<RenderTexture> TilePanel_tx;
+	std::unique_ptr<Sprite> TilePanel_sp;
 public:
 	TilePanel(size_t tile_count,size_t rows_count,Vector2i position, Mouse* mouse);
 	void draw();

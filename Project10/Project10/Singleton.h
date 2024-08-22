@@ -10,6 +10,7 @@ class Singleton
 private:
 	Singleton();
 	bool appActivity;
+	sf::Mouse mouse;
 	std::string vl;
 	std::vector<std::shared_ptr<Button>> pool_button;
 	std::vector<std::shared_ptr<sf::RenderWindow>> pool_window;
@@ -23,6 +24,7 @@ public:
 	std::unique_ptr<sf::Font>& getGlobalFont();
 	std::unique_ptr<sf::Color>& getMainColor();
 	std::unique_ptr<sf::Color>& getBackgroundColor();
+	sf::Mouse& getMouse();
 	int getFPS();
 	bool isAppActive();
 

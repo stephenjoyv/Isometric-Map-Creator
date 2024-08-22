@@ -15,7 +15,7 @@ public:
 	Tile(const Tile& m);
 	Tile& operator=(const Tile& copy);
 };
-class Map :IBaseClass {
+class Map : public IBaseClass {
 	int size[2];
 	int tile_size[2];
 	int map_size[2];
@@ -23,8 +23,8 @@ class Map :IBaseClass {
 	Tile**** ownmap;
 	int** info_z;
 	Mouse* ms;
-	RenderTexture surface_tx;
-	Sprite surface_sp;
+	std::unique_ptr<sf::RenderTexture> surface_tx;
+	std::unique_ptr<sf::Sprite> surface_sp;
 public:
 	Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y);
 	Map(string symbol_map, Mouse* mouse);
