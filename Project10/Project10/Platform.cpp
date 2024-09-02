@@ -2,14 +2,16 @@
 #include "TilePanel.h"
 #include "TileMap.h"
 #include "Input.h"
-Platform::Platform(Mouse* mouse)
+#include "SelectedTile.h"
+
+Platform::Platform(sf::Mouse* mouse)
 {
 	panel = std::make_unique<TilePanel>(115, 20, Vector2i(700, 722), mouse);
-	map = std::make_unique<Map>(Singleton::instance().getPoolWindow()[0].get(), mouse, 40, 40);
+	map = std::make_unique<Map>(Singleton::instance().getPoolWindow()[0].get(), mouse, 64, 64);
 	seltile = std::make_unique<SelectedTile>();
 	saving = false;
 	initButtons(mouse);
-	data = tuple<int, int, int>{ -1,-1,-1 };
+	data = std::tuple<int, int, int>{ -1,-1,-1 };
 }
 
 void Platform::leftClicked()
@@ -28,7 +30,7 @@ void Platform::leftClicked()
 		map->addTile(seltile->getTile(), x, y,z);
 
 		map->click(data);
-		data = tuple<int, int, int>{ -1,-1,-1 };
+		data = std::tuple<int, int, int>{ -1,-1,-1 };
 	}
 	
 }
@@ -50,7 +52,7 @@ void Platform::leftClickedMap()
 	
 		map->click(data);
 
-		data = tuple<int, int, int>{ -1,-1,-1 };
+		data = std::tuple<int, int, int>{ -1,-1,-1 };
 	}
 }
 
@@ -99,7 +101,7 @@ void Platform::rightClicked()
 
 		//map->click(data);
 
-		data = tuple<int, int, int>{ -1,-1,-1 };
+		data = std::tuple<int, int, int>{ -1,-1,-1 };
 	}
 }
 
@@ -110,8 +112,8 @@ void Platform::wheelClicked()
 
 void Platform::draw()
 {
-	panel->draw();
 	map->draw();
+	panel->draw();
 	if(saving)inp->draw();
 }
 

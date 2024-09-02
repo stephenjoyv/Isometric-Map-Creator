@@ -27,7 +27,7 @@ Singleton::Singleton()
 	font_global->loadFromFile("tt-squares-condensed-8.ttf");//EduNSWACTFoundation - Regular.ttf
 	appActivity = true;
 	FPS = 60;
-
+	
 	pool_window.emplace_back(w);
 	pool_window[0]->setFramerateLimit(FPS);
 }
@@ -55,6 +55,28 @@ std::unique_ptr<sf::Color>& Singleton::getBackgroundColor()
 sf::Mouse& Singleton::getMouse()
 {
 	return mouse;
+}
+void Singleton::getCharacterSize()
+{
+	HDC hDC;
+	TEXTMETRIC textMetric;
+	HFONT   hFont, hOldFont;
+	int sizeInPpoints, lineHeight;
+	RECT textRect;
+	LPCWSTR buffer = L"Checkable string!";
+
+	hDC = GetDC(Singleton::instance().getPoolWindow()[0]->getSystemHandle());
+	sizeInPpoints = MulDiv(36, GetDeviceCaps(hDC, LOGPIXELSY), 72);
+	hFont = CreateFont(-sizeInPpoints, 0, 0, 0, FW_NORMAL, 0, 0, 0, 0, 0, 0, 0, 0, L"tt-squares-condensed-8");
+	hOldFont = (HFONT)SelectObject(hDC, hFont);
+
+	GetTextMetrics(hDC, &textMetric);
+
+	lineHeight = textMetric.tmHeight; // character height in current font
+	std::wstring w = static_cast<std::wstring>(buffer);
+	std::string m = std::string{ w.begin(),w.end() };
+	textRect.left = textRect.right = textRect.top = textRect.bottom = 0;
+	DrawText(hDC, buffer, strlen(m.c_str()), &textRect, DT_CALCRECT);
 }
 int Singleton::getFPS()
 {

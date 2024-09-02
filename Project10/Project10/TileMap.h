@@ -1,6 +1,6 @@
 #pragma once
 #include "Game.h"
-struct Tile : public DetectedImage {
+class Tile : public DetectedImage {
 private:
 	int _size[2];
 	int _index;
@@ -25,6 +25,7 @@ class Map : public IBaseClass {
 	Mouse* ms;
 	std::unique_ptr<sf::RenderTexture> surface_tx;
 	std::unique_ptr<sf::Sprite> surface_sp;
+	std::unique_ptr<sf::View> view;
 public:
 	Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y);
 	Map(string symbol_map, Mouse* mouse);
@@ -40,6 +41,8 @@ public:
 	void clearMap();
 	void saveMap();
 	void loadMap(std::string link);
+	sf::Vector2u getSize();
+	sf::Vector2f getPosition();
 private:
 	std::vector<string> splitter(string symbols);
 };

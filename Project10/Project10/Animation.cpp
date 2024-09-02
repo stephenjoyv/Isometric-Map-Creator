@@ -41,6 +41,11 @@ void Animation::moveTo(int x, int y)
 	}
 }
 
+sf::Vector2f Animation::getPosition()
+{
+	return animation_sp[0]->getPosition();
+}
+
 void Animation::draw()
 {
 	ObjTar->draw(*animation_sp.at(current_frame));

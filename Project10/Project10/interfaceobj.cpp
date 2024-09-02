@@ -1,21 +1,8 @@
 #include "interfaceobj.h"
 
 
-IBaseClass::IBaseClass()
-{
-}
-
-IBaseClass::~IBaseClass() {
-	//std::cout << "Destructor\n";
-}
-
 
 void globalDraw() {
-	//std::shared_ptr<Singleton> sgl(&Singleton::instance());
-	
-	/*for (auto i = Singleton::getPoolButton().begin();)
-	{
-	}*/
 	for (auto c : Singleton::instance().getPoolButton()) {
 		c->draw();
 	}
@@ -30,15 +17,19 @@ void buttonWork()
 			break;
 		}
 	}
-	/*for (int i = 0; i < Singleton::instance().getPoolButton().size(); i++)
-	{
-		pool_button[i].get()->isActive();
-	}*/
 }
 
 bool Clicable::Click() {
 	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
 
+	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y) &&
+		(mouse->getPosition(*temp).y <= pos_y + size_y) && (mouse->getPosition(*temp).x >= pos_x) && (mouse->getPosition(*temp).x <= pos_x + size_x);
+	return tmp;
+}
+
+bool Clicable::Click(const sf::View& view)
+{
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
 	bool tmp = Mouse::isButtonPressed(Mouse::Left) && (mouse->getPosition(*temp).y >= pos_y) &&
 		(mouse->getPosition(*temp).y <= pos_y + size_y) && (mouse->getPosition(*temp).x >= pos_x) && (mouse->getPosition(*temp).x <= pos_x + size_x);
 	return tmp;
@@ -53,9 +44,15 @@ bool Clicable::Click(int difference_x, int difference_y)
 	return tmp;
 }
 
+void Clicable::setActive(const sf::View&)
+{
+}
+
+
+
 
 //Определение Button
-Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) {
+Button::Button(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) {
 	this->size_x = size_x;
 	this->size_y = size_y;
 	this->pos_x = pos_x;
@@ -67,10 +64,10 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::str
 	this->frames[1] = frames;
 	active = false;
 	this->text.setFont(*Singleton::instance().getGlobalFont());
-	
-	
+
+
 	this->text.setFillColor(Color::White);
-	this->text.setString(String(text));
+	this->text.setString(String{ text });
 	std::cout << "x= " << this->text.getGlobalBounds().getSize().x;
 	this->text.setPosition(pos_x+size_x/2 - (this->text.getGlobalBounds().getSize().x)/2, pos_y+size_y/2 - (this->text.getGlobalBounds().getSize().y)/2);
 
@@ -78,9 +75,6 @@ Button::Button(int size_x, int size_y, int pos_x, int pos_y,int frames, std::str
 	
 	//but_shape.setSize(Vector2f(size_x, size_y));
 	//but_shape.setPosition(Vector2f(pos_x, pos_y));
-
-	std::shared_ptr<Button> a(this);
-	Singleton::instance().getPoolButton().emplace_back(a);
 	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
@@ -100,8 +94,7 @@ Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, Rend
 	//but_shape.setSize(Vector2f(size_x, size_y));
 	//but_shape.setPosition(Vector2f(pos_x, pos_y));
 
-	std::shared_ptr<Button> a(this);
-	Singleton::instance().getPoolButton().emplace_back(a);
+	
 	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
@@ -110,19 +103,15 @@ Button::Button(int pos_x, int pos_y, int frames, std::function<void()> run, Rend
 Button::Button()
 {
 }
+Button::~Button()
+{
+}
 void Button::setActive() {
-	//std::cout << "is clicked\n";
-	//std::cout << !active << '\n';
-	//std::cout << Clicable::click(*mouse) << '\n';
-
-	
 	if (!active && Click()) {
 		active = true;
-		//std::cout << "called" << '\n';
-		
 		//изменить цвет фигуры
 		std::cout << "CLICK!!!";
-		but_shape->setFillColor(Color::Color(color.r + 40, color.g + 40, color.b + 40));
+		buttonShape->setFillColor(Color::Color(color.r + 40, color.g + 40, color.b + 40));
 	}
 }
 void Button::setId(const std::string& newId)
@@ -138,13 +127,21 @@ void Button::setRunFunction(std::function<void()> fun)
 	run = fun;
 }
 void Button::standart() {
-	but_shape->setFillColor(color);
+	buttonShape->setFillColor(color);
 	active = false;
 	run();
 }
+void Button::scale(float x, float y)
+{
+}
 void Button::draw() {
-	ObjTar->draw(*but_shape);
+	ObjTar->draw(*buttonShape);
 	ObjTar->draw(text);
+}
+void Button::pushToDrawingVector()
+{
+	std::shared_ptr<Button> a(this);
+	Singleton::instance().getPoolButton().emplace_back(a);
 }
 bool Button::getActive() {
 	return active;
@@ -164,7 +161,7 @@ bool Button::isActive() {
 		}
 		else {
 			active = false;
-			but_shape->setFillColor(color);
+			buttonShape->setFillColor(color);
 			frames[1] = frames[0];
 			standart();
 		}
@@ -172,21 +169,17 @@ bool Button::isActive() {
 	}
 	return false;
 }
-Button::~Button() {
-	std::cout << '\n' << this << '\n';
-}
-
 //Определение Pair Array
 CircleButton::CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run,  space,  mouse, color) {
 	size_y = size_x;
-	CircleShape* tempshape = new CircleShape;
+	std::unique_ptr<CircleShape> tempshape = std::make_unique<CircleShape>();
 	tempshape->setRadius(size_x / 2);
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(4);
 	tempshape->setPosition(pos_x, pos_y);
-	but_shape = tempshape;
+	buttonShape = std::move(tempshape);
 }
 //	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color)
 RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color)
@@ -205,7 +198,7 @@ RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames,
 
 
 	this->text.setFillColor(Color::White);
-	this->text.setString(String(text));
+	this->text.setString(String{ text });
 	std::cout << "x= " << this->text.getGlobalBounds().getSize().x;
 	this->text.setPosition(pos_x + size_x / 2 - (this->text.getGlobalBounds().getSize().x) / 2, pos_y + size_y / 2 - (this->text.getGlobalBounds().getSize().y) / 2);
 
@@ -218,22 +211,22 @@ RectButton::RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames,
 	//pool_button.emplace_back(a);
 	//std::cout << (pool_pair[0].get());
 	this->run = run;
-	RectangleShape* tempshape = new RectangleShape;
-	but_shape = new RectangleShape;
+	std::unique_ptr<RectangleShape> tempshape = std::make_unique<RectangleShape>();
 	tempshape->setSize(Vector2f(size_x, size_y));
 	tempshape->setPosition(pos_x, pos_y);
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(4);
-	but_shape = tempshape;
+	buttonShape = std::move(tempshape);
 }
-RectButton::~RectButton()
+void RectButtonImage::pushToDrawingVector()
 {
-	std::cout << "destr "<< this << '\n';
+	std::shared_ptr<Button> a(this);
+	Singleton::instance().getPoolButton().emplace_back(a);
 }
 CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()> run, RenderTarget* space, Mouse* mouse, Color color) :
 	Button(size_x, size_y, pos_x, pos_y, frames, text, run, space, mouse, color) {
-	ConvexShape* tempshape = new ConvexShape;
+	std::unique_ptr<ConvexShape> tempshape = std::make_unique<ConvexShape>();
 	tempshape->setPointCount(4);
 	tempshape->setPoint(0, Vector2f(pos_x, pos_y));
 	double tmpn = size_y * tan((30 * 3.14) / 180);
@@ -243,12 +236,12 @@ CustomButton::CustomButton(int size_x, int size_y, int pos_x, int pos_y, int fra
 	tempshape->setFillColor(color);
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(4);
-	but_shape = tempshape;
+	buttonShape = std::move(tempshape);
 }
 RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string img, std::function<void()> run, RenderTarget* space, Mouse* mouse) :
 	Button(pos_x, pos_y, frames, run, space,  mouse) {
-	texture = new Texture;
-	sprite = new Sprite;
+	texture = std::make_unique<sf::Texture>();
+	sprite = std::make_unique<sf::Sprite>();
 	texture->loadFromFile(img);
 	
 	sprite->setTexture(*texture);
@@ -256,26 +249,23 @@ RectButtonImage::RectButtonImage(int pos_x, int pos_y, int frames,std::string im
 	size_y = texture->getSize().y;
 	sprite->setPosition(pos_x, pos_y);
 
-	RectangleShape* tempshape = new RectangleShape;
-	//but_shape = new RectangleShape;
+	std::unique_ptr<RectangleShape> tempshape = std::make_unique<RectangleShape>();
 	tempshape->setSize(Vector2f(size_x,size_y));
 	tempshape->setPosition(pos_x, pos_y);
 	tempshape->setOutlineColor(Color::White);
 	tempshape->setOutlineThickness(4);
 	tempshape->setFillColor(Color(0, 0, 0, 0));
-	but_shape = tempshape;
+	buttonShape = std::move(tempshape);
 }
 
 void RectButtonImage::draw() {
 	ObjTar->draw(*sprite);
-	ObjTar->draw(*but_shape);
+	ObjTar->draw(*buttonShape);
 }
 
 RectButtonImageRolled::RectButtonImageRolled(int pos_x, int pos_y, int time, std::string img, std::function<void()> rn, RenderTarget* space, Mouse* mouse) :
 	RectButtonImage(pos_x, pos_y, time, img, rn, space, mouse)
 {
-	
-	delete but_shape;
 	this->time = time;
 	angle = 0;
 	frames[0] = time*Singleton::instance().getFPS();
@@ -315,6 +305,12 @@ void RectButtonImageRolled::scale(float x, float y)
 	sprite->scale(x, y);
 }
 
+void RectButtonImageRolled::pushToDrawingVector()
+{
+	std::shared_ptr<Button> a(this);
+	Singleton::instance().getPoolButton().emplace_back(a);
+}
+
 void RectButtonImageRolled::setActive()
 {
 	std::cout << "frames = " << frames[0] << " and " << frames[1]<<'\n';
@@ -326,9 +322,6 @@ void RectButtonImageRolled::setActive()
 
 RectButtonImageRolled::~RectButtonImageRolled()
 {
-	if (texture != nullptr) delete texture;
-	if (sprite != nullptr) delete sprite;
-
 	k = 0;
 	std::cout << "RECTDEST\n";
 }

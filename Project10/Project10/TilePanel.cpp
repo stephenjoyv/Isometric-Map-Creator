@@ -1,4 +1,8 @@
 #include "TilePanel.h"
+#include "Game.h"
+#include "SelectedTile.h"
+#include "cmath"
+#include "TileMap.h"
 TilePanel::TilePanel(size_t tile_count,size_t rows, Vector2i pos, Mouse* mouse) {
 	size_x = tile_count;
 	size_y = rows;
@@ -102,12 +106,10 @@ void TilePanel::clickRight()
 }
 
 
-TilePanel::~TilePanel()
-{
-}
+TilePanel::~TilePanel() = default;
 
 //For 3 symbols nums
-string normalizeString(int num)
+std::string normalizeString(int num)
 {
 	if (num<=999 && num>=(-999))
 	{

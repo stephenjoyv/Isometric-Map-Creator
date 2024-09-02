@@ -25,6 +25,7 @@ public:
 	std::unique_ptr<sf::Color>& getMainColor();
 	std::unique_ptr<sf::Color>& getBackgroundColor();
 	sf::Mouse& getMouse();
+	void getCharacterSize();
 	int getFPS();
 	bool isAppActive();
 

@@ -1,22 +1,20 @@
 #pragma once
-#include "Game.h"
-#include "SelectedTile.h"
-#include "cmath"
-using namespace std;
-using namespace sf;
+#include "Libs.h"
+class Tile;
+class SelectedTile;
 class TilePanel {
 	int size_x, size_y;
 	int pos_x, pos_y;
 	Tile*** pnl;
-	RenderTarget* ObjTar;
+	sf::RenderTarget* ObjTar;
 	std::unique_ptr<SelectedTile> cur;
-	std::unique_ptr<RenderTexture> TilePanel_tx;
-	std::unique_ptr<Sprite> TilePanel_sp;
+	std::unique_ptr<sf::RenderTexture> TilePanel_tx;
+	std::unique_ptr<sf::Sprite> TilePanel_sp;
 public:
-	TilePanel(size_t tile_count,size_t rows_count,Vector2i position, Mouse* mouse);
+	TilePanel(size_t tile_count,size_t rows_count,sf::Vector2i position, sf::Mouse* mouse);
 	void draw();
 	bool click(std::unique_ptr<SelectedTile>& m);
 	void clickRight();
 	~TilePanel();
 };
-string normalizeString(int num);
+std::string normalizeString(int num);

@@ -14,6 +14,7 @@ private:
 public:
 	Animation(std::string dir,int frames_count,double duration,RenderTarget* target);
 	void moveTo(int x, int y);
+	sf::Vector2f getPosition();
 	void draw() override;
 	void changing();
 	void scaleImage(double x,double y);

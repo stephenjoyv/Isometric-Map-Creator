@@ -1,7 +1,8 @@
 #pragma once
-#include "TileMap.h"
+#include "Libs.h"
 using namespace std;
 using namespace sf;
+class Tile;
 class SelectedTile
 {
 	int x, y;

@@ -64,6 +64,9 @@
     <Filter Include="Gameplay">
       <UniqueIdentifier>{27f30cfe-b610-42d2-9a07-516343985914}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{6cb61e09-c575-4a63-8f30-3a8cfaccf039}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -123,6 +126,9 @@
     <ClCompile Include="Gameplay.cpp">
       <Filter>Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="Testing.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Jammed.h">
@@ -181,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="Gameplay.h">
       <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Testing.h">
+      <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

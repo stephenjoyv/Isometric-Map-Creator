@@ -5,3 +5,4 @@ void Exit();
 void loadDefaultColor();
 void Settings();
 void Test();
+void testing();

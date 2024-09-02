@@ -74,7 +74,7 @@ void GameplayScene::runEvents()
 
 GameplayScene::GameplayScene()
 {
-	map = std::make_shared<Map>(Singleton::instance().getPoolWindow()[0].get(), &Singleton::instance().getMouse(), 40, 40);
+	map = std::make_shared<Map>(Singleton::instance().getPoolWindow()[0].get(), &Singleton::instance().getMouse(), 64, 64);
 	player = std::make_unique<Playable>(Singleton::instance().getPoolWindow()[0].get());
 	player->load("images/lords_avatars/blu_1.png");
 	jammable = std::make_unique<Jammed>( Singleton::instance().getFPS(),0.1,[this]() {
@@ -88,6 +88,10 @@ GameplayScene::GameplayScene()
 		}
 		} );
 	objectsDrawable.push_back(map);
+}
+
+GameplayScene::~GameplayScene()
+{
 }
 
 void GameplayScene::eventLoop()

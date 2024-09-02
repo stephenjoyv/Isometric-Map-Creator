@@ -152,6 +152,7 @@
     <ClCompile Include="Source.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\MS Dir\repos\Project10\Project10\JSON\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <ClCompile Include="Testing.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="TilePanel.cpp" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SliderBar.h" />
+    <ClInclude Include="Testing.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="TilePanel.h" />
   </ItemGroup>

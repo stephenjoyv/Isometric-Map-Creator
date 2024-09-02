@@ -1,4 +1,5 @@
 #include "SelectedTile.h"
+#include "TileMap.h"
 SelectedTile::SelectedTile() {
 	x = 0;
 	y = 0;

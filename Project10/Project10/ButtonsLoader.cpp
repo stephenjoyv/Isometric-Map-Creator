@@ -18,39 +18,34 @@ void ButtonLoader(sf::RenderTarget* space,sf::Mouse* mouse,sf::Color color,Strin
 	std::cout << "file is open " << File.is_open() << '\n';
 	File >> obj;
 	std::cout << obj["Buttons"].size();
+	
 	for (int i = 1; i <= obj["Buttons"].size(); i++) {
-		std::string tmps = std::to_string(i);
-		void(*tmpv)();
-		switch ((int)obj["Buttons"][tmps.c_str()]["function"])
-		{
-		case 1:
-		{
-			tmpv = StartNewGame;
-			break;
-		}
-		case 2: {
-			tmpv = LoadNewGame;
-			break;
-		}
-		case 3: {
-			tmpv = Exit;
-			break;
-		}
-		case 4: {
-			tmpv = loadDefaultColor;
-			break;
-		}
-		case 5: {
-			tmpv = Settings;
-			break;
-		}
-		}
-		std::string name = (std::string)obj["Buttons"][tmps.c_str()]["char*"];
+		std::string buttonNumber = std::to_string(i);
+		std::unordered_map<int, std::function<void(void)>> menuFunction = {
+			{1,StartNewGame},
+			{2,LoadNewGame},
+			{3,Exit},
+			{4,loadDefaultColor},
+			{5,Settings},
+			{6,testing}
+		};
+		std::string name = static_cast<std::string>(obj["Buttons"][buttonNumber.c_str()]["char*"]);
 		std::cout <<"size = "<< name.size() << '\n';
-		Button* tmp = new CustomButton{ (int)obj["Buttons"][tmps.c_str()]["size_x"],(int)obj["Buttons"][tmps.c_str()]["size_y"],
-		(int)obj["Buttons"][tmps.c_str()]["pos_x"],(int)obj["Buttons"][tmps.c_str()]["pos_y"],(int)obj["Buttons"][tmps.c_str()]["frames"],
-		anylize(name.c_str(),name.size()),tmpv,space,mouse,color};
+		Button* tmp = new CustomButton{
+			(int)obj["Buttons"][buttonNumber.c_str()]["size_x"],
+			(int)obj["Buttons"][buttonNumber.c_str()]["size_y"],
+			(int)obj["Buttons"][buttonNumber.c_str()]["pos_x"],
+			(int)obj["Buttons"][buttonNumber.c_str()]["pos_y"],
+			(int)obj["Buttons"][buttonNumber.c_str()]["frames"],
+			anylize(name.c_str(),name.size()),
+			menuFunction[(int)obj["Buttons"][buttonNumber.c_str()]["function"]],
+			space,
+			mouse,
+			color
+		};
+		tmp->pushToDrawingVector();
+		
 		std::cout << anylize(name.c_str(), name.size()) ;
-		//delete name;
 	}
+	std::cout << " pool button size " << Singleton::instance().getPoolButton().size() << '\n';
 }

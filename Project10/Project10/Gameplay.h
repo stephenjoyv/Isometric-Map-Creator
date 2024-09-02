@@ -11,7 +11,7 @@ class GameplayScene : public Scene
 {
 	std::shared_ptr<Map> map;
 	std::tuple<int, int, int> clickArea;
-	std::shared_ptr<Playable> player;
+	std::unique_ptr<Playable> player;
 	std::vector<std::shared_ptr<IBaseClass>> objectsDrawable;
 	std::unique_ptr<Jammed> jammable;
 protected:
@@ -20,6 +20,7 @@ protected:
 	virtual void runEvents() override;
 public:
 	GameplayScene();
+	~GameplayScene();
 	void eventLoop();
 };
 

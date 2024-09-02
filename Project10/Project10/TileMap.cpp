@@ -9,22 +9,26 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 	surface_sp = std::make_unique<sf::Sprite>();
 	size[0] = x;
 	size[1] = y;
-	Tile* tm = new Tile("tyles/tile_022.png", mouse);
+	std::unique_ptr<Tile> tm = std::make_unique<Tile>("tyles/tile_022.png", mouse);
 	tile_size[0] = tm->getSize().x;
 	tile_size[1] = tile_size[0];
 	map_size[0] = size[0] * tile_size[0];
 	map_size[1] = size[1] * tile_size[1];
 	surface_tx->create(map_size[0], map_size[1]);
-	delete tm;
+	view = std::make_unique<sf::View>();
+	view->setSize(Singleton::instance().getPoolWindow()[0]->getSize().x * 2.f ,
+		Singleton::instance().getPoolWindow()[0]->getSize().y * 2.f );
+	view->setCenter(Singleton::instance().getPoolWindow()[0]->getSize().x * 1.f / 2,
+		Singleton::instance().getPoolWindow()[0]->getSize().y * 1.f / 2);
 
 	ownmap = new Tile * **[size[0]];
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
 		ownmap[i] = new Tile * *[size[1]];
-		for (int k = 0; k < 40; k++)
+		for (int k = 0; k <64; k++)
 		{
-			ownmap[i][k] = new Tile * [64];
-			for (int j = 0; j<64;j++)
+			ownmap[i][k] = new Tile * [30];
+			for (int j = 0; j<30;j++)
 			{
 				ownmap[i][k][j] = nullptr;
 			}
@@ -80,10 +84,10 @@ Map::Map(RenderTarget* targetToDraw, Mouse* mouse, int x, int y)
 	}*/
 	//Заполнение info_z
 	info_z = new int* [size[0]];
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
 		info_z[i] = new int[size[1]];
-		for (int j = 0; j < 40; j++)
+		for (int j = 0; j < 64; j++)
 		{
 			info_z[i][j] = 1;
 		}
@@ -111,7 +115,7 @@ Map::~Map()
 	delete ownmap;
 
 	//Очистка info_z
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
 		delete info_z[i];
 	}
@@ -121,9 +125,9 @@ void Map::reDraw()
 {
 	surface_tx->clear(sf::Color::Color(0, 0, 0, 0));
 	int t = 0;
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
-		for (int j = 0; j < 40; j++)
+		for (int j = 0; j < 64; j++)
 		{
 			for (int k = 0; k < info_z[i][j]; k++)
 			{
@@ -143,23 +147,25 @@ void Map::reDraw()
 }
 void Map::draw()
 {
+	ObjTar->setView(*view);
 	ObjTar->draw(*surface_sp);
+	ObjTar->setView(ObjTar->getDefaultView());
 	//std::cout << "tyles drawned = " << t << '\n';
 }
 
 void Map::click(std::tuple<int,int,int>&data)
 {
 	bool clicked = false;
-	for (int i = 40-1; i >= 0; i--)
+	for (int i = 64-1; i >= 0; i--)
 	{
-		for (int j = 40-1; j >=0; j--)
+		for (int j = 64-1; j >=0; j--)
 		{
 			int k = info_z[i][j]; 
 			for (int z = k-1; z >= 0; z--)
 			{
 				if (ownmap[i][j][z])
 				{
-					ownmap[i][j][z]->setActive();
+					ownmap[i][j][z]->setActive(*view);
 					//std::cout << ownmap[i][j]->getSize().x << '\n';
 					if (ownmap[i][j][z]->clicked)
 					{
@@ -241,9 +247,9 @@ bool Map::controlTile(int x, int y, int z)
 
 void Map::clearMap()
 {
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
-		for (int j = 0; j < 40; j++)
+		for (int j = 0; j < 64; j++)
 		{
 			for (int k = 0; k < info_z[i][j]; k++)
 			{
@@ -260,9 +266,9 @@ void Map::saveMap()
 {
 	ofstream file;
 	file.open("map.txt");
-	for (int i = 0; i < 40; i++)
+	for (int i = 0; i < 64; i++)
 	{
-		for (int j = 0; j < 40; j++)
+		for (int j = 0; j < 64; j++)
 		{
 			for ( int k = 0; k < info_z[i][j]; k++)
 			{
@@ -338,6 +344,16 @@ void Map::loadMap(std::string link)
 
 
 	
+}
+
+sf::Vector2u Map::getSize()
+{
+	return surface_tx->getSize();
+}
+
+sf::Vector2f Map::getPosition()
+{
+	return surface_sp->getPosition();
 }
 
 std::vector<string> Map::splitter(string symbols) {

@@ -4,6 +4,7 @@
 #include "interfaceobj.h"
 #include "Platform.h"
 #include "Singleton.h"
+
 using namespace std;
 using namespace sf;
 
@@ -31,13 +32,13 @@ DetectedImage::DetectedImage() {
 	is_bordered = false;
 	scale = Vector2i(1, 1);
 }
-void DetectedImage::setPosition(int x, int y)
+void DetectedImage::setPosition(float x, float y)
 {
 	sprite->setPosition(x, y);
 	update();
 	if (is_bordered) borders->setPosition(pos_x, pos_y);
 }
-void DetectedImage::setOrigin(int x, int y)
+void DetectedImage::setOrigin(float x, float y)
 {
 	sprite->setOrigin(x, y);
 	sprite->setPosition(pos_x+sprite->getOrigin().x, pos_y + sprite->getOrigin().y);
@@ -54,9 +55,9 @@ void DetectedImage::init_border()
 		borders = std::make_unique<RectangleShape>();
 		update();
 		borders->setSize(Vector2f(size_x, size_y));
-		borders->setPosition(pos_x, pos_y);
+		borders->setPosition((float)pos_x, (float)pos_y);
 		borders->setOutlineColor(Color::White);
-		borders->setOutlineThickness(4);
+		borders->setOutlineThickness((float)4);
 		borders->setFillColor(*Singleton::instance().getMainColor());
 	}
 	
@@ -123,13 +124,14 @@ void DetectedImage::draw() {
 void DetectedImage::setActive() {
 	if (Click())
 	{
-		//Mark on image pixel which was clicked
-		/*update();
-		int mpx = mouse->getPosition(*pool_window[0].get()).x, mpy = mouse->getPosition(*pool_window[0].get()).y;
-		image->setPixel(mpx - pos_x, mpy - pos_y, Color::Red);
-		texture->loadFromImage(*image);
-		sprite->setTexture(*texture);*/
 		std::cout << "click\n";
+	}
+}
+void DetectedImage::setActive(const sf::View&view)
+{
+	if (Click(view))
+	{
+		std::cout << "relative click\n";
 	}
 }
 bool DetectedImage::isActive()
@@ -137,7 +139,7 @@ bool DetectedImage::isActive()
 	return false;
 }
 bool DetectedImage::Click() {
-	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
+	const RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
 	update();
 	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
 	bool in_area = (Mouse::isButtonPressed(Mouse::Left) || Mouse::isButtonPressed(Mouse::Right)) &&
@@ -153,6 +155,32 @@ bool DetectedImage::Click() {
 	{
 		bool alpha_pixel = (bool)(image->getPixel(mouse->getPosition(*temp).x - pos_x,
 			mouse->getPosition(*temp).y - pos_y).a);
+		if (alpha_pixel) clicked = true;
+		return alpha_pixel;
+	}
+	return in_area;
+}
+bool DetectedImage::Click(const sf::View&view)
+{
+	
+	RenderWindow* temp = Singleton::instance().getPoolWindow()[0].get();
+	update();
+	sf::Vector2f mouse_pos_relative = temp->mapPixelToCoords(
+		sf::Vector2i( mouse->getPosition(*temp).x,mouse->getPosition(*temp).y),view );
+	//std::cout <<"mouse position "<< mouse->getPosition().x << " " << mouse->getPosition().y << '\n';
+	bool in_area = (Mouse::isButtonPressed(Mouse::Left) || Mouse::isButtonPressed(Mouse::Right)) &&
+		(mouse_pos_relative.y >= pos_y) &&
+		(mouse_pos_relative.y < pos_y + size_y) &&
+		(mouse_pos_relative.x >= pos_x) &&
+		(mouse_pos_relative.x < pos_x + size_x);
+	if (is_bordered) {
+		clicked = true;
+		return in_area;
+	}
+	if (in_area)
+	{
+		bool alpha_pixel = (bool)(image->getPixel(mouse_pos_relative.x - pos_x,
+			mouse_pos_relative.y - pos_y).a);
 		if (alpha_pixel) clicked = true;
 		return alpha_pixel;
 	}
@@ -191,112 +219,119 @@ void DetectedImage::update()
 }
 
 
-
-
-
-
-void game() {
-	Mouse mouse;
-	/*Tile m("tyles/tile_022.png", &mouse);
-	Tile k = m;*/
-	Platform* pl = new Platform(&mouse);
-	std::unique_ptr<RectButtonImageRolled> img = std::make_unique<RectButtonImageRolled>(1300, 50, 1, "images/settings.png", [&pl, &mouse]() {settings(); pl->initButtons(&mouse); }, Singleton::instance().getPoolWindow()[0].get(), &mouse);
-	img->scale(0.5, 0.5);
-	img->setId("game");
-	bool jammed = false;
-	Jammed* jm = new Jammed{ Singleton::instance().getFPS(),0.1,[&pl]() {pl->leftClickedMap(); } };
-	sf::Text texp;
-	texp.setFont(*Singleton::instance().getGlobalFont());
-	texp.setPosition(500, 500);
-	texp.setCharacterSize(50);
-	texp.setFillColor(Color::White);
-	/*SelectedTile *k = new SelectedTile;
-	Tile* m = new Tile("tyles/tile_000.png", &mouse);
-	m->Scale(5, 5);
-	m->setPosition(0, 400);
-	k->loadCur(m);*/
-
-	while (Singleton::instance().getPoolWindow()[0].get()->isOpen())
+bool EditorScene::verifyEvents(const sf::Event& event)
+{
+	switch (event.type)
+	{
+	case Event::Closed: {
+		Singleton::instance().getPoolButton().clear();
+		ButtonLoader(Singleton::instance().getPoolWindow()[0].get(), &Singleton::instance().getMouse(), *Singleton::instance().getMainColor(), "notes/buttons.json");
+		return false;
+	}
+	case Event::KeyPressed: {
+		switch (event.key.scancode) {
+		case Keyboard::Scan::LAlt:
 		{
-			Event event;
-			while (Singleton::instance().getPoolWindow()[0].get()->pollEvent(event)) {
-				switch (event.type)
-				{
-				case Event::Closed: {
-					Singleton::instance().getPoolButton().clear();
-					ButtonLoader(Singleton::instance().getPoolWindow()[0].get(), &mouse, *Singleton::instance().getMainColor(), "notes/buttons.json");
-					
-					return;
-				}
-				case Event::KeyPressed: {
-					switch (event.key.scancode) {
-					case Keyboard::Scan::LAlt:
-					{
-						std::cout << "LALT\n";
-						pl->textClear();
-						break;
-					}
-					case Keyboard::Scan::Backspace:
-						pl->deleteLast();
-						cout << "dellast\n";
-						break;
-					}
-					
-					break;
-
-				}
-				case Event::MouseButtonReleased: {
-					if (event.mouseButton.button == mouse.Left) {
-						jm->disable();
-					}
-					break;
-				}
-				case Event::MouseButtonPressed: {
-					if (mouse.isButtonPressed(mouse.Left))
-					{
-						jm->enable();				
-						//m->setActive();
-						pl->leftClicked();
-						
-						for (auto i : Singleton::instance().getPoolButton())
-						{
-							i.get()->setActive();
-						}
-						//std::cout << "frames = " << img->getFrames();
-					}
-					else if (mouse.isButtonPressed(mouse.Right) ){
-						pl->rightClicked();
-					}
-					else if (mouse.isButtonPressed(mouse.Middle))
-					{
-						pl->wheelClicked();
-					}
-					
-					break;
-				}
-				case Event::TextEntered:
-					if (event.text.unicode != 8) {
-						texp.setString(event.text.unicode);
-						pl->input(event.text.unicode);
-					}
-
-					break;
-				}
-				//Sleep(5);
-
-			}
-			buttonWork();
-			jm->exec();
-			//std::cout << '\n';
-			//std::cout << "frame " << pool_pair[0].get()->getFrame() << '\n';
-			Singleton::instance().getPoolWindow()[0].get()->clear(*Singleton::instance().getBackgroundColor());
-			std::cout << "";
-			
-			pl->draw();
-			globalDraw();
-			Singleton::instance().getPoolWindow()[0].get()->draw(texp);
-			//m->draw();
-			Singleton::instance().getPoolWindow()[0].get()->display();
+			std::cout << "LALT\n";
+			platform->textClear();
+			break;
 		}
-	//if (img != nullptr) delete img;
+		case Keyboard::Scan::Backspace:
+			platform->deleteLast();
+			cout << "dellast\n";
+			break;
+		}
+
+		break;
+
+	}
+	case Event::MouseButtonReleased: {
+		if (event.mouseButton.button == Singleton::instance().getMouse().Left) {
+			jammable->disable();
+		}
+		break;
+	}
+	case Event::MouseButtonPressed: {
+		if (Singleton::instance().getMouse().isButtonPressed(Singleton::instance().getMouse().Left))
+		{
+			jammable->enable();
+			//m->setActive();
+			platform->leftClicked();
+
+			for (auto i : Singleton::instance().getPoolButton())
+			{
+				i.get()->setActive();
+			}
+			//std::cout << "frames = " << img->getFrames();
+		}
+		else if (Singleton::instance().getMouse().isButtonPressed(Singleton::instance().getMouse().Right)) {
+			platform->rightClicked();
+		}
+		else if (Singleton::instance().getMouse().isButtonPressed(Singleton::instance().getMouse().Middle))
+		{
+			platform->wheelClicked();
+		}
+
+		break;
+	}
+	case Event::TextEntered:
+		if (event.text.unicode != 8) {
+			text->setString(event.text.unicode);
+			platform->input(event.text.unicode);
+		}
+
+		break;
+	}
+	return true;
 }
+
+void EditorScene::runEvents()
+{
+	buttonWork();
+	jammable->exec();
+}
+
+void EditorScene::drawing()
+{
+	Singleton::instance().getPoolWindow()[0].get()->clear(*Singleton::instance().getBackgroundColor());
+	std::cout << "";
+
+	platform->draw();
+	globalDraw();
+	Singleton::instance().getPoolWindow()[0].get()->draw(*text);
+	Singleton::instance().getPoolWindow()[0].get()->display();
+}
+
+void EditorScene::eventLoop()
+{
+	while (Singleton::instance().getPoolWindow()[0].get()->isOpen())
+	{
+		sf::Event event;
+		while (Singleton::instance().getPoolWindow()[0].get()->pollEvent(event)) {
+			if (!verifyEvents(event)) return;
+		}
+		runEvents();
+		drawing();
+	}
+}
+
+EditorScene::EditorScene()
+{
+	platform = std::make_unique<Platform>(&Singleton::instance().getMouse());
+	
+	Button * settingsImage = new RectButtonImageRolled(1300, 50, 1, "images/settings.png", [this]() {SettingsScene scene{}; scene.eventLoop(); platform->initButtons(&Singleton::instance().getMouse()); }, Singleton::instance().getPoolWindow()[0].get(), &Singleton::instance().getMouse());
+	settingsImage->scale(0.5, 0.5);
+	settingsImage->setId("game");
+	settingsImage->pushToDrawingVector();
+	jammed = false;
+
+	jammable = std::make_unique<Jammed>(Singleton::instance().getFPS(), 0.1, [this]() {platform->leftClickedMap(); });
+
+	text = std::make_unique<sf::Text>();
+	text->setFont(*Singleton::instance().getGlobalFont());
+	text->setPosition(500, 500);
+	text->setCharacterSize(50);
+	text->setFillColor(Color::White);
+}
+
+EditorScene::~EditorScene() = default;

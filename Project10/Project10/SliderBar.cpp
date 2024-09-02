@@ -65,12 +65,6 @@ void SliderBar::changeDefColor()
 
 //template <typename T>
 //static void delSm(T* obj);
-SliderBar::~SliderBar()
-{
-	/*delSm(image);
-	delSm(texture);
-	delSm(sprite);*/
-}
 
 double makeLine(Image* image,int size, int where,Color color) {
 	if (where + size > image->getSize().x) return 0;

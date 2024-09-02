@@ -13,8 +13,6 @@ protected:
 	RenderTarget* ObjTar;
 public:
 	virtual void draw() = 0;
-	IBaseClass();
-	virtual ~IBaseClass();
 };
 
 
@@ -26,11 +24,11 @@ protected:
 	Mouse* mouse;
 public:
 	virtual bool Click();
+	virtual bool Click(const sf::View&);
 	virtual bool Click(int difference_x, int difference_y);
 	virtual void setActive() = 0;
+	virtual void setActive(const sf::View&);
 	virtual bool isActive() = 0;
-	Clicable() = default;
-	virtual ~Clicable() = default;
 };
 
 //Сетчатая панель для спавнера
@@ -40,9 +38,11 @@ class Button;
 
 
 //Класс кнопки
-class Button :public virtual Clicable, public virtual IBaseClass {
+
+
+class Button : public virtual Clicable {
 protected:
-	Shape* but_shape;
+	std::unique_ptr<sf::Shape> buttonShape;
 	Color color;
 	Text text;
 	bool active = false;
@@ -53,6 +53,7 @@ public:
 	Button(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
 	Button(int pos_x, int pos_y, int frames, std::function<void()>, RenderTarget* space, Mouse* mouse);
 	Button();
+	virtual ~Button();
 	void setActive() override;
 	void setId(const std::string&);
 	std::string getId();
@@ -60,34 +61,32 @@ public:
 	void standart();
 	void scale(float x, float y);
 	void draw() override;
+	virtual void pushToDrawingVector();
 	bool getActive();
 	int getFrames();
 	bool isActive() override;
-	virtual ~Button() override;
 };
 class CircleButton : public Button {
 public:
 	CircleButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~CircleButton() = default;
 };
 class RectButton : public Button {
 public:
 	RectButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~RectButton();
+	
 };
 class CustomButton : public Button {
 public:
 	CustomButton(int size_x, int size_y, int pos_x, int pos_y, int frames, std::string text, std::function<void()>, RenderTarget* space, Mouse* mouse, Color color);
-	~CustomButton() = default;
 };
 class RectButtonImage : public Button {
 protected:
-	Texture* texture;
-	Sprite* sprite;
+	std::unique_ptr<sf::Texture> texture;
+	std::unique_ptr<sf::Sprite> sprite;
 public:
 	RectButtonImage(int pos_x, int pos_y, int frames, std::string img, std::function<void()>, RenderTarget* space, Mouse* mouse);
+	virtual void pushToDrawingVector() override;
 	void draw() override;
-	~RectButtonImage() = default;
 };
 class RectButtonImageRolled : public RectButtonImage {
 private:
@@ -101,7 +100,8 @@ public:
 	bool isActive() override;
 	void draw() override;
 	void scale(float x, float y);
-	~RectButtonImageRolled();
+	virtual void pushToDrawingVector() override;
+	~RectButtonImageRolled() override;
 };
 void globalDraw();
 void buttonWork();

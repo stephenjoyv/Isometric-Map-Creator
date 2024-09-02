@@ -4,9 +4,13 @@
 #include "Settings.h"
 #include "Jammed.h"
 #include "Playable.h"
+#include "Menu.h"
 using namespace std;
 using namespace sf;
-void game();
+
+class Platform;
+class Button;
+class Jammed;
 struct DetectedImage :public Clicable {
 protected:
 	void update();
@@ -22,8 +26,8 @@ public:
 	bool clicked;
 	DetectedImage(string str, Mouse* mouse);
 	DetectedImage();
-	void setPosition(int x, int y);
-	void setOrigin(int x, int y);
+	void setPosition(float x, float y);
+	void setOrigin(float x, float y);
 	void setTarget(RenderTarget* target);
 	void init_border();
 	Vector2i getScale();
@@ -31,9 +35,26 @@ public:
 	Vector2f getSize();
 	string getLink();
 	bool Click() override;
+	bool Click(const sf::View&) override;
 	bool Click(int difference_x, int difference_y) override;
 	void draw() override;
 	void setActive() override;
+	void setActive(const sf::View&) override;
 	bool isActive() override;
 	void Scale(int xmod, int ymod);
+};
+class EditorScene : public Scene {
+	bool jammed;
+	std::unique_ptr<sf::Text> text;
+	std::unique_ptr<Jammed> jammable;
+	std::unique_ptr<Platform> platform;
+	//std::shared_ptr<Button> settingsImage;
+protected:
+	virtual bool verifyEvents(const sf::Event&) override;
+	virtual void runEvents() override;
+	virtual void drawing() override;
+public:
+	virtual void eventLoop() override;
+	EditorScene();
+	~EditorScene();
 };

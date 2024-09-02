@@ -1,17 +1,15 @@
 #pragma once
 #include "Libs.h"
 #include "interfaceobj.h"
-using namespace std;
-using namespace sf;
+
 class SliderBar : public Clicable {
 	std::unique_ptr<sf::Texture> texture;
 	std::unique_ptr<sf::Image> image;
 	std::unique_ptr<sf::Sprite> sprite;
 	double color_per;
-	Color color_def;
-	Color color;
+	sf::Color color_def, color;
 public:
-	SliderBar(int sx, int sy, int px, int py, RenderTarget* tg, int percent, Color cl, Mouse* mouse);
+	SliderBar(int sx, int sy, int px, int py, sf::RenderTarget* tg, int percent, sf::Color cl, sf::Mouse* mouse);
 
 	void update();
 	void setActive() override;
@@ -20,5 +18,4 @@ public:
 	double getPercent();
 	sf::Color getColor();
 	void changeDefColor();
-	~SliderBar();
 };

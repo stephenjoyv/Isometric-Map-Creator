@@ -16,7 +16,7 @@
       "pos_y": 535,
       "frames": 20,
       "char*": "Open map editor",
-      "function": 1
+      "function": 2
     },
     "3": {
       "size_x": 500,
@@ -32,6 +32,15 @@
       "size_y": 75,
       "pos_x": 605,
       "pos_y": 730,
+      "frames": 20,
+      "char*": "Testing option",
+      "function": 6
+    },
+    "5": {
+      "size_x": 500,
+      "size_y": 100,
+      "pos_x": 555,
+      "pos_y": 805,
       "frames": 20,
       "char*": "Exit",
       "function": 3

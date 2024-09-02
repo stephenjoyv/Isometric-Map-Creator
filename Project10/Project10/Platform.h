@@ -6,7 +6,6 @@ class Map;
 class SelectedTile;
 class RectButton;
 class InputTab;
-
 class Platform
 {
 	std::unique_ptr<TilePanel> panel;
